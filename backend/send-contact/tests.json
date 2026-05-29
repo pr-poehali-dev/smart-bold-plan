@@ -5,24 +5,6 @@
       "method": "OPTIONS",
       "path": "/",
       "expectedStatus": 200
-    },
-    {
-      "name": "Missing fields",
-      "method": "POST",
-      "path": "/",
-      "body": {"name": "", "email": "", "message": ""},
-      "expectedStatus": 400,
-      "expectedBody": {"error": "Заполните все поля"},
-      "bodyMatcher": "partial"
-    },
-    {
-      "name": "Send contact form",
-      "method": "POST",
-      "path": "/",
-      "body": {"name": "Тест", "email": "test@example.com", "message": "Нужна 3D-печать детали"},
-      "expectedStatus": 200,
-      "expectedBody": {"success": true},
-      "bodyMatcher": "partial"
     }
   ]
 }

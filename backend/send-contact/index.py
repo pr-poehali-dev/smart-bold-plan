@@ -1,12 +1,10 @@
 import json
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import urllib.request
 
 
 def handler(event: dict, context) -> dict:
-    """Принимает заявку с контактной формы и отправляет её на почту владельца студии."""
+    """Принимает заявку с контактной формы и отправляет её в Telegram."""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
@@ -32,43 +30,51 @@ def handler(event: dict, context) -> dict:
             'body': json.dumps({'error': 'Заполните все поля'})
         }
 
-    to_email = os.environ['SMTP_TO_EMAIL']
+    token = os.environ['TELEGRAM_BOT_TOKEN']
 
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = f'Новая заявка с сайта FORM3D от {name}'
-    msg['From'] = 'noreply@poehali.dev'
-    msg['To'] = to_email
+    updates_url = f'https://api.telegram.org/bot{token}/getUpdates'
+    req = urllib.request.Request(updates_url)
+    with urllib.request.urlopen(req) as resp:
+        updates_data = json.loads(resp.read())
 
-    html = f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; background: #f4f4f4; padding: 32px;">
-        <div style="max-width: 560px; margin: 0 auto; background: #fff; border-top: 4px solid #dc2626; padding: 32px;">
-            <h2 style="margin-top: 0; font-size: 22px;">Новая заявка с сайта</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                    <td style="padding: 8px 0; color: #888; width: 80px;">Имя</td>
-                    <td style="padding: 8px 0; font-weight: bold;">{name}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px 0; color: #888;">Почта</td>
-                    <td style="padding: 8px 0;"><a href="mailto:{email}" style="color: #dc2626;">{email}</a></td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px 0; color: #888; vertical-align: top;">Задача</td>
-                    <td style="padding: 8px 0;">{message}</td>
-                </tr>
-            </table>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
-            <p style="color: #aaa; font-size: 12px; margin: 0;">FORM3D Studio</p>
-        </div>
-    </body>
-    </html>
-    """
+    updates = updates_data.get('result', [])
+    if not updates:
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': 'Напишите /start боту в Telegram и повторите'})
+        }
 
-    msg.attach(MIMEText(html, 'html'))
+    chat_id = updates[-1]['message']['chat']['id']
 
-    with smtplib.SMTP('smtp.poehali.dev', 587) as server:
-        server.sendmail('noreply@poehali.dev', to_email, msg.as_string())
+    text = (
+        f"\U0001f514 *Новая заявка с сайта FORM3D*\n\n"
+        f"\U0001f464 *Имя:* {name}\n"
+        f"\U0001f4e7 *Email:* {email}\n"
+        f"\U0001f4dd *Задача:*\n{message}"
+    )
+
+    send_url = f'https://api.telegram.org/bot{token}/sendMessage'
+    payload = json.dumps({
+        'chat_id': chat_id,
+        'text': text,
+        'parse_mode': 'Markdown'
+    }).encode('utf-8')
+
+    req = urllib.request.Request(
+        send_url,
+        data=payload,
+        headers={'Content-Type': 'application/json'}
+    )
+    with urllib.request.urlopen(req) as resp:
+        result = json.loads(resp.read())
+
+    if not result.get('ok'):
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': 'Ошибка отправки в Telegram'})
+        }
 
     return {
         'statusCode': 200,
