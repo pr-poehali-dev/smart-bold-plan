@@ -94,8 +94,8 @@ export default function Index() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">Архитектурный макет</h3>
-              <p className="text-neutral-400">Детализированная модель жилого комплекса в масштабе 1:200</p>
+              <h3 className="text-xl font-bold mb-2">Театральная постановка</h3>
+              <p className="text-neutral-400">Реквизит и костюмы для спектакля в античном стиле</p>
             </div>
 
             {/* Project 2 */}
@@ -107,8 +107,8 @@ export default function Index() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">Промышленный прототип</h3>
-              <p className="text-neutral-400">Прецизионная деталь для машиностроительного производства</p>
+              <h3 className="text-xl font-bold mb-2">Шлем воина</h3>
+              <p className="text-neutral-400">Детализированный шлем в стиле античного доспеха для театра</p>
             </div>
 
             {/* Project 3 */}
@@ -120,8 +120,8 @@ export default function Index() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">Дизайнерский объект</h3>
-              <p className="text-neutral-400">Авторская скульптурная форма для интерьера</p>
+              <h3 className="text-xl font-bold mb-2">Маска льва</h3>
+              <p className="text-neutral-400">Декоративная маска с барочным орнаментом для интерьера</p>
             </div>
           </div>
         </div>
