@@ -82,7 +82,7 @@ export default function Index() {
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
             <div className="relative w-full aspect-square bg-red-600">
               <img
-                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/4e1e5b1f-9905-4348-a729-a8b644892a62.jpg"
+                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
                 alt="3D печать"
                 className="w-full h-full object-cover"
               />
