@@ -123,6 +123,32 @@ export default function Index() {
               <h3 className="text-xl font-bold mb-2">Маска льва</h3>
               <p className="text-neutral-400">Декоративная маска с барочным орнаментом для интерьера</p>
             </div>
+
+            {/* Project 4 */}
+            <div className="group">
+              <div className="aspect-square bg-white mb-4 overflow-hidden">
+                <img
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
+                  alt="Ящерица"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Ящерица</h3>
+              <p className="text-neutral-400">Анатомическая 3D-модель ящерицы с детализированными элементами</p>
+            </div>
+
+            {/* Project 5 */}
+            <div className="group">
+              <div className="aspect-square bg-white mb-4 overflow-hidden">
+                <img
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
+                  alt="Лисёнок"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Лисёнок</h3>
+              <p className="text-neutral-400">Милый персонаж-лисёнок в мультяшном стиле</p>
+            </div>
           </div>
         </div>
       </section>
