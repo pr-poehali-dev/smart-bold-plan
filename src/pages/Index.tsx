@@ -89,7 +89,7 @@ export default function Index() {
             <div className="group">
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/4e1e5b1f-9905-4348-a729-a8b644892a62.jpg"
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
                   alt="Архитектурный макет"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -102,7 +102,7 @@ export default function Index() {
             <div className="group">
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/fba6bc59-2b94-4da6-96c6-931375beeb13.jpg"
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
                   alt="Промышленный прототип"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -115,7 +115,7 @@ export default function Index() {
             <div className="group">
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/c63a8dc5-61d8-4ede-843e-4c68ffd26745.jpg"
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg"
                   alt="Дизайнерский объект"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
