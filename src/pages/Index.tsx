@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [lightbox, setLightbox] = useState<{ src: string; title: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,7 +88,7 @@ export default function Index() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {/* Project 1 */}
-            <div className="group">
+            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Театральная постановка' })}>
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
@@ -99,7 +101,7 @@ export default function Index() {
             </div>
 
             {/* Project 2 */}
-            <div className="group">
+            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Шлем воина' })}>
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
@@ -112,7 +114,7 @@ export default function Index() {
             </div>
 
             {/* Project 3 */}
-            <div className="group">
+            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Маска льва' })}>
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg"
@@ -125,7 +127,7 @@ export default function Index() {
             </div>
 
             {/* Project 4 */}
-            <div className="group">
+            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Ящерица' })}>
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
@@ -138,7 +140,7 @@ export default function Index() {
             </div>
 
             {/* Project 5 */}
-            <div className="group">
+            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Лисёнок' })}>
               <div className="aspect-square bg-white mb-4 overflow-hidden">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
@@ -152,6 +154,27 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white hover:text-neutral-300 transition-colors"
+            onClick={() => setLightbox(null)}
+          >
+            <Icon name="X" size={32} />
+          </button>
+          <img
+            src={lightbox.src}
+            alt={lightbox.title}
+            className="max-w-[90vw] max-h-[90vh] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* About Section */}
       <section id="about" className="py-20 px-4 md:px-8">
