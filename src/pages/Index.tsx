@@ -4,7 +4,18 @@ import Icon from '@/components/ui/icon';
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [lightbox, setLightbox] = useState<{ src: string; title: string } | null>(null);
+  const projects = [
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Театральная постановка' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Шлем воина' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Маска льва' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Ящерица' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Лисёнок' },
+  ];
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const openLightbox = (index: number) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i - 1 + projects.length) % projects.length : null); };
+  const nextPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i + 1) % projects.length : null); };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,92 +98,55 @@ export default function Index() {
           <h2 className="text-6xl font-bold tracking-tighter mb-12">РАБОТЫ</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {/* Project 1 */}
-            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Театральная постановка' })}>
-              <div className="aspect-square bg-white mb-4 overflow-hidden">
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
-                  alt="Архитектурный макет"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+            {projects.map((project, index) => (
+              <div key={index} className="group cursor-pointer" onClick={() => openLightbox(index)}>
+                <div className="aspect-square bg-white mb-4 overflow-hidden">
+                  <img
+                    src={project.src}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
               </div>
-              <h3 className="text-xl font-bold mb-2">Театральная постановка</h3>
-              <p className="text-neutral-400">Реквизит и костюмы для спектакля в античном стиле</p>
-            </div>
-
-            {/* Project 2 */}
-            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Шлем воина' })}>
-              <div className="aspect-square bg-white mb-4 overflow-hidden">
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
-                  alt="Промышленный прототип"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Шлем воина</h3>
-              <p className="text-neutral-400">Детализированный шлем в стиле античного доспеха для театра</p>
-            </div>
-
-            {/* Project 3 */}
-            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Маска льва' })}>
-              <div className="aspect-square bg-white mb-4 overflow-hidden">
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg"
-                  alt="Дизайнерский объект"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Маска льва</h3>
-              <p className="text-neutral-400">Декоративная маска с барочным орнаментом для интерьера</p>
-            </div>
-
-            {/* Project 4 */}
-            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg', title: 'Ящерица' })}>
-              <div className="aspect-square bg-white mb-4 overflow-hidden">
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/40b43bf2-12cd-4acb-8467-ff9875238471.jpg"
-                  alt="Ящерица"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Ящерица</h3>
-              <p className="text-neutral-400">Анатомическая 3D-модель ящерицы с детализированными элементами</p>
-            </div>
-
-            {/* Project 5 */}
-            <div className="group cursor-pointer" onClick={() => setLightbox({ src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Лисёнок' })}>
-              <div className="aspect-square bg-white mb-4 overflow-hidden">
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg"
-                  alt="Лисёнок"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Лисёнок</h3>
-              <p className="text-neutral-400">Милый персонаж-лисёнок в мультяшном стиле</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Lightbox */}
-      {lightbox && (
+      {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-          onClick={() => setLightbox(null)}
+          onClick={closeLightbox}
         >
           <button
             className="absolute top-4 right-4 text-white hover:text-neutral-300 transition-colors"
-            onClick={() => setLightbox(null)}
+            onClick={closeLightbox}
           >
             <Icon name="X" size={32} />
           </button>
-          <img
-            src={lightbox.src}
-            alt={lightbox.title}
-            className="max-w-[90vw] max-h-[90vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+          <button
+            className="absolute left-4 text-white hover:text-neutral-300 transition-colors bg-black/40 rounded-full p-2"
+            onClick={prevPhoto}
+          >
+            <Icon name="ChevronLeft" size={36} />
+          </button>
+          <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={projects[lightboxIndex].src}
+              alt={projects[lightboxIndex].title}
+              className="max-w-[80vw] max-h-[80vh] object-contain"
+            />
+            <p className="text-white mt-4 text-lg font-semibold">{projects[lightboxIndex].title}</p>
+            <p className="text-neutral-400 text-sm mt-1">{lightboxIndex + 1} / {projects.length}</p>
+          </div>
+          <button
+            className="absolute right-4 text-white hover:text-neutral-300 transition-colors bg-black/40 rounded-full p-2"
+            onClick={nextPhoto}
+          >
+            <Icon name="ChevronRight" size={36} />
+          </button>
         </div>
       )}
 
