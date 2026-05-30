@@ -84,7 +84,7 @@ export default function Index() {
         <div className="container mx-auto">
           <h2 className="text-6xl font-bold tracking-tighter mb-12">РАБОТЫ</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {/* Project 1 */}
             <div className="group">
               <div className="aspect-square bg-white mb-4 overflow-hidden">
