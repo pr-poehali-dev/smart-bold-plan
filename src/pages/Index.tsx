@@ -177,19 +177,26 @@ export default function Index() {
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
               <div className="mt-12">
-                <h3 className="text-sm uppercase tracking-widest mb-4">Услуги</h3>
-                <ul className="space-y-2">
-                  <li>Моделирование</li>
-                  <li>Составление брифа и ТЗ</li>
-                  <li>Помощь с подбором референсов</li>
-                  <li>Видео-обсуждение задачи</li>
-                  <li>Помощь с постановкой дедлайнов</li>
-                  <li>Совместный подбор материала и палитры</li>
-                  <li>Этапы моделирования с разбором и советами</li>
-                  <li>3D-печать и литьё фотополимера</li>
-                  <li>Постобработка</li>
-                  <li>Упаковка и отправка готового изделия</li>
-                </ul>
+                <h3 className="text-sm uppercase tracking-widest mb-6 text-neutral-400">Услуги</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { icon: 'Box', text: 'Моделирование' },
+                    { icon: 'FileText', text: 'Составление брифа и ТЗ' },
+                    { icon: 'Image', text: 'Помощь с подбором референсов' },
+                    { icon: 'Video', text: 'Видео-обсуждение задачи' },
+                    { icon: 'Clock', text: 'Помощь с постановкой дедлайнов' },
+                    { icon: 'Palette', text: 'Совместный подбор материала и палитры' },
+                    { icon: 'Layers', text: 'Этапы моделирования с разбором и советами' },
+                    { icon: 'Printer', text: '3D-печать и литьё фотополимера' },
+                    { icon: 'Sparkles', text: 'Постобработка' },
+                    { icon: 'Package', text: 'Упаковка и отправка готового изделия' },
+                  ].map((item) => (
+                    <div key={item.text} className="flex items-start gap-3 p-3 border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors">
+                      <Icon name={item.icon} size={18} className="mt-0.5 shrink-0 text-neutral-500" />
+                      <span className="text-sm">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
