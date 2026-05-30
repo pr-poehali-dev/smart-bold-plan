@@ -176,25 +176,17 @@ export default function Index() {
               <p className="mb-6">
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
-              <div className="grid grid-cols-2 gap-4 mt-12">
-                <div>
-                  <h3 className="text-sm uppercase tracking-widest mb-2">Принципы</h3>
-                  <ul className="space-y-2">
-                    <li>Точность деталей</li>
-                    <li>Быстрые сроки</li>
-                    <li>Любая сложность</li>
-                    <li>Полный цикл</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-sm uppercase tracking-widest mb-2">Услуги</h3>
-                  <ul className="space-y-2">
-                    <li>3D-моделирование</li>
-                    <li>3D-печать</li>
-                    <li>Прототипирование</li>
-                    <li>Постобработка</li>
-                  </ul>
-                </div>
+              <div className="mt-12">
+                <h3 className="text-sm uppercase tracking-widest mb-4">Услуги</h3>
+                <ul className="space-y-2">
+                  <li>Моделирование</li>
+                  <li>Составление брифа и ТЗ</li>
+                  <li>Помощь с подбором референсов</li>
+                  <li>Видео-обсуждение задачи</li>
+                  <li>Помощь с постановкой дедлайнов</li>
+                  <li>Совместный подбор материала и палитры</li>
+                  <li>Этапы моделирования с разбором и советами</li>
+                </ul>
               </div>
             </div>
           </div>
