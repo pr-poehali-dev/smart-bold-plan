@@ -109,39 +109,12 @@ export default function Index() {
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
-            <div className="relative w-full aspect-square bg-red-600 flex items-center justify-center">
-              <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" className="w-4/5 h-4/5">
-                <defs>
-                  <linearGradient id="metal-top" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#e8e8e8"/>
-                    <stop offset="50%" stopColor="#ffffff"/>
-                    <stop offset="100%" stopColor="#b0b0b0"/>
-                  </linearGradient>
-                  <linearGradient id="metal-side" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#888888"/>
-                    <stop offset="50%" stopColor="#aaaaaa"/>
-                    <stop offset="100%" stopColor="#666666"/>
-                  </linearGradient>
-                  <linearGradient id="metal-front" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#cccccc"/>
-                    <stop offset="50%" stopColor="#ffffff"/>
-                    <stop offset="100%" stopColor="#999999"/>
-                  </linearGradient>
-                  <linearGradient id="metal-top2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#d0d0d0"/>
-                    <stop offset="50%" stopColor="#f0f0f0"/>
-                    <stop offset="100%" stopColor="#a0a0a0"/>
-                  </linearGradient>
-                </defs>
-                {/* Horizontal beam */}
-                <polygon points="60,140 240,110 240,130 60,160" fill="url(#metal-top)"/>
-                <polygon points="60,160 240,130 240,155 60,185" fill="url(#metal-side)"/>
-                <polygon points="60,140 80,135 80,185 60,185" fill="url(#metal-front)"/>
-                {/* Vertical beam */}
-                <polygon points="138,60 162,55 162,240 138,245" fill="url(#metal-top2)"/>
-                <polygon points="162,55 182,65 182,250 162,240" fill="url(#metal-side)"/>
-                <polygon points="138,60 162,55 182,65 158,70" fill="url(#metal-top)"/>
-              </svg>
+            <div className="relative w-full aspect-square bg-red-600">
+              <img
+                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
+                alt="3D печать"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
