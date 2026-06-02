@@ -64,7 +64,13 @@ export default function Index() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white relative">
+      <img
+        src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/c643bc2f-709e-403c-8139-5ef390799768.jpg"
+        alt=""
+        className="fixed bottom-12 right-8 w-48 md:w-64 opacity-10 pointer-events-none select-none z-0"
+        style={{ mixBlendMode: 'multiply' }}
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
