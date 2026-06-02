@@ -12,7 +12,7 @@ export default function Index() {
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY.current;
       lastScrollY.current = currentY;
-      setRotationY(prev => prev + delta * 0.3);
+      setRotationY(prev => prev + delta * 0.1);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
