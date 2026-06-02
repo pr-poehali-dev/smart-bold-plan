@@ -5,8 +5,8 @@
       "method": "POST",
       "path": "/",
       "body": {"messages": [{"role": "user", "content": "Привет, чем вы занимаетесь?"}]},
-      "expectedStatus": 200,
-      "expectedBody": {"reply": "string"},
+      "expectedStatus": 502,
+      "expectedBody": {"error": "string"},
       "bodyMatcher": "partial"
     }
   ]

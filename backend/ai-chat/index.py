@@ -1,10 +1,11 @@
 import json
 import os
 import urllib.request
+import urllib.error
 
 
 def handler(event: dict, context) -> dict:
-    """ИИ-ассистент для сайта 3DFORM — отвечает на вопросы о 3D-печати и услугах компании."""
+    """ИИ-ассистент для сайта 3DFORM — проксирует запросы к агенту на Timeweb Cloud."""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
@@ -28,31 +29,29 @@ def handler(event: dict, context) -> dict:
             'body': json.dumps({'error': 'Нет сообщений'})
         }
 
-    system_prompt = (
-        "Ты — ИИ-ассистент компании 3DFORM, которая занимается 3D-печатью и моделированием. "
-        "Помогаешь клиентам с вопросами о 3D-печати, материалах, сроках и стоимости услуг. "
-        "Отвечай дружелюбно и профессионально на русском языке. "
-        "Если клиент хочет сделать заказ или узнать точную цену — предложи заполнить форму на сайте или написать в контакты."
-    )
-
     payload = json.dumps({
-        'model': 'gpt-4o-mini',
-        'messages': [{'role': 'system', 'content': system_prompt}] + messages,
-        'max_tokens': 500,
-        'temperature': 0.7
+        'messages': messages
     }).encode('utf-8')
 
     req = urllib.request.Request(
-        'https://api.openai.com/v1/chat/completions',
+        'https://agent.timeweb.cloud/api/v1/cloud-ai/agents/236377d7-eddc-4580-a022-648059687bb3/v1/chat/completions',
         data=payload,
         headers={
             'Content-Type': 'application/json',
-            'Authorization': f"Bearer {os.environ['OPENAI_API_KEY']}"
+            'Authorization': f"Bearer {os.environ['TIMEWEB_AI_TOKEN']}"
         }
     )
 
-    with urllib.request.urlopen(req) as resp:
-        result = json.loads(resp.read())
+    try:
+        with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        return {
+            'statusCode': 502,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': f'Timeweb {e.code}', 'detail': error_body})
+        }
 
     reply = result['choices'][0]['message']['content']
 
