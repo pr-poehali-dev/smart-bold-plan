@@ -30,6 +30,10 @@ export default function Index() {
   const prevPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i - 1 + projects.length) % projects.length : null); };
   const nextPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i + 1) % projects.length : null); };
 
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const carouselPrev = () => setCarouselIndex(i => (i - 1 + projects.length) % projects.length);
+  const carouselNext = () => setCarouselIndex(i => (i + 1) % projects.length);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
@@ -112,20 +116,59 @@ export default function Index() {
         <div className="container mx-auto">
           <h2 className="text-6xl font-bold tracking-tighter mb-12">РАБОТЫ</h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="group cursor-pointer" onClick={() => openLightbox(index)}>
-                <div className="aspect-square bg-white mb-4 overflow-hidden">
-                  <img
-                    src={project.src}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-neutral-400 text-sm">{project.desc}</p>
+          <div className="relative">
+            {/* Slides */}
+            <div className="overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
+              >
+                {projects.map((project, index) => (
+                  <div key={index} className="min-w-full flex flex-col md:flex-row gap-8 items-center">
+                    <div
+                      className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
+                      onClick={() => openLightbox(index)}
+                    >
+                      <img
+                        src={project.src}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/3">
+                      <p className="text-sm text-neutral-400 uppercase tracking-widest mb-2">{index + 1} / {projects.length}</p>
+                      <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
+                      <p className="text-neutral-400">{project.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-4 mt-8">
+              <button
+                onClick={carouselPrev}
+                className="p-3 border border-white hover:bg-white hover:text-black transition-colors"
+              >
+                <Icon name="ChevronLeft" size={20} />
+              </button>
+              <button
+                onClick={carouselNext}
+                className="p-3 border border-white hover:bg-white hover:text-black transition-colors"
+              >
+                <Icon name="ChevronRight" size={20} />
+              </button>
+              <div className="flex gap-2 ml-2">
+                {projects.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCarouselIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-colors ${i === carouselIndex ? 'bg-white' : 'bg-neutral-600'}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
