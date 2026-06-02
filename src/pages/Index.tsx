@@ -86,7 +86,7 @@ export default function Index() {
                 alt="3D печать"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-black"></div>
+
             </div>
           </div>
         </div>
