@@ -102,7 +102,7 @@ export default function Index() {
             </p>
             <a
               href="#contact"
-              className="inline-block mt-8 px-8 py-3 bg-black text-white text-sm uppercase tracking-widest hover:bg-red-600 transition-colors"
+              className="inline-block mt-8 px-10 py-4 bg-black text-white text-base uppercase tracking-widest hover:bg-red-600 transition-colors rounded-xl"
             >
               Заказать модель
             </a>
