@@ -225,7 +225,7 @@ export default function Index() {
               <h2 className="text-6xl font-bold tracking-tighter mb-8">О НАС</h2>
               <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-hidden">
                 <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/fba6bc59-2b94-4da6-96c6-931375beeb13.jpg"
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
                   alt="Студия 3D"
                   className="w-full h-full object-cover"
                 />
