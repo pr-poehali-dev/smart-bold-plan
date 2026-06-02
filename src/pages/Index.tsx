@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [rotationY, setRotationY] = useState(0);
   const lastScrollY = useRef(0);
@@ -306,7 +306,7 @@ export default function Index() {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2">
-                      Имя
+                      Имя и фамилия
                     </label>
                     <input
                       type="text"
@@ -314,8 +314,21 @@ export default function Index() {
                       value={formData.name}
                       onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
-                      placeholder="Ваше имя"
+                      placeholder="Ваше имя и фамилия"
                       required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm uppercase tracking-widest mb-2">
+                      Телефон
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      value={formData.phone}
+                      onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
+                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
+                      placeholder="+7 (___) ___-__-__"
                     />
                   </div>
                   <div>
