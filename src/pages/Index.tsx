@@ -338,10 +338,10 @@ export default function Index() {
                     </label>
                     <textarea
                       id="message"
-                      rows={4}
+                      rows={2}
                       value={formData.message}
                       onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
-                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
+                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50 resize-none"
                       placeholder="Опишите вашу задачу — что нужно смоделировать и напечатать?"
                       required
                     ></textarea>
