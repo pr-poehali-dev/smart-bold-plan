@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [rotation, setRotation] = useState(0);
+  const [rotationY, setRotationY] = useState(0);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function Index() {
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY.current;
       lastScrollY.current = currentY;
-      setRotation(prev => prev + delta * 0.5);
+      setRotationY(prev => prev + delta * 0.3);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -56,13 +56,10 @@ export default function Index() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <a href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2">
-            <span
-              style={{ display: 'inline-block', transform: `rotate(${rotation}deg)` }}
-            >
-              <Icon name="Box" size={22} />
+          <a href="/" className="text-xl font-bold tracking-tighter" style={{ perspective: '400px', display: 'inline-block' }}>
+            <span style={{ display: 'inline-block', transform: `rotateY(${rotationY}deg)` }}>
+              FORM3D
             </span>
-            FORM3D
           </a>
           <div className="flex space-x-8">
             <a href="#work" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
