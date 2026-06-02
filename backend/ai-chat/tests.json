@@ -1,0 +1,13 @@
+{
+  "tests": [
+    {
+      "name": "Chat message",
+      "method": "POST",
+      "path": "/",
+      "body": {"messages": [{"role": "user", "content": "Привет, чем вы занимаетесь?"}]},
+      "expectedStatus": 200,
+      "expectedBody": {"reply": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
