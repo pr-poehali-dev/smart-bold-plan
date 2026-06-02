@@ -65,12 +65,7 @@ export default function Index() {
 
   return (
     <main className="min-h-screen bg-white relative">
-      <img
-        src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/c643bc2f-709e-403c-8139-5ef390799768.jpg"
-        alt=""
-        className="absolute bottom-16 right-8 w-64 md:w-80 pointer-events-none select-none z-0"
-        style={{ transform: 'rotate(-6deg)', boxShadow: '3px 3px 10px rgba(0,0,0,0.25)' }}
-      />
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
@@ -229,13 +224,18 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
               <h2 className="text-6xl font-bold tracking-tighter mb-8">О НАС</h2>
-              <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-hidden">
+              <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-visible">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
                   alt="Студия 3D"
                   className="w-full h-full object-cover"
                 />
-
+                <img
+                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/c643bc2f-709e-403c-8139-5ef390799768.jpg"
+                  alt=""
+                  className="absolute -bottom-10 -right-10 w-44 pointer-events-none select-none"
+                  style={{ transform: 'rotate(8deg)', boxShadow: '3px 3px 12px rgba(0,0,0,0.3)' }}
+                />
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
