@@ -192,7 +192,7 @@ export default function Index() {
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
               <div className="mt-12">
-                <h3 className="text-sm uppercase tracking-widest mb-6 text-neutral-400">Услуги</h3>
+                <h3 className="text-sm uppercase tracking-widest mb-6 text-neutral-900">Услуги</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
                     { icon: 'Box', text: 'Моделирование' },
@@ -315,17 +315,7 @@ export default function Index() {
       <footer className="py-8 px-4 md:px-8 bg-black text-white">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm mb-4 md:mb-0">2025 FORM3D Studio. Все права защищены.</p>
-          <div className="flex space-x-8">
-            <a href="#" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
-              Instagram
-            </a>
-            <a href="#" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
-              Behance
-            </a>
-            <a href="#" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
-              Telegram
-            </a>
-          </div>
+
         </div>
       </footer>
     </main>
