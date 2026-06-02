@@ -158,13 +158,13 @@ export default function Index() {
             <div className="flex items-center gap-4 mt-8">
               <button
                 onClick={carouselPrev}
-                className="p-3 border border-white hover:bg-white hover:text-black transition-colors"
+                className="p-3 border border-white hover:bg-white hover:text-black transition-colors rounded-xl"
               >
                 <Icon name="ChevronLeft" size={20} />
               </button>
               <button
                 onClick={carouselNext}
-                className="p-3 border border-white hover:bg-white hover:text-black transition-colors"
+                className="p-3 border border-white hover:bg-white hover:text-black transition-colors rounded-xl"
               >
                 <Icon name="ChevronRight" size={20} />
               </button>
@@ -365,7 +365,7 @@ export default function Index() {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-8 px-8 py-3 bg-black text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors disabled:opacity-50"
+                    className="mt-8 px-8 py-3 bg-black text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors disabled:opacity-50 rounded-xl"
                   >
                     {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
                   </button>
