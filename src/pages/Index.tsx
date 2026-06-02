@@ -229,7 +229,7 @@ export default function Index() {
                   alt="Студия 3D"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 border-2 border-white opacity-30"></div>
+
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
