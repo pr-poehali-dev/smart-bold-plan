@@ -70,7 +70,11 @@ export default function Index() {
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
           <a href="/" className="text-xl font-bold tracking-tighter" style={{ perspective: '400px', display: 'inline-block' }}>
-            <span style={{ display: 'inline-block', transform: `rotateY(${rotationY}deg)` }}>
+            <span style={{
+              display: 'inline-block',
+              transform: `rotateY(${rotationY}deg)`,
+              textShadow: '1px 1px 0 #999, 2px 2px 0 #888, 3px 3px 0 #777, 4px 4px 0 #666, 5px 5px 0 #555, 6px 6px 8px rgba(0,0,0,0.3)',
+            }}>
               FORM3D
             </span>
           </a>
