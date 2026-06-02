@@ -1,9 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [rotation, setRotation] = useState(0);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+      lastScrollY.current = currentY;
+      setRotation(prev => prev + delta * 0.5);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const projects = [
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/9931de50-f284-450a-9132-0aa4c921519d.jpg', title: 'Гос. заказы', desc: 'Выполняем государственные заказы — реквизит и костюмы для театров и учреждений культуры' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Шлем воина', desc: 'Детализированный шлем в стиле античного доспеха для театральной постановки' },
@@ -43,7 +56,12 @@ export default function Index() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <a href="/" className="text-xl font-bold tracking-tighter">
+          <a href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2">
+            <span
+              style={{ display: 'inline-block', transform: `rotate(${rotation}deg)` }}
+            >
+              <Icon name="Box" size={22} />
+            </span>
             FORM3D
           </a>
           <div className="flex space-x-8">
