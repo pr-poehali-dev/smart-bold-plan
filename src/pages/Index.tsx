@@ -230,12 +230,7 @@ export default function Index() {
                   alt="Студия 3D"
                   className="w-full h-full object-cover"
                 />
-                <img
-                  src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/c643bc2f-709e-403c-8139-5ef390799768.jpg"
-                  alt=""
-                  className="absolute -bottom-10 -right-10 w-44 pointer-events-none select-none"
-                  style={{ transform: 'rotate(8deg)', boxShadow: '3px 3px 12px rgba(0,0,0,0.3)' }}
-                />
+
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
