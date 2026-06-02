@@ -89,9 +89,8 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8 container mx-auto relative" style={{ backgroundImage: 'url(https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/ec0948fb-6942-4c37-ac73-54f4fabfa630.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="absolute inset-0 bg-white/70" />
-        <div className="relative z-10 grid grid-cols-12 gap-4">
+      <section className="pt-32 pb-20 px-4 md:px-8 container mx-auto">
+        <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-7 mb-8 md:mb-0">
             <h1 className="text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-6">
               3D
