@@ -34,6 +34,14 @@ export default function Index() {
   const carouselPrev = () => setCarouselIndex(i => (i - 1 + projects.length) % projects.length);
   const carouselNext = () => setCarouselIndex(i => (i + 1) % projects.length);
 
+  useEffect(() => {
+    if (lightboxIndex !== null) return;
+    const timer = setInterval(() => {
+      setCarouselIndex(i => (i + 1) % projects.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [lightboxIndex, projects.length]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
