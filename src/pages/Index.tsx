@@ -74,14 +74,14 @@ export default function Index() {
               FORM3D
             </span>
           </a>
-          <div className="flex space-x-8">
-            <a href="#work" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+          <div className="flex space-x-4 md:space-x-8">
+            <a href="#work" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
               Работы
             </a>
-            <a href="#about" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+            <a href="#about" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
               О нас
             </a>
-            <a href="#contact" className="text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+            <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
               Контакты
             </a>
           </div>
@@ -89,15 +89,15 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8 container mx-auto">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-4 md:px-8 container mx-auto">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 md:col-span-7 mb-8 md:mb-0">
-            <h1 className="text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-6">
+          <div className="col-span-12 md:col-span-7 mb-6 md:mb-0">
+            <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6">
               3D
               <br />
               ФОРМА
             </h1>
-            <p className="text-xl max-w-xl">
+            <p className="text-base md:text-xl max-w-xl">
               Моделируем. Печатаем. Воплощаем. Превращаем ваши идеи в точные физические объекты — от концепта до готового изделия.
             </p>
             <a
@@ -120,9 +120,9 @@ export default function Index() {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="py-20 px-4 md:px-8 bg-black text-white">
+      <section id="work" className="py-12 md:py-20 px-4 md:px-8 bg-black text-white">
         <div className="container mx-auto">
-          <h2 className="text-6xl font-bold tracking-tighter mb-12">РАБОТЫ</h2>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">РАБОТЫ</h2>
 
           <div className="relative">
             {/* Slides */}
@@ -218,11 +218,11 @@ export default function Index() {
       )}
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 md:px-8">
+      <section id="about" className="py-12 md:py-20 px-4 md:px-8">
         <div className="container mx-auto">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
-              <h2 className="text-6xl font-bold tracking-tighter mb-8">О НАС</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">О НАС</h2>
               <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-visible">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
@@ -270,11 +270,11 @@ export default function Index() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 md:px-8 bg-red-600 text-white">
+      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-red-600 text-white">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-6xl font-bold tracking-tighter mb-8">КОНТАКТЫ</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">КОНТАКТЫ</h2>
               <p className="text-xl mb-8">Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.</p>
               <div className="space-y-4">
                 <p className="flex items-center">
