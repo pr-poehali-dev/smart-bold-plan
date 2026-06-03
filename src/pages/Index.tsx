@@ -64,7 +64,7 @@ export default function Index() {
   };
 
   return (
-    <main className="min-h-screen bg-white relative">
+    <main className="min-h-screen bg-white relative overflow-x-hidden">
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
@@ -218,12 +218,12 @@ export default function Index() {
       )}
 
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 md:px-8">
-        <div className="container mx-auto">
+      <section id="about" className="py-12 md:py-20 px-4 md:px-8 overflow-hidden">
+        <div className="w-full max-w-full">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
               <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">О НАС</h2>
-              <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-visible">
+              <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-hidden w-full">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
                   alt="Студия 3D"
@@ -244,7 +244,7 @@ export default function Index() {
               </p>
               <div className="mt-6 md:mt-12">
                 <h3 className="text-sm uppercase tracking-widest mb-4 md:mb-6 text-neutral-900">Услуги</h3>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 w-full">
                   {[
                     { icon: 'Box', text: 'Моделирование' },
                     { icon: 'FileText', text: 'Бриф и ТЗ' },
