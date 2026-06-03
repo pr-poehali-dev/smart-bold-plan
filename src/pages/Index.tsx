@@ -233,33 +233,33 @@ export default function Index() {
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
-              <p className="text-xl mb-6">
+              <p className="text-base md:text-xl mb-4 md:mb-6">
                 FORM3D — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
               </p>
-              <p className="mb-6">
+              <p className="text-sm md:text-base mb-4 md:mb-6">
                 Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.
               </p>
-              <p className="mb-6">
+              <p className="text-sm md:text-base mb-4 md:mb-6">
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
-              <div className="mt-12">
-                <h3 className="text-sm uppercase tracking-widest mb-6 text-neutral-900">Услуги</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="mt-6 md:mt-12">
+                <h3 className="text-sm uppercase tracking-widest mb-4 md:mb-6 text-neutral-900">Услуги</h3>
+                <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: 'Box', text: 'Моделирование' },
-                    { icon: 'FileText', text: 'Составление брифа и ТЗ' },
-                    { icon: 'Image', text: 'Помощь с подбором референсов' },
-                    { icon: 'Video', text: 'Видео-обсуждение задачи' },
-                    { icon: 'Clock', text: 'Помощь с постановкой дедлайнов' },
-                    { icon: 'Palette', text: 'Совместный подбор материала и палитры' },
-                    { icon: 'Layers', text: 'Этапы моделирования с разбором и советами' },
-                    { icon: 'Printer', text: '3D-печать и литьё фотополимера' },
+                    { icon: 'FileText', text: 'Бриф и ТЗ' },
+                    { icon: 'Image', text: 'Подбор референсов' },
+                    { icon: 'Video', text: 'Видео-обсуждение' },
+                    { icon: 'Clock', text: 'Постановка дедлайнов' },
+                    { icon: 'Palette', text: 'Подбор материала' },
+                    { icon: 'Layers', text: 'Этапы моделирования' },
+                    { icon: 'Printer', text: '3D-печать и литьё' },
                     { icon: 'Sparkles', text: 'Постобработка' },
-                    { icon: 'Package', text: 'Упаковка и отправка готового изделия' },
+                    { icon: 'Package', text: 'Упаковка и отправка' },
                   ].map((item) => (
-                    <div key={item.text} className="flex items-start gap-3 p-3 border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors">
-                      <Icon name={item.icon} size={18} className="mt-0.5 shrink-0 text-neutral-500" />
-                      <span className="text-sm">{item.text}</span>
+                    <div key={item.text} className="flex items-start gap-2 p-2 md:p-3 border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors">
+                      <Icon name={item.icon} size={16} className="mt-0.5 shrink-0 text-neutral-500" />
+                      <span className="text-xs md:text-sm">{item.text}</span>
                     </div>
                   ))}
                 </div>
