@@ -6,6 +6,24 @@ export default function Index() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [rotationY, setRotationY] = useState(0);
   const lastScrollY = useRef(0);
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [dark]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,26 +82,33 @@ export default function Index() {
   };
 
   return (
-    <main className="min-h-screen bg-white relative overflow-x-hidden">
+    <main className="min-h-screen bg-white dark:bg-neutral-950 relative overflow-x-hidden transition-colors duration-300">
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-black">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-neutral-950 border-b border-black dark:border-neutral-700 transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <a href="/" className="text-xl font-bold tracking-tighter" style={{ perspective: '400px', display: 'inline-block' }}>
+          <a href="/" className="text-xl font-bold tracking-tighter dark:text-white" style={{ perspective: '400px', display: 'inline-block' }}>
             <span style={{ display: 'inline-block', transform: `rotateY(${rotationY}deg)` }}>
               FORM3D
             </span>
           </a>
-          <div className="flex space-x-4 md:space-x-8">
-            <a href="#work" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+          <div className="flex items-center space-x-4 md:space-x-8">
+            <a href="#work" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               Работы
             </a>
-            <a href="#about" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+            <a href="#about" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               О нас
             </a>
-            <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 transition-colors">
+            <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               Контакты
             </a>
+            <button
+              onClick={() => setDark(d => !d)}
+              className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              aria-label="Переключить тему"
+            >
+              <Icon name={dark ? 'Sun' : 'Moon'} size={16} className="dark:text-neutral-300" />
+            </button>
           </div>
         </div>
       </nav>
@@ -92,17 +117,17 @@ export default function Index() {
       <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-4 md:px-8 container mx-auto">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-7 mb-6 md:mb-0">
-            <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6">
+            <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6 dark:text-white">
               3D
               <br />
               ФОРМА
             </h1>
-            <p className="text-base md:text-xl max-w-xl">
+            <p className="text-base md:text-xl max-w-xl dark:text-neutral-300">
               Моделируем. Печатаем. Воплощаем. Превращаем ваши идеи в точные физические объекты — от концепта до готового изделия.
             </p>
             <a
               href="#contact"
-              className="inline-block mt-8 px-10 py-4 bg-black text-white text-base uppercase tracking-widest hover:bg-red-600 transition-colors rounded-xl"
+              className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors rounded-xl"
             >
               Заказать модель
             </a>
@@ -218,12 +243,12 @@ export default function Index() {
       )}
 
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 md:px-8 overflow-hidden">
+      <section id="about" className="py-12 md:py-20 px-4 md:px-8 overflow-hidden dark:bg-neutral-950 transition-colors duration-300">
         <div className="w-full max-w-full">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">О НАС</h2>
-              <div className="aspect-[4/5] bg-neutral-100 relative mb-8 md:mb-0 overflow-hidden w-full">
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 dark:text-white">О НАС</h2>
+              <div className="aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 relative mb-8 md:mb-0 overflow-hidden w-full">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
                   alt="Студия 3D"
@@ -233,17 +258,17 @@ export default function Index() {
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
-              <p className="text-base md:text-xl mb-4 md:mb-6">
+              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-200">
                 FORM3D — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
               </p>
-              <p className="text-sm md:text-base mb-4 md:mb-6">
+              <p className="text-sm md:text-base mb-4 md:mb-6 dark:text-neutral-400">
                 Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.
               </p>
-              <p className="text-sm md:text-base mb-4 md:mb-6">
+              <p className="text-sm md:text-base mb-4 md:mb-6 dark:text-neutral-400">
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
               <div className="mt-6 md:mt-12">
-                <h3 className="text-sm uppercase tracking-widest mb-4 md:mb-6 text-neutral-900">Услуги</h3>
+                <h3 className="text-sm uppercase tracking-widest mb-4 md:mb-6 text-neutral-900 dark:text-neutral-300">Услуги</h3>
                 <div className="grid grid-cols-2 gap-2 w-full">
                   {[
                     { icon: 'Box', text: 'Моделирование' },
@@ -257,9 +282,9 @@ export default function Index() {
                     { icon: 'Sparkles', text: 'Постобработка' },
                     { icon: 'Package', text: 'Упаковка и отправка' },
                   ].map((item) => (
-                    <div key={item.text} className="flex items-start gap-2 p-2 md:p-3 border border-neutral-200 rounded-lg hover:border-neutral-400 transition-colors">
-                      <Icon name={item.icon} size={16} className="mt-0.5 shrink-0 text-neutral-500" />
-                      <span className="text-xs md:text-sm">{item.text}</span>
+                    <div key={item.text} className="flex items-start gap-2 p-2 md:p-3 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors">
+                      <Icon name={item.icon} size={16} className="mt-0.5 shrink-0 text-neutral-500 dark:text-neutral-400" />
+                      <span className="text-xs md:text-sm dark:text-neutral-300">{item.text}</span>
                     </div>
                   ))}
                 </div>
@@ -376,7 +401,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 md:px-8 bg-black text-white">
+      <footer className="py-8 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm mb-4 md:mb-0">2025 FORM3D Studio. Все права защищены.</p>
 
