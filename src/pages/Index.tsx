@@ -295,28 +295,28 @@ export default function Index() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-red-600 text-white">
+      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-red-600 dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">КОНТАКТЫ</h2>
-              <p className="text-xl mb-8">Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.</p>
+              <p className="text-xl mb-8 dark:text-neutral-300">Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.</p>
               <div className="space-y-4">
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest">Почта</span>
-                  <a href="mailto:3DFormRussia@gmail.com" className="hover:underline">
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Почта</span>
+                  <a href="mailto:3DFormRussia@gmail.com" className="hover:underline dark:text-neutral-200">
                     3DFormRussia@gmail.com
                   </a>
                 </p>
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest">Телефон</span>
-                  <a href="tel:+79787258504" className="hover:underline">
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Телефон</span>
+                  <a href="tel:+79787258504" className="hover:underline dark:text-neutral-200">
                     +7 (978) 725-85-04
                   </a>
                 </p>
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest">Адрес</span>
-                  <span>Евпатория, Россия</span>
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Адрес</span>
+                  <span className="dark:text-neutral-200">Евпатория, Россия</span>
                 </p>
               </div>
             </div>
@@ -324,12 +324,12 @@ export default function Index() {
               {status === 'success' ? (
                 <div className="flex flex-col justify-center h-full py-12">
                   <p className="text-3xl font-bold tracking-tighter mb-4">Заявка отправлена!</p>
-                  <p className="text-white/80">Мы свяжемся с вами в ближайшее время.</p>
+                  <p className="text-white/80 dark:text-neutral-400">Мы свяжемся с вами в ближайшее время.</p>
                 </div>
               ) : (
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
-                    <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2">
+                    <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
                       Имя и фамилия
                     </label>
                     <input
@@ -337,13 +337,13 @@ export default function Index() {
                       id="name"
                       value={formData.name}
                       onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
-                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
+                      className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
                       placeholder="Ваше имя и фамилия"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm uppercase tracking-widest mb-2">
+                    <label htmlFor="phone" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
                       Телефон
                     </label>
                     <input
@@ -351,12 +351,12 @@ export default function Index() {
                       id="phone"
                       value={formData.phone}
                       onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
-                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
+                      className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
                       placeholder="+7 (___) ___-__-__"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm uppercase tracking-widest mb-2">
+                    <label htmlFor="email" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
                       Почта
                     </label>
                     <input
@@ -364,13 +364,13 @@ export default function Index() {
                       id="email"
                       value={formData.email}
                       onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
-                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50"
+                      className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
                       placeholder="Ваш email"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm uppercase tracking-widest mb-2">
+                    <label htmlFor="message" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
                       Задача
                     </label>
                     <textarea
@@ -378,18 +378,18 @@ export default function Index() {
                       rows={2}
                       value={formData.message}
                       onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
-                      className="w-full bg-transparent border-b-2 border-white py-2 px-0 focus:outline-none focus:border-black placeholder-white/50 resize-none"
+                      className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white resize-none"
                       placeholder="Опишите вашу задачу — что нужно смоделировать и напечатать?"
                       required
                     ></textarea>
                   </div>
                   {status === 'error' && (
-                    <p className="text-white/80 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
+                    <p className="text-white/80 dark:text-red-400 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
                   )}
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-8 px-8 py-3 bg-black text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors disabled:opacity-50 rounded-xl"
+                    className="mt-8 px-8 py-3 bg-black dark:bg-red-600 text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-red-500 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
                   >
                     {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
                   </button>
