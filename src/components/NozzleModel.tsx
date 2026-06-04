@@ -1,8 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 export default function NozzleModel() {
   const mountRef = useRef<HTMLDivElement>(null);
+  const [exploded, setExploded] = useState(false);
+  const explodedRef = useRef(false);
+  const partsRef = useRef<{ mesh: THREE.Group; baseY: number; explodeY: number }[]>([]);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -11,171 +14,203 @@ export default function NozzleModel() {
     const w = mount.clientWidth;
     const h = mount.clientHeight;
 
-    // Scene
     const scene = new THREE.Scene();
     scene.background = null;
 
-    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 0, 5);
+    const camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
+    camera.position.set(0, 0.5, 7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.shadowMap.enabled = true;
     mount.appendChild(renderer.domElement);
 
     // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-    scene.add(ambient);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const dir1 = new THREE.DirectionalLight(0xffffff, 1.4);
+    dir1.position.set(4, 8, 6);
+    scene.add(dir1);
+    const dir2 = new THREE.DirectionalLight(0x8888ff, 0.4);
+    dir2.position.set(-5, -3, -4);
+    scene.add(dir2);
+    const fill = new THREE.PointLight(0xffffff, 0.6, 30);
+    fill.position.set(-3, 4, 3);
+    scene.add(fill);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    dirLight.position.set(5, 8, 5);
-    scene.add(dirLight);
+    // Materials
+    const matDark = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 0.6, roughness: 0.5 });
+    const matMetal = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.95, roughness: 0.15 });
+    const matBrass = new THREE.MeshStandardMaterial({ color: 0xc89b3c, metalness: 0.95, roughness: 0.1 });
+    const matHeater = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.5, roughness: 0.6 });
 
-    const rimLight = new THREE.DirectionalLight(0xff4444, 0.6);
-    rimLight.position.set(-4, -2, -3);
-    scene.add(rimLight);
+    const rootGroup = new THREE.Group();
+    scene.add(rootGroup);
 
-    const fillLight = new THREE.PointLight(0xffffff, 0.5, 20);
-    fillLight.position.set(-3, 3, 3);
-    scene.add(fillLight);
+    // ─── PART 1: HEATSINK (радиатор) ───
+    const heatsinkGroup = new THREE.Group();
 
-    // Material — brass/gold metal
-    const material = new THREE.MeshStandardMaterial({
-      color: 0xc89b3c,
-      metalness: 0.9,
-      roughness: 0.25,
-    });
+    // Main heatsink body
+    const hsBody = new THREE.Mesh(
+      new THREE.BoxGeometry(2.2, 2.0, 0.55),
+      matDark
+    );
+    heatsinkGroup.add(hsBody);
 
-    const group = new THREE.Group();
-
-    // Nozzle body using lathe geometry
-    const points: THREE.Vector2[] = [];
-    // Top hex body (wide part)
-    points.push(new THREE.Vector2(0.55, 2.2));
-    points.push(new THREE.Vector2(0.55, 1.5));
-    // Shoulder step
-    points.push(new THREE.Vector2(0.45, 1.3));
-    points.push(new THREE.Vector2(0.45, 0.6));
-    // Taper to tip
-    points.push(new THREE.Vector2(0.38, 0.3));
-    points.push(new THREE.Vector2(0.25, 0.0));
-    points.push(new THREE.Vector2(0.12, -0.5));
-    points.push(new THREE.Vector2(0.08, -1.0));
-    // Narrow tip
-    points.push(new THREE.Vector2(0.06, -1.4));
-    points.push(new THREE.Vector2(0.04, -1.6));
-    points.push(new THREE.Vector2(0.03, -1.8));
-
-    const latheGeo = new THREE.LatheGeometry(points, 32);
-    const nozzleBody = new THREE.Mesh(latheGeo, material);
-    group.add(nozzleBody);
-
-    // Thread rings on the body
-    for (let i = 0; i < 6; i++) {
-      const ringGeo = new THREE.TorusGeometry(0.46, 0.025, 8, 32);
-      const ring = new THREE.Mesh(ringGeo, material);
-      ring.position.y = 0.65 + i * 0.14;
-      ring.rotation.x = Math.PI / 2;
-      group.add(ring);
+    // Fins (рёбра)
+    for (let i = 0; i < 8; i++) {
+      const fin = new THREE.Mesh(
+        new THREE.BoxGeometry(2.4, 0.12, 0.12),
+        matDark
+      );
+      fin.position.set(0, 0.75 - i * 0.22, 0.33);
+      heatsinkGroup.add(fin);
     }
 
-    // Center hole at tip
-    const holeMat = new THREE.MeshStandardMaterial({ color: 0x1a0a00, metalness: 0.5, roughness: 0.8 });
-    const holeGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.15, 16);
-    const hole = new THREE.Mesh(holeGeo, holeMat);
-    hole.position.y = -1.82;
-    group.add(hole);
+    // Side clips (боковые зацепы)
+    const clipGeo = new THREE.BoxGeometry(0.18, 0.5, 0.35);
+    [-1.15, 1.15].forEach(x => {
+      const clip = new THREE.Mesh(clipGeo, matDark);
+      clip.position.set(x, -0.65, 0.1);
+      heatsinkGroup.add(clip);
+    });
 
-    // Hot glow at tip
-    const glowGeo = new THREE.SphereGeometry(0.07, 16, 16);
+    // Top connector stub
+    const topStub = new THREE.Mesh(
+      new THREE.BoxGeometry(0.55, 0.4, 0.4),
+      matDark
+    );
+    topStub.position.set(0, 1.18, 0);
+    heatsinkGroup.add(topStub);
+
+    // Hole through center (tube)
+    const tubeMetal = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.12, 0.12, 2.6, 16),
+      matMetal
+    );
+    heatsinkGroup.add(tubeMetal);
+
+    heatsinkGroup.position.y = 1.2;
+    rootGroup.add(heatsinkGroup);
+    partsRef.current.push({ mesh: heatsinkGroup, baseY: 1.2, explodeY: 3.2 });
+
+    // ─── PART 2: HEATER BLOCK (нагревательный блок) ───
+    const heaterGroup = new THREE.Group();
+
+    // Octagonal block — approximate with cylinder + chamfer
+    const blockShape = new THREE.Shape();
+    const s = 0.75;
+    const c = 0.22;
+    blockShape.moveTo(-s + c, -s);
+    blockShape.lineTo(s - c, -s);
+    blockShape.lineTo(s, -s + c);
+    blockShape.lineTo(s, s - c);
+    blockShape.lineTo(s - c, s);
+    blockShape.lineTo(-s + c, s);
+    blockShape.lineTo(-s, s - c);
+    blockShape.lineTo(-s, -s + c);
+    blockShape.closePath();
+    const blockGeo = new THREE.ExtrudeGeometry(blockShape, { depth: 0.7, bevelEnabled: false });
+    blockGeo.center();
+    const block = new THREE.Mesh(blockGeo, matHeater);
+    block.rotation.x = Math.PI / 2;
+    heaterGroup.add(block);
+
+    // Heater cartridge hole sides
+    const cartridgeGeo = new THREE.CylinderGeometry(0.11, 0.11, 0.85, 12);
+    const cartridge = new THREE.Mesh(cartridgeGeo, matMetal);
+    cartridge.rotation.z = Math.PI / 2;
+    cartridge.position.set(0, 0, 0.3);
+    heaterGroup.add(cartridge);
+
+    // Thermistor wire stub
+    const wireGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.4, 8);
+    const wire = new THREE.Mesh(wireGeo, matMetal);
+    wire.rotation.z = Math.PI / 2;
+    wire.position.set(0.65, 0.25, 0);
+    heaterGroup.add(wire);
+
+    // Center bore
+    const bore = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.12, 0.12, 1.6, 16),
+      matMetal
+    );
+    heaterGroup.add(bore);
+
+    heaterGroup.position.y = -0.2;
+    rootGroup.add(heaterGroup);
+    partsRef.current.push({ mesh: heaterGroup, baseY: -0.2, explodeY: -0.2 });
+
+    // ─── PART 3: NOZZLE (сопло) ───
+    const nozzleGroup = new THREE.Group();
+
+    // Nozzle body lathe
+    const nzPts: THREE.Vector2[] = [
+      new THREE.Vector2(0.42, 0.5),
+      new THREE.Vector2(0.42, 0.1),
+      new THREE.Vector2(0.32, -0.1),
+      new THREE.Vector2(0.22, -0.3),
+      new THREE.Vector2(0.12, -0.55),
+      new THREE.Vector2(0.06, -0.75),
+      new THREE.Vector2(0.025, -0.9),
+    ];
+    const nozzleBody = new THREE.Mesh(
+      new THREE.LatheGeometry(nzPts, 24),
+      matBrass
+    );
+    nozzleGroup.add(nozzleBody);
+
+    // Thread section
+    for (let i = 0; i < 5; i++) {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(0.43, 0.018, 6, 24),
+        matBrass
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = 0.12 + i * 0.09;
+      nozzleGroup.add(ring);
+    }
+
+    // Tip glow
+    const glowGeo = new THREE.SphereGeometry(0.045, 12, 12);
     const glowMat = new THREE.MeshStandardMaterial({
       color: 0xff6600,
       emissive: 0xff3300,
-      emissiveIntensity: 2,
+      emissiveIntensity: 2.5,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
     });
     const glow = new THREE.Mesh(glowGeo, glowMat);
-    glow.position.y = -1.88;
-    group.add(glow);
+    glow.position.y = -0.94;
+    nozzleGroup.add(glow);
 
-    // Filament strand coming out
-    const filamentPoints = [];
-    for (let i = 0; i <= 20; i++) {
-      const t = i / 20;
-      filamentPoints.push(new THREE.Vector3(
-        Math.sin(t * 3) * 0.03,
-        -1.9 - t * 0.6,
-        Math.cos(t * 3) * 0.02
-      ));
-    }
-    const filamentCurve = new THREE.CatmullRomCurve3(filamentPoints);
-    const filamentGeo = new THREE.TubeGeometry(filamentCurve, 20, 0.018, 8, false);
-    const filamentMat = new THREE.MeshStandardMaterial({ color: 0xff6600, emissive: 0xff2200, emissiveIntensity: 0.5 });
-    const filament = new THREE.Mesh(filamentGeo, filamentMat);
-    group.add(filament);
+    nozzleGroup.position.y = -1.55;
+    rootGroup.add(nozzleGroup);
+    partsRef.current.push({ mesh: nozzleGroup, baseY: -1.55, explodeY: -3.8 });
 
-    group.position.y = -0.5;
-    scene.add(group);
-
-    // Mouse / touch drag rotation
+    // ─── Drag rotation ───
     let isDragging = false;
-    let prevX = 0;
-    let prevY = 0;
-    let rotX = 0.3;
-    let rotY = 0;
-    let velX = 0;
-    let velY = 0.003;
+    let prevX = 0, prevY = 0;
+    let rotX = 0.15, rotY = 0.3;
+    let velX = 0, velY = 0.004;
 
-    const onMouseDown = (e: MouseEvent) => {
-      isDragging = true;
-      prevX = e.clientX;
-      prevY = e.clientY;
-      velX = 0;
-      velY = 0;
-    };
-    const onMouseMove = (e: MouseEvent) => {
+    const onDown = (x: number, y: number) => { isDragging = true; prevX = x; prevY = y; velX = 0; velY = 0; };
+    const onMove = (x: number, y: number) => {
       if (!isDragging) return;
-      const dx = e.clientX - prevX;
-      const dy = e.clientY - prevY;
-      velX = dy * 0.005;
-      velY = dx * 0.005;
-      rotX += velX;
-      rotY += velY;
-      prevX = e.clientX;
-      prevY = e.clientY;
+      velY = (x - prevX) * 0.007;
+      velX = (y - prevY) * 0.007;
+      rotY += velY; rotX += velX;
+      prevX = x; prevY = y;
     };
-    const onMouseUp = () => { isDragging = false; };
+    const onUp = () => { isDragging = false; };
 
-    const onTouchStart = (e: TouchEvent) => {
-      isDragging = true;
-      prevX = e.touches[0].clientX;
-      prevY = e.touches[0].clientY;
-      velX = 0;
-      velY = 0;
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-      const dx = e.touches[0].clientX - prevX;
-      const dy = e.touches[0].clientY - prevY;
-      velX = dy * 0.005;
-      velY = dx * 0.005;
-      rotX += velX;
-      rotY += velY;
-      prevX = e.touches[0].clientX;
-      prevY = e.touches[0].clientY;
-    };
-    const onTouchEnd = () => { isDragging = false; };
+    mount.addEventListener('mousedown', e => onDown(e.clientX, e.clientY));
+    window.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup', onUp);
+    mount.addEventListener('touchstart', e => onDown(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    window.addEventListener('touchmove', e => onMove(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    window.addEventListener('touchend', onUp);
 
-    mount.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-    mount.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('touchend', onTouchEnd);
-
-    // Animation
+    // ─── Animation ───
     let frameId: number;
     let t = 0;
     const animate = () => {
@@ -183,80 +218,73 @@ export default function NozzleModel() {
       t += 0.02;
 
       if (!isDragging) {
-        velX *= 0.95;
-        velY *= 0.95;
-        rotX += velX;
-        rotY += velY;
+        velX *= 0.93; velY *= 0.93;
+        rotX += velX; rotY += velY;
       }
+      rotGroup.rotation.x = rotX;
+      rotGroup.rotation.y = rotY;
 
-      group.rotation.x = rotX;
-      group.rotation.y = rotY;
+      // Animate explode/assemble
+      const isExp = explodedRef.current;
+      partsRef.current.forEach(p => {
+        const target = isExp ? p.explodeY : p.baseY;
+        p.mesh.position.y += (target - p.mesh.position.y) * 0.08;
+      });
 
-      // Pulse glow
-      glow.material.emissiveIntensity = 1.5 + Math.sin(t * 2) * 0.7;
-      glow.scale.setScalar(1 + Math.sin(t * 2) * 0.08);
+      // Glow pulse
+      glowMat.emissiveIntensity = 1.8 + Math.sin(t * 2.5) * 0.8;
+      glow.scale.setScalar(1 + Math.sin(t * 2.5) * 0.1);
 
       renderer.render(scene, camera);
     };
+
+    // Wrap root in rotation group
+    const rotGroup = new THREE.Group();
+    scene.remove(rootGroup);
+    rotGroup.add(rootGroup);
+    scene.add(rotGroup);
+
     animate();
 
-    // Resize
     const onResize = () => {
       if (!mount) return;
-      const nw = mount.clientWidth;
-      const nh = mount.clientHeight;
-      camera.aspect = nw / nh;
+      camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(nw, nh);
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
     };
     window.addEventListener('resize', onResize);
 
     return () => {
       cancelAnimationFrame(frameId);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', e => onMove(e.touches[0].clientX, e.touches[0].clientY));
+      window.removeEventListener('touchend', onUp);
       window.removeEventListener('resize', onResize);
-      mount.removeEventListener('mousedown', onMouseDown);
-      mount.removeEventListener('touchstart', onTouchStart);
       renderer.dispose();
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement);
-      }
+      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
     };
   }, []);
 
+  const toggle = () => {
+    const next = !exploded;
+    setExploded(next);
+    explodedRef.current = next;
+  };
+
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center">
+    <div className="relative w-full h-full">
       <div
         ref={mountRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
         style={{ touchAction: 'none' }}
       />
-
-      {/* Logo overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none">
-        {/* Top label */}
-        <div className="absolute top-5 left-0 right-0 flex justify-center">
-          <span className="text-[10px] uppercase tracking-[0.35em] text-neutral-400 font-light">studio</span>
-        </div>
-
-        {/* Main logo — positioned at top of nozzle */}
-        <div className="absolute top-[12%] flex flex-col items-center gap-1">
-          <span
-            className="font-black tracking-tighter leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
-            style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', textShadow: '0 0 30px rgba(200,155,60,0.4)' }}
-          >
-            FORM3D
-          </span>
-          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#c89b3c] to-transparent opacity-70" />
-        </div>
-      </div>
-
-      <p className="absolute bottom-3 text-xs text-neutral-500 select-none pointer-events-none tracking-widest uppercase">
-        потяни, чтобы покрутить
-      </p>
+      <button
+        onClick={toggle}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 text-xs uppercase tracking-widest border border-neutral-600 text-neutral-300 hover:bg-white hover:text-black transition-colors rounded-lg bg-black/40 backdrop-blur-sm"
+      >
+        {exploded ? 'Собрать' : 'Разобрать'}
+      </button>
     </div>
   );
 }
