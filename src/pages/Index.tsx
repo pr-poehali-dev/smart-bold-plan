@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
-import LogoModel from '@/components/LogoModel';
 
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -134,8 +133,12 @@ export default function Index() {
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
-            <div className="relative w-full aspect-square bg-neutral-950 rounded-2xl overflow-hidden">
-              <LogoModel />
+            <div className="relative w-full aspect-square bg-red-600">
+              <img
+                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
+                alt="3D печать"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
