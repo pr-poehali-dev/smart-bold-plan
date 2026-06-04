@@ -116,7 +116,7 @@ export default function NozzleModel() {
     const filament = new THREE.Mesh(filamentGeo, filamentMat);
     group.add(filament);
 
-    group.position.y = -0.2;
+    group.position.y = -0.5;
     scene.add(group);
 
     // Mouse / touch drag rotation
@@ -234,7 +234,27 @@ export default function NozzleModel() {
         className="w-full h-full cursor-grab active:cursor-grabbing"
         style={{ touchAction: 'none' }}
       />
-      <p className="absolute bottom-3 text-xs text-neutral-400 dark:text-neutral-600 select-none pointer-events-none">
+
+      {/* Logo overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none">
+        {/* Top label */}
+        <div className="absolute top-5 left-0 right-0 flex justify-center">
+          <span className="text-[10px] uppercase tracking-[0.35em] text-neutral-400 font-light">studio</span>
+        </div>
+
+        {/* Main logo — positioned at top of nozzle */}
+        <div className="absolute top-[12%] flex flex-col items-center gap-1">
+          <span
+            className="font-black tracking-tighter leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+            style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)', textShadow: '0 0 30px rgba(200,155,60,0.4)' }}
+          >
+            FORM3D
+          </span>
+          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#c89b3c] to-transparent opacity-70" />
+        </div>
+      </div>
+
+      <p className="absolute bottom-3 text-xs text-neutral-500 select-none pointer-events-none tracking-widest uppercase">
         потяни, чтобы покрутить
       </p>
     </div>
