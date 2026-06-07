@@ -275,40 +275,7 @@ export default function Index() {
               <p className="text-sm md:text-base mb-4 md:mb-6 dark:text-neutral-400">
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
-              <div className="mt-6 md:mt-12">
-                <h3 className="text-sm uppercase tracking-widest mb-4 md:mb-6 text-neutral-900 dark:text-neutral-300">Услуги</h3>
-                <div className="grid grid-cols-2 gap-2 w-full">
-                  {[
-                    { icon: 'Box', text: 'Моделирование', link: '/modeling' },
-                    { icon: 'FileText', text: 'Бриф и ТЗ' },
-                    { icon: 'Image', text: 'Подбор референсов' },
-                    { icon: 'Video', text: 'Видео-обсуждение' },
-                    { icon: 'Clock', text: 'Постановка дедлайнов' },
-                    { icon: 'Palette', text: 'Подбор материала' },
-                    { icon: 'Layers', text: 'Этапы моделирования' },
-                    { icon: 'Printer', text: '3D-печать и литьё' },
-                    { icon: 'Sparkles', text: 'Постобработка' },
-                    { icon: 'Package', text: 'Упаковка и отправка' },
-                  ].map((item) => (
-                    item.link ? (
-                      <button
-                        key={item.text}
-                        onClick={() => navigate(item.link!)}
-                        className="flex items-start gap-2 p-2 md:p-3 border border-red-400 dark:border-red-600 rounded-lg hover:bg-red-600 hover:border-red-600 group transition-colors text-left"
-                      >
-                        <Icon name={item.icon} size={16} className="mt-0.5 shrink-0 text-red-500 group-hover:text-white dark:text-red-400 transition-colors" />
-                        <span className="text-xs md:text-sm text-red-600 group-hover:text-white dark:text-red-400 font-medium transition-colors">{item.text}</span>
-                        <Icon name="ChevronRight" size={14} className="mt-0.5 ml-auto shrink-0 text-red-400 group-hover:text-white transition-colors" />
-                      </button>
-                    ) : (
-                      <div key={item.text} className="flex items-start gap-2 p-2 md:p-3 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-neutral-400 dark:hover:border-neutral-500 transition-colors">
-                        <Icon name={item.icon} size={16} className="mt-0.5 shrink-0 text-neutral-500 dark:text-neutral-400" />
-                        <span className="text-xs md:text-sm dark:text-neutral-300">{item.text}</span>
-                      </div>
-                    )
-                  ))}
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
