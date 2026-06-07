@@ -50,7 +50,27 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-neutral-950 border-b border-black dark:border-neutral-700 transition-colors duration-300">
+    <nav className="fixed top-0 left-0 w-full z-50 transition-colors duration-300">
+      {/* Топ-баннер доставки */}
+      <div className="bg-black dark:bg-neutral-900 text-white text-xs py-2 px-4 text-center">
+        <span className="flex items-center justify-center gap-4 flex-wrap">
+          <span className="flex items-center gap-1.5">
+            <Icon name="Truck" size={12} className="text-red-400" />
+            Доставка по всей России
+          </span>
+          <span className="text-neutral-500 hidden sm:inline">·</span>
+          <span className="flex items-center gap-1.5">
+            <Icon name="Package" size={12} className="text-neutral-400" />
+            СДЭК
+          </span>
+          <span className="text-neutral-500 hidden sm:inline">·</span>
+          <span className="flex items-center gap-1.5">
+            <Icon name="Mail" size={12} className="text-neutral-400" />
+            Почта России
+          </span>
+        </span>
+      </div>
+      <div className="bg-white dark:bg-neutral-950 border-b border-black dark:border-neutral-700">
       <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
         <button
           onClick={() => navigate('/')}
@@ -106,6 +126,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </nav>
   );
