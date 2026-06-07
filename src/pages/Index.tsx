@@ -107,6 +107,12 @@ export default function Index() {
             >
               Моделирование
             </button>
+            <button
+              onClick={() => navigate('/printing')}
+              className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors"
+            >
+              3D-печать и литьё
+            </button>
             <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               Контакты
             </a>
