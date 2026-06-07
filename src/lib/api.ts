@@ -17,7 +17,13 @@ async function req(base: string, path: string, method = 'GET', body?: object) {
     },
     body: body ? JSON.stringify(body) : undefined,
   });
-  return res.json();
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    console.error('Non-JSON response:', res.status, text);
+    return { error: `Ошибка сервера (${res.status})` };
+  }
 }
 
 // AUTH
