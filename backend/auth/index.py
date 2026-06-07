@@ -24,11 +24,12 @@ def handler(event: dict, context) -> dict:
     headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, X-Session-Id',
+        'Access-Control-Allow-Headers': 'Content-Type, X-Session-Id, X-Auth-Token',
+        'Access-Control-Max-Age': '86400',
     }
 
     if event.get('httpMethod') == 'OPTIONS':
-        return {'statusCode': 200, 'headers': headers, 'body': ''}
+        return {'statusCode': 200, 'headers': headers, 'body': 'ok'}
 
     method = event.get('httpMethod')
     path = event.get('path', '').rstrip('/')
