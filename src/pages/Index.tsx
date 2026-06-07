@@ -357,9 +357,11 @@ export default function Index() {
 
       {/* Footer */}
       <footer className="py-8 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm mb-4 md:mb-0">2025 FORM3D Studio. Все права защищены.</p>
-
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-neutral-400">© 2025 FORM3D Studio. Все права защищены.</p>
+          <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors underline underline-offset-2">
+            Пользовательское соглашение
+          </a>
         </div>
       </footer>
     </main>
