@@ -101,6 +101,12 @@ export default function Index() {
             <a href="#about" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               О нас
             </a>
+            <button
+              onClick={() => navigate('/modeling')}
+              className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors"
+            >
+              Моделирование
+            </button>
             <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
               Контакты
             </a>
