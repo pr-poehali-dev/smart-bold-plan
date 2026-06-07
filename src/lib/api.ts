@@ -49,6 +49,10 @@ export const api = {
     update: (data: { name?: string; phone?: string }) =>
       authReq('update', data),
     logout: () => authReq('logout'),
+    oauthCallback: (provider: string, code: string, redirect_uri: string) =>
+      authReq('oauth_callback', { provider, code, redirect_uri }),
+    smsSend: (phone: string) => authReq('sms_send', { phone }),
+    smsVerify: (phone: string, code: string) => authReq('sms_verify', { phone, code }),
   },
 
   // CART

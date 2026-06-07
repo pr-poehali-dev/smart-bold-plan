@@ -14,6 +14,7 @@ import Favorites from "./pages/Favorites";
 import Orders from "./pages/Orders";
 import Account from "./pages/Account";
 import Terms from "./pages/Terms";
+import OAuthCallback from "./pages/OAuthCallback";
 import ChatWidget from "./components/ChatWidget";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/orders/:id" element={<Orders />} />
             <Route path="/account" element={<Account />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/auth/callback" element={<OAuthCallback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

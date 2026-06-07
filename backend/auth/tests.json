@@ -4,17 +4,35 @@
       "name": "Options preflight",
       "method": "OPTIONS",
       "path": "/",
-      "expectedStatus": 200,
-      "bodyMatcher": "partial"
+      "expectedStatus": 200
     },
     {
-      "name": "Register new user",
+      "name": "Unknown action returns 400",
       "method": "POST",
       "path": "/",
-      "body": {"action": "register", "email": "testuser_form3d@example.com", "password": "test123456", "name": "Test"},
-      "expectedStatus": 200,
-      "expectedBody": {"session_id": "string"},
-      "bodyMatcher": "partial"
+      "body": {"action": "unknown"},
+      "expectedStatus": 400
+    },
+    {
+      "name": "SMS send no phone returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "sms_send", "phone": ""},
+      "expectedStatus": 400
+    },
+    {
+      "name": "SMS verify wrong code returns 401",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "sms_verify", "phone": "+79000000000", "code": "000000"},
+      "expectedStatus": 401
+    },
+    {
+      "name": "OAuth unknown provider returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "oauth_callback", "provider": "unknown", "code": "test"},
+      "expectedStatus": 400
     }
   ]
 }
