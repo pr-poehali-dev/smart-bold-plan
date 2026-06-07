@@ -105,7 +105,7 @@ export default function Index() {
               href="#contact"
               className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors rounded-xl"
             >
-              Заказать модель
+              Написать нам
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
