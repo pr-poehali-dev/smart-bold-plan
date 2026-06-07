@@ -15,15 +15,6 @@ const plans = [
     icon: 'Printer',
     accent: false,
   },
-  {
-    id: 2,
-    title: 'Фотополимер (SLA)',
-    price: '599 ₽',
-    description: 'Высокая точность и гладкая поверхность — для ювелирки, стоматологии и детальных моделей',
-    examples: ['Ювелирные мастер-модели', 'Стоматологические изделия', 'Детальные фигурки', 'Архитектурные макеты'],
-    icon: 'Sparkles',
-    accent: false,
-  },
 ];
 
 export default function Printing() {
