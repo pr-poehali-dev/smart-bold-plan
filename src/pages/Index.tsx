@@ -103,13 +103,13 @@ export default function Index() {
             </p>
             <a
               href="#contact"
-              className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors rounded-xl"
+              className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors rounded-xl"
             >
               Написать нам
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
-            <div className="relative w-full aspect-square bg-red-600">
+            <div className="relative w-full aspect-square bg-pink-400">
               <img
                 src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
                 alt="3D печать"

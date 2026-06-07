@@ -74,12 +74,12 @@ export default function Auth() {
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-pink-400 text-sm">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors disabled:opacity-50"
+            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors disabled:opacity-50"
           >
             {loading ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
           </button>

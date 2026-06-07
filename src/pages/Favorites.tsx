@@ -59,7 +59,7 @@ export default function Favorites() {
         {items.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-neutral-400 text-lg mb-6">Список избранного пуст</p>
-            <button onClick={() => navigate('/modeling')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-red-600 transition-colors">
+            <button onClick={() => navigate('/modeling')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-400 transition-colors">
               Посмотреть услуги
             </button>
           </div>
@@ -73,13 +73,13 @@ export default function Favorites() {
                 </div>
                 <button
                   onClick={() => addToCart(item.service_id)}
-                  className="flex items-center gap-2 px-4 py-2 text-sm bg-black dark:bg-white dark:text-black text-white rounded-xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 text-sm bg-black dark:bg-white dark:text-black text-white rounded-xl hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors"
                 >
                   <Icon name="ShoppingCart" size={14} />
                   В корзину
                 </button>
-                <button onClick={() => remove(item.service_id)} className="text-neutral-400 hover:text-red-500 transition-colors">
-                  <Icon name="Heart" size={18} className="fill-red-500 text-red-500" />
+                <button onClick={() => remove(item.service_id)} className="text-neutral-400 hover:text-pink-400 transition-colors">
+                  <Icon name="Heart" size={18} className="fill-pink-400 text-pink-400" />
                 </button>
               </div>
             ))}
