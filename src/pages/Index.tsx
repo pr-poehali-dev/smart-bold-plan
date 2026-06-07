@@ -234,13 +234,13 @@ export default function Index() {
               </div>
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
-              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-200">
+              <p className="text-xl md:text-2xl mb-4 md:mb-6 dark:text-neutral-200">
                 FORM3D — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
               </p>
-              <p className="text-sm md:text-base mb-4 md:mb-6 dark:text-neutral-400">
+              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
                 Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.
               </p>
-              <p className="text-sm md:text-base mb-4 md:mb-6 dark:text-neutral-400">
+              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
                 Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
               </p>
 
