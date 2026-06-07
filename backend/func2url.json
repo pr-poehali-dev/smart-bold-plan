@@ -1,4 +1,7 @@
 {
+  "shop": "https://functions.poehali.dev/2aa8a997-ffa1-497e-9860-6637da001eb8",
+  "auth": "https://functions.poehali.dev/1e17b5c0-c2a0-431d-84d6-7be524bd5652",
+  "catalog": "https://functions.poehali.dev/91c34bd7-46bb-4889-b23b-e24199efb0a6",
   "ai-chat": "https://functions.poehali.dev/5388f591-8e98-434e-b3b2-f3c6b753cbaa",
   "send-contact": "https://functions.poehali.dev/2a6f2b39-1c29-455f-9afc-21cab050870f"
 }
