@@ -250,7 +250,7 @@ export default function Index() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-red-600 dark:bg-neutral-900 text-white transition-colors duration-300">
+      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-pink-400 dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
@@ -339,12 +339,12 @@ export default function Index() {
                     ></textarea>
                   </div>
                   {status === 'error' && (
-                    <p className="text-white/80 dark:text-red-400 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
+                    <p className="text-white/80 dark:text-pink-400 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
                   )}
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-8 px-8 py-3 bg-black dark:bg-red-600 text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-red-500 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
+                    className="mt-8 px-8 py-3 bg-black dark:bg-pink-400 text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-pink-300 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
                   >
                     {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
                   </button>
