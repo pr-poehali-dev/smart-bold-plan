@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import Navbar from '@/components/Navbar';
 
 const plans = [
   {
@@ -33,20 +34,8 @@ export default function Modeling() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
-      {/* Header */}
-      <div className="border-b border-neutral-200 dark:border-neutral-800 px-4 md:px-8 py-4 flex items-center gap-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-sm text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
-        >
-          <Icon name="ArrowLeft" size={16} />
-          Назад
-        </button>
-        <span className="text-neutral-300 dark:text-neutral-700">|</span>
-        <span className="text-sm uppercase tracking-widest text-neutral-400">Услуги</span>
-      </div>
-
-      <div className="container mx-auto px-4 md:px-8 py-12 md:py-20 max-w-5xl">
+      <Navbar />
+      <div className="container mx-auto px-4 md:px-8 pt-28 pb-12 md:pt-32 md:pb-20 max-w-5xl">
         {/* Title */}
         <div className="mb-12 md:mb-16">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-4 dark:text-white">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import Navbar from '@/components/Navbar';
 
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -86,46 +87,7 @@ export default function Index() {
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950 relative overflow-x-hidden transition-colors duration-300">
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-neutral-950 border-b border-black dark:border-neutral-700 transition-colors duration-300">
-        <div className="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <a href="/" className="text-xl font-bold tracking-tighter dark:text-white" style={{ perspective: '400px', display: 'inline-block' }}>
-            <span style={{ display: 'inline-block', transform: `rotateY(${rotationY}deg)` }}>
-              FORM3D
-            </span>
-          </a>
-          <div className="flex items-center space-x-4 md:space-x-8">
-            <a href="#work" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
-              Работы
-            </a>
-            <a href="#about" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
-              О нас
-            </a>
-            <button
-              onClick={() => navigate('/modeling')}
-              className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors"
-            >
-              Моделирование
-            </button>
-            <button
-              onClick={() => navigate('/printing')}
-              className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors"
-            >
-              3D-печать и литьё
-            </button>
-            <a href="#contact" className="text-xs md:text-sm uppercase tracking-widest hover:text-red-600 dark:text-neutral-300 dark:hover:text-red-400 transition-colors">
-              Контакты
-            </a>
-            <button
-              onClick={() => setDark(d => !d)}
-              className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              aria-label="Переключить тему"
-            >
-              <Icon name={dark ? 'Sun' : 'Moon'} size={16} className="dark:text-neutral-300" />
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-4 md:px-8 container mx-auto">
