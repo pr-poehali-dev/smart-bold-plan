@@ -9,11 +9,12 @@ function getSession() {
 }
 
 async function req(base: string, path: string, method = 'GET', body?: object) {
+  const sid = getSession();
   const res = await fetch(`${base}${path}`, {
     method,
     headers: {
       'Content-Type': 'application/json',
-      'X-Session-Id': getSession(),
+      ...(sid ? { 'X-Session-Id': sid } : {}),
     },
     body: body ? JSON.stringify(body) : undefined,
   });
@@ -26,17 +27,28 @@ async function req(base: string, path: string, method = 'GET', body?: object) {
   }
 }
 
+async function authReq(action: string, body?: object) {
+  const sid = getSession();
+  const res = await fetch(URLS.auth, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, session_id: sid || undefined, ...body }),
+  });
+  const text = await res.text();
+  try { return JSON.parse(text); } catch { return { error: `Ошибка сервера (${res.status})` }; }
+}
+
 // AUTH
 export const api = {
   auth: {
     register: (email: string, password: string, name: string) =>
-      req(URLS.auth, '/register', 'POST', { email, password, name }),
+      authReq('register', { email, password, name }),
     login: (email: string, password: string) =>
-      req(URLS.auth, '/login', 'POST', { email, password }),
-    me: () => req(URLS.auth, '/me'),
+      authReq('login', { email, password }),
+    me: () => authReq('me'),
     update: (data: { name?: string; phone?: string }) =>
-      req(URLS.auth, '/me', 'PUT', data),
-    logout: () => req(URLS.auth, '/logout', 'POST'),
+      authReq('update', data),
+    logout: () => authReq('logout'),
   },
 
   // CART

@@ -1,7 +1,6 @@
 import json
 import os
 import hashlib
-
 import secrets
 import psycopg2
 from datetime import datetime
@@ -20,7 +19,7 @@ def make_session(conn, user_id: int) -> str:
     return session_id
 
 def handler(event: dict, context) -> dict:
-    """Аутентификация: регистрация, вход, выход, получение профиля"""
+    """Аутентификация: регистрация, вход, выход, получение профиля. Все запросы POST на корень с полем action."""
     headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -31,16 +30,15 @@ def handler(event: dict, context) -> dict:
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': headers, 'body': 'ok'}
 
-    method = event.get('httpMethod')
-    path = event.get('path', '').rstrip('/')
-    session_id = event.get('headers', {}).get('X-Session-Id', '')
+    body = json.loads(event.get('body') or '{}')
+    action = body.get('action', '')
+    session_id = body.get('session_id', '') or event.get('headers', {}).get('X-Session-Id', '')
 
     conn = get_conn()
 
     try:
-        # POST /register
-        if method == 'POST' and path.endswith('/register'):
-            body = json.loads(event.get('body') or '{}')
+        # register
+        if action == 'register':
             email = body.get('email', '').strip().lower()
             password = body.get('password', '')
             name = body.get('name', '').strip()
@@ -59,9 +57,8 @@ def handler(event: dict, context) -> dict:
             sid = make_session(conn, user_id)
             return {'statusCode': 200, 'headers': headers, 'body': json.dumps({'session_id': sid, 'user': {'id': user_id, 'email': email, 'name': name}})}
 
-        # POST /login
-        if method == 'POST' and path.endswith('/login'):
-            body = json.loads(event.get('body') or '{}')
+        # login
+        if action == 'login':
             email = body.get('email', '').strip().lower()
             password = body.get('password', '')
 
@@ -75,8 +72,8 @@ def handler(event: dict, context) -> dict:
             sid = make_session(conn, row[0])
             return {'statusCode': 200, 'headers': headers, 'body': json.dumps({'session_id': sid, 'user': {'id': row[0], 'name': row[1], 'email': row[2]}})}
 
-        # GET /me
-        if method == 'GET' and path.endswith('/me'):
+        # me
+        if action == 'me':
             if not session_id:
                 return {'statusCode': 401, 'headers': headers, 'body': json.dumps({'error': 'Не авторизован'})}
             with conn.cursor() as cur:
@@ -90,11 +87,10 @@ def handler(event: dict, context) -> dict:
                 return {'statusCode': 401, 'headers': headers, 'body': json.dumps({'error': 'Сессия истекла'})}
             return {'statusCode': 200, 'headers': headers, 'body': json.dumps({'id': row[0], 'email': row[1], 'name': row[2], 'phone': row[3]})}
 
-        # PUT /me
-        if method == 'PUT' and path.endswith('/me'):
+        # update
+        if action == 'update':
             if not session_id:
                 return {'statusCode': 401, 'headers': headers, 'body': json.dumps({'error': 'Не авторизован'})}
-            body = json.loads(event.get('body') or '{}')
             with conn.cursor() as cur:
                 cur.execute("SELECT user_id FROM sessions WHERE id = %s AND expires_at > NOW()", (session_id,))
                 row = cur.fetchone()
@@ -105,15 +101,15 @@ def handler(event: dict, context) -> dict:
             conn.commit()
             return {'statusCode': 200, 'headers': headers, 'body': json.dumps({'ok': True})}
 
-        # POST /logout
-        if method == 'POST' and path.endswith('/logout'):
+        # logout
+        if action == 'logout':
             if session_id:
                 with conn.cursor() as cur:
                     cur.execute("UPDATE sessions SET expires_at = NOW() WHERE id = %s", (session_id,))
                 conn.commit()
             return {'statusCode': 200, 'headers': headers, 'body': json.dumps({'ok': True})}
 
-        return {'statusCode': 404, 'headers': headers, 'body': json.dumps({'error': 'Not found'})}
+        return {'statusCode': 400, 'headers': headers, 'body': json.dumps({'error': 'Неизвестный action'})}
 
     finally:
         conn.close()
