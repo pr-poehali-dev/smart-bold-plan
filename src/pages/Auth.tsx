@@ -17,12 +17,17 @@ export default function Auth() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const result = mode === 'login'
-      ? await login(email, password)
-      : await register(email, password, name);
-    setLoading(false);
-    if (result.error) { setError(result.error); return; }
-    navigate('/account');
+    try {
+      const result = mode === 'login'
+        ? await login(email, password)
+        : await register(email, password, name);
+      if (result.error) { setError(result.error); return; }
+      navigate('/account');
+    } catch {
+      setError('Ошибка соединения. Попробуйте ещё раз.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
