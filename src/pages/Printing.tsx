@@ -19,14 +19,6 @@ const plans = [
     icon: 'Sparkles',
     accent: true,
   },
-  {
-    title: 'Литьё',
-    price: 'от 1 500 ₽',
-    description: 'Тиражирование изделий в силикон, полиуретан или металл по готовой мастер-модели',
-    examples: ['Силиконовые формы', 'Полиуретановое литьё', 'Малые серии изделий', 'Сувениры и подарки'],
-    icon: 'Layers',
-    accent: false,
-  },
 ];
 
 export default function Printing() {
@@ -40,11 +32,9 @@ export default function Printing() {
         <div className="mb-12 md:mb-16">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-4 dark:text-white">
             3D-печать
-            <br />
-            и литьё
           </h1>
           <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-xl">
-            Печатаем на FDM и фотополимерных принтерах, отливаем в силикон и полиуретан — выбирайте технологию под вашу задачу.
+            Печатаем на FDM и фотополимерных принтерах — выбирайте технологию под вашу задачу.
           </p>
         </div>
 

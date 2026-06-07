@@ -66,7 +66,7 @@ export default function Navbar() {
             onClick={() => navigate('/printing')}
             className={linkClass(location.pathname === '/printing')}
           >
-            3D-печать и литьё
+            3D-печать
           </button>
           <button onClick={() => goHome('#contact')} className={linkClass(false)}>
             Контакты
