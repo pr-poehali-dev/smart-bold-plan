@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
@@ -27,6 +28,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export default function Favorites() {
   const { user, loading: authLoading } = useAuth();
+  const { refreshCounts } = useCart();
   const navigate = useNavigate();
   const [items, setItems] = useState<FavItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,11 +48,13 @@ export default function Favorites() {
 
   const remove = async (service_id: number) => {
     await api.favorites.remove(service_id);
-    load();
+    await load();
+    refreshCounts();
   };
 
   const addToCart = async (service_id: number) => {
     await api.cart.add(service_id);
+    refreshCounts();
     setAddedIds(prev => new Set(prev).add(service_id));
     setTimeout(() => {
       setAddedIds(prev => { const s = new Set(prev); s.delete(service_id); return s; });

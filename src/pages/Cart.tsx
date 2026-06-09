@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
@@ -23,6 +24,7 @@ const CATEGORY_ICONS: Record<string, string> = {
 
 export default function Cart() {
   const { user, loading: authLoading } = useAuth();
+  const { refreshCounts } = useCart();
   const navigate = useNavigate();
   const [items, setItems] = useState<CartItem[]>([]);
   const [total, setTotal] = useState(0);
@@ -44,13 +46,15 @@ export default function Cart() {
 
   const remove = async (service_id: number) => {
     await api.cart.remove(service_id);
-    load();
+    await load();
+    refreshCounts();
   };
 
   const changeQty = async (service_id: number, quantity: number) => {
     if (quantity < 1) return;
     await api.cart.update(service_id, quantity);
-    load();
+    await load();
+    refreshCounts();
   };
 
   const checkout = async () => {

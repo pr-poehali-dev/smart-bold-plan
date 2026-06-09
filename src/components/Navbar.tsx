@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
   const { user } = useAuth();
+  const { cartCount, favCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [dark, setDark] = useState(() => {
@@ -94,11 +96,21 @@ export default function Navbar() {
 
           {/* Иконки (всегда видны) */}
           <div className="flex items-center gap-1">
-            <button onClick={() => navigate('/favorites')} className={iconBtnClass(location.pathname === '/favorites')} aria-label="Избранное">
+            <button onClick={() => navigate('/favorites')} className={`relative ${iconBtnClass(location.pathname === '/favorites')}`} aria-label="Избранное">
               <Icon name="Heart" size={16} className="dark:text-neutral-300" />
+              {favCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold text-white bg-brand rounded-full">
+                  {favCount}
+                </span>
+              )}
             </button>
-            <button onClick={() => navigate('/cart')} className={iconBtnClass(location.pathname === '/cart')} aria-label="Корзина">
+            <button onClick={() => navigate('/cart')} className={`relative ${iconBtnClass(location.pathname === '/cart')}`} aria-label="Корзина">
               <Icon name="ShoppingCart" size={16} className="dark:text-neutral-300" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold text-white bg-brand rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </button>
             <button onClick={() => navigate(user ? '/account' : '/auth')} className={iconBtnClass(location.pathname === '/account' || location.pathname === '/auth')} aria-label="Профиль">
               <Icon name={user ? 'UserCheck' : 'User'} size={16} className="dark:text-neutral-300" />

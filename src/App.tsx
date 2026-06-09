@@ -17,6 +17,7 @@ import Terms from "./pages/Terms";
 import OAuthCallback from "./pages/OAuthCallback";
 import ChatWidget from "./components/ChatWidget";
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <CartProvider>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/modeling" element={<Modeling />} />
@@ -42,6 +44,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
       <ChatWidget />

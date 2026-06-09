@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import Navbar from '@/components/Navbar';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 
 const plans = [
   {
@@ -38,11 +39,13 @@ const plans = [
 export default function Modeling() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { refreshCounts } = useCart();
   const [added, setAdded] = useState<Record<number, 'cart' | 'fav' | null>>({});
 
   const handleCart = async (id: number) => {
     if (!user) { navigate('/auth'); return; }
     await api.cart.add(id);
+    await refreshCounts();
     setAdded(prev => ({ ...prev, [id]: 'cart' }));
     setTimeout(() => setAdded(prev => ({ ...prev, [id]: null })), 1500);
   };
@@ -50,6 +53,7 @@ export default function Modeling() {
   const handleFav = async (id: number) => {
     if (!user) { navigate('/auth'); return; }
     await api.favorites.add(id);
+    await refreshCounts();
     setAdded(prev => ({ ...prev, [id]: 'fav' }));
     setTimeout(() => setAdded(prev => ({ ...prev, [id]: null })), 1500);
   };
