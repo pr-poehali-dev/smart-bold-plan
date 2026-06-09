@@ -57,18 +57,18 @@ export const api = {
 
   // CART
   cart: {
-    get: () => req(URLS.catalog, '/cart'),
-    add: (service_id: number) => req(URLS.catalog, '/cart', 'POST', { service_id }),
+    get: () => req(URLS.catalog, '/cart?resource=cart'),
+    add: (service_id: number) => req(URLS.catalog, '/cart?resource=cart', 'POST', { resource: 'cart', service_id }),
     update: (service_id: number, quantity: number) =>
-      req(URLS.catalog, '/cart', 'PUT', { service_id, quantity }),
-    remove: (service_id: number) => req(URLS.catalog, '/cart', 'DELETE', { service_id }),
+      req(URLS.catalog, '/cart?resource=cart', 'PUT', { resource: 'cart', service_id, quantity }),
+    remove: (service_id: number) => req(URLS.catalog, '/cart?resource=cart', 'DELETE', { resource: 'cart', service_id }),
   },
 
   // FAVORITES
   favorites: {
-    get: () => req(URLS.catalog, '/favorites'),
-    add: (service_id: number) => req(URLS.catalog, '/favorites', 'POST', { service_id }),
-    remove: (service_id: number) => req(URLS.catalog, '/favorites', 'DELETE', { service_id }),
+    get: () => req(URLS.catalog, '/favorites?resource=favorites'),
+    add: (service_id: number) => req(URLS.catalog, '/favorites?resource=favorites', 'POST', { resource: 'favorites', service_id }),
+    remove: (service_id: number) => req(URLS.catalog, '/favorites?resource=favorites', 'DELETE', { resource: 'favorites', service_id }),
   },
 
   // ORDERS
