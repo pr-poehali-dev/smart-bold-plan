@@ -103,13 +103,13 @@ export default function Index() {
             </p>
             <a
               href="#contact"
-              className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors rounded-xl"
+              className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors rounded-xl"
             >
               Написать нам
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
-            <div className="relative w-full aspect-square bg-pink-400">
+            <div className="relative w-full aspect-square bg-pink-600">
               <img
                 src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
                 alt="3D печать"
@@ -250,7 +250,7 @@ export default function Index() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-pink-400 dark:bg-neutral-900 text-white transition-colors duration-300">
+      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-pink-600 dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
@@ -339,12 +339,12 @@ export default function Index() {
                     ></textarea>
                   </div>
                   {status === 'error' && (
-                    <p className="text-white/80 dark:text-pink-400 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
+                    <p className="text-white/80 dark:text-pink-600 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
                   )}
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-8 px-8 py-3 bg-black dark:bg-pink-400 text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-pink-300 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
+                    className="mt-8 px-8 py-3 bg-black dark:bg-pink-600 text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-pink-300 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
                   >
                     {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
                   </button>

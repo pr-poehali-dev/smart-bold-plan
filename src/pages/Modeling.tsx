@@ -73,7 +73,7 @@ export default function Modeling() {
               key={plan.title}
               className={`relative rounded-2xl p-6 md:p-8 border transition-all flex flex-col ${
                 plan.accent
-                  ? 'bg-pink-400 border-pink-400 text-white'
+                  ? 'bg-pink-600 border-pink-600 text-white'
                   : 'bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-900 dark:text-white'
               }`}
             >
@@ -98,7 +98,7 @@ export default function Modeling() {
                     <Icon
                       name="Check"
                       size={14}
-                      className={plan.accent ? 'text-white/80 shrink-0' : 'text-pink-400 shrink-0'}
+                      className={plan.accent ? 'text-white/80 shrink-0' : 'text-pink-600 shrink-0'}
                     />
                     <span className={plan.accent ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-300'}>
                       {ex}
@@ -111,8 +111,8 @@ export default function Modeling() {
                   onClick={() => handleCart(plan.id)}
                   className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-medium transition-colors ${
                     plan.accent
-                      ? 'bg-white text-pink-400 hover:bg-neutral-100'
-                      : 'bg-black dark:bg-white text-white dark:text-black hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white'
+                      ? 'bg-white text-pink-600 hover:bg-neutral-100'
+                      : 'bg-black dark:bg-white text-white dark:text-black hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white'
                   }`}
                 >
                   <Icon name="ShoppingCart" size={14} />
@@ -123,14 +123,14 @@ export default function Modeling() {
                   className={`p-2 rounded-xl border transition-colors ${
                     plan.accent
                       ? 'border-white/40 hover:bg-white/10'
-                      : 'border-neutral-200 dark:border-neutral-700 hover:border-pink-400'
+                      : 'border-neutral-200 dark:border-neutral-700 hover:border-pink-600'
                   }`}
                   title="В избранное"
                 >
                   <Icon
                     name="Heart"
                     size={16}
-                    className={added[plan.id] === 'fav' ? 'text-pink-400 fill-pink-400' : plan.accent ? 'text-white/70' : 'text-neutral-400'}
+                    className={added[plan.id] === 'fav' ? 'text-pink-600 fill-pink-600' : plan.accent ? 'text-white/70' : 'text-neutral-400'}
                   />
                 </button>
               </div>
@@ -141,7 +141,7 @@ export default function Modeling() {
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <a
             href="/#contact"
-            className="inline-block px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors rounded-xl"
+            className="inline-block px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors rounded-xl"
           >
             Заказать моделирование
           </a>

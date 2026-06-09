@@ -86,7 +86,7 @@ export default function Account() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-400 dark:hover:bg-pink-400 dark:hover:text-white transition-colors disabled:opacity-50"
+            className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors disabled:opacity-50"
           >
             {saved ? 'Сохранено!' : saving ? 'Сохраняем...' : 'Сохранить'}
           </button>
@@ -107,7 +107,7 @@ export default function Account() {
           </button>
         </div>
 
-        <button onClick={doLogout} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-pink-400 transition-colors">
+        <button onClick={doLogout} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-pink-600 transition-colors">
           <Icon name="LogOut" size={16} />
           Выйти из аккаунта
         </button>
