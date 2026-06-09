@@ -66,7 +66,7 @@ export default function Auth() {
     navigate('/account');
   };
 
-  const btnClass = "w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors disabled:opacity-50";
+  const btnClass = "w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50";
   const socialClass = "w-full flex items-center justify-center gap-3 py-3 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm hover:border-black dark:hover:border-white transition-colors dark:text-white";
 
   return (
@@ -144,7 +144,7 @@ export default function Auth() {
                 placeholder="Минимум 6 символов"
               />
             </div>
-            {error && <p className="text-pink-600 text-sm">{error}</p>}
+            {error && <p className="text-brand text-sm">{error}</p>}
             <button type="submit" disabled={loading} className={btnClass}>
               {loading ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
             </button>
@@ -182,7 +182,7 @@ export default function Auth() {
                 <p className="text-xs text-neutral-400 mt-1">Код отправлен на {phone}</p>
               </div>
             )}
-            {error && <p className="text-pink-600 text-sm">{error}</p>}
+            {error && <p className="text-brand text-sm">{error}</p>}
             <button type="submit" disabled={loading} className={btnClass}>
               {loading ? 'Загрузка...' : smsSent ? 'Подтвердить' : 'Получить код'}
             </button>

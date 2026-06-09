@@ -98,7 +98,7 @@ export default function Orders() {
                 <button
                   onClick={() => pay(order.id, 'bank_card')}
                   disabled={paying}
-                  className="flex items-center gap-2 px-6 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50"
                 >
                   <Icon name="CreditCard" size={16} />
                   Карта Мир
@@ -129,7 +129,7 @@ export default function Orders() {
         {orders.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-neutral-400 text-lg mb-6">Заказов пока нет</p>
-            <button onClick={() => navigate('/cart')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-600 transition-colors">
+            <button onClick={() => navigate('/cart')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors">
               Перейти в корзину
             </button>
           </div>

@@ -71,7 +71,7 @@ export default function Cart() {
         {items.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-neutral-400 text-lg mb-6">Корзина пуста</p>
-            <button onClick={() => navigate('/modeling')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-600 transition-colors">
+            <button onClick={() => navigate('/modeling')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors">
               Выбрать услугу
             </button>
           </div>
@@ -90,7 +90,7 @@ export default function Cart() {
                     <button onClick={() => changeQty(item.service_id, item.quantity + 1)} className="w-8 h-8 rounded-lg border border-neutral-200 dark:border-neutral-700 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:text-white">+</button>
                   </div>
                   <p className="font-bold w-24 text-right dark:text-white">{(item.price * item.quantity).toLocaleString()} ₽</p>
-                  <button onClick={() => remove(item.service_id)} className="text-neutral-400 hover:text-pink-600 transition-colors">
+                  <button onClick={() => remove(item.service_id)} className="text-neutral-400 hover:text-brand transition-colors">
                     <Icon name="X" size={16} />
                   </button>
                 </div>
@@ -105,7 +105,7 @@ export default function Cart() {
               <button
                 onClick={checkout}
                 disabled={ordering}
-                className="px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-pink-600 dark:hover:bg-pink-600 dark:hover:text-white transition-colors disabled:opacity-50"
+                className="px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50"
               >
                 {ordering ? 'Оформляем...' : 'Оформить заказ'}
               </button>
