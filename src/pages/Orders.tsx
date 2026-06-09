@@ -19,6 +19,11 @@ const PAYMENT_LABEL: Record<string, string> = {
   canceled: 'Отменён',
 };
 
+const CARRIER_LABEL: Record<string, string> = {
+  cdek: 'СДЭК',
+  pochta: 'Почта России',
+};
+
 export default function Orders() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -91,6 +96,31 @@ export default function Orders() {
             </span>
           </div>
 
+          {/* Доставка */}
+          <div className="border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <Icon name="Truck" size={18} className="text-neutral-500 dark:text-neutral-400" />
+              <h3 className="font-semibold dark:text-white">Доставка</h3>
+            </div>
+            {order.tracking_number ? (
+              <>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {CARRIER_LABEL[order.carrier as string] || 'Служба доставки'} · трек-номер
+                </p>
+                <p className="font-medium dark:text-white mb-4">{order.tracking_number as string}</p>
+                <button
+                  onClick={() => navigate(`/tracking/${order.id}`)}
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors"
+                >
+                  <Icon name="MapPin" size={16} />
+                  Отследить посылку
+                </button>
+              </>
+            ) : (
+              <p className="text-sm text-neutral-400">Трек-номер появится после отправки заказа</p>
+            )}
+          </div>
+
           {order.payment_status !== 'succeeded' && (
             <div>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Выберите способ оплаты:</p>
@@ -150,6 +180,11 @@ export default function Orders() {
                   <p className={`text-xs ${o.payment_status === 'succeeded' ? 'text-green-500' : 'text-neutral-400'}`}>
                     {PAYMENT_LABEL[o.payment_status] || o.payment_status}
                   </p>
+                  {o.tracking_number ? (
+                    <span className="inline-flex items-center gap-1 mt-1 text-xs text-brand">
+                      <Icon name="Truck" size={12} /> Отслеживается
+                    </span>
+                  ) : null}
                 </div>
               </button>
             ))}

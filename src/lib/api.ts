@@ -73,12 +73,16 @@ export const api = {
 
   // ORDERS
   orders: {
-    list: () => req(URLS.shop, '/orders'),
-    get: (id: number) => req(URLS.shop, `/orders/${id}`),
-    create: () => req(URLS.shop, '/orders', 'POST'),
+    list: () => req(URLS.shop, '?action=orders'),
+    get: (id: number) => req(URLS.shop, `?action=order&order_id=${id}`),
+    create: () => req(URLS.shop, '?action=create_order', 'POST', { action: 'create_order' }),
     pay: (order_id: number, payment_type: 'bank_card' | 'sbp', return_url: string) =>
-      req(URLS.shop, '/pay', 'POST', { order_id, payment_type, return_url }),
+      req(URLS.shop, '?action=pay', 'POST', { action: 'pay', order_id, payment_type, return_url }),
     payStatus: (order_id: number) =>
-      req(URLS.shop, `/pay-status?order_id=${order_id}`),
+      req(URLS.shop, `?action=pay_status&order_id=${order_id}`),
+    track: (order_id: number) =>
+      req(URLS.shop, `?action=track&order_id=${order_id}`),
+    setTracking: (order_id: number, carrier: string, tracking_number: string) =>
+      req(URLS.shop, '?action=set_tracking', 'POST', { action: 'set_tracking', order_id, carrier, tracking_number }),
   },
 };

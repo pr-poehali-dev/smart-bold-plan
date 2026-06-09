@@ -6,6 +6,13 @@
       "path": "/",
       "expectedStatus": 200,
       "bodyMatcher": "partial"
+    },
+    {
+      "name": "Orders requires auth",
+      "method": "GET",
+      "path": "/?action=orders",
+      "expectedStatus": 401,
+      "bodyMatcher": "partial"
     }
   ]
 }

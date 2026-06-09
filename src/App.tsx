@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Cart from "./pages/Cart";
 import Favorites from "./pages/Favorites";
 import Orders from "./pages/Orders";
+import Tracking from "./pages/Tracking";
 import Account from "./pages/Account";
 import Terms from "./pages/Terms";
 import OAuthCallback from "./pages/OAuthCallback";
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/orders/:id" element={<Orders />} />
+            <Route path="/tracking/:id" element={<Tracking />} />
             <Route path="/account" element={<Account />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/auth/callback" element={<OAuthCallback />} />
