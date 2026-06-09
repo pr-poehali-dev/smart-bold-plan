@@ -10,15 +10,27 @@ interface FavItem {
   service_id: number;
   slug: string;
   title: string;
+  description: string;
   price: number;
   category: string;
 }
+
+const CATEGORY_ICONS: Record<string, string> = {
+  printing: 'Layers',
+  modeling: 'Box',
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  printing: '3D-печать',
+  modeling: 'Моделирование',
+};
 
 export default function Favorites() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [items, setItems] = useState<FavItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [addedIds, setAddedIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/auth');
@@ -39,6 +51,10 @@ export default function Favorites() {
 
   const addToCart = async (service_id: number) => {
     await api.cart.add(service_id);
+    setAddedIds(prev => new Set(prev).add(service_id));
+    setTimeout(() => {
+      setAddedIds(prev => { const s = new Set(prev); s.delete(service_id); return s; });
+    }, 1500);
   };
 
   if (authLoading || loading) {
@@ -54,33 +70,73 @@ export default function Favorites() {
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-10 dark:text-white">Избранное</h1>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-2 dark:text-white">Избранное</h1>
+        {items.length > 0 && (
+          <p className="text-neutral-400 mb-8">{items.length} {items.length === 1 ? 'услуга' : items.length < 5 ? 'услуги' : 'услуг'}</p>
+        )}
 
         {items.length === 0 ? (
           <div className="text-center py-20">
+            <div className="w-16 h-16 rounded-2xl border border-neutral-200 dark:border-neutral-800 flex items-center justify-center mx-auto mb-4">
+              <Icon name="Heart" size={28} className="text-neutral-300 dark:text-neutral-600" />
+            </div>
             <p className="text-neutral-400 text-lg mb-6">Список избранного пуст</p>
-            <button onClick={() => navigate('/modeling')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors">
+            <button
+              onClick={() => navigate('/modeling')}
+              className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors"
+            >
               Посмотреть услуги
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {items.map(item => (
-              <div key={item.id} className="flex items-center gap-4 p-5 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900">
-                <div className="flex-1">
-                  <p className="font-semibold dark:text-white">{item.title}</p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">от {item.price.toLocaleString()} ₽</p>
+              <div key={item.id} className="p-5 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  {/* Иконка категории */}
+                  <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center shrink-0">
+                    <Icon name={CATEGORY_ICONS[item.category] || 'Package'} size={18} className="text-neutral-500 dark:text-neutral-400" />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="font-semibold dark:text-white leading-tight">{item.title}</p>
+                        {item.description && (
+                          <p className="text-sm text-neutral-400 mt-0.5">{item.description}</p>
+                        )}
+                      </div>
+                      {/* Удалить из избранного */}
+                      <button
+                        onClick={() => remove(item.service_id)}
+                        className="shrink-0 text-brand"
+                        aria-label="Удалить из избранного"
+                      >
+                        <Icon name="Heart" size={18} className="fill-brand text-brand" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-3">
+                      <div>
+                        <span className="text-xs uppercase tracking-wider text-neutral-400">
+                          {CATEGORY_LABELS[item.category] || item.category}
+                        </span>
+                        <p className="font-bold dark:text-white">от {item.price.toLocaleString()} ₽</p>
+                      </div>
+                      <button
+                        onClick={() => addToCart(item.service_id)}
+                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-xl transition-colors ${
+                          addedIds.has(item.service_id)
+                            ? 'bg-brand text-white'
+                            : 'bg-black dark:bg-white dark:text-black text-white hover:bg-brand dark:hover:bg-brand dark:hover:text-white'
+                        }`}
+                      >
+                        <Icon name={addedIds.has(item.service_id) ? 'Check' : 'ShoppingCart'} size={14} />
+                        {addedIds.has(item.service_id) ? 'Добавлено' : 'В корзину'}
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <button
-                  onClick={() => addToCart(item.service_id)}
-                  className="flex items-center gap-2 px-4 py-2 text-sm bg-black dark:bg-white dark:text-black text-white rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors"
-                >
-                  <Icon name="ShoppingCart" size={14} />
-                  В корзину
-                </button>
-                <button onClick={() => remove(item.service_id)} className="text-neutral-400 hover:text-brand transition-colors">
-                  <Icon name="Heart" size={18} className="fill-brand text-brand" />
-                </button>
               </div>
             ))}
           </div>
