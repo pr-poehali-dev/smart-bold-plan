@@ -356,21 +356,32 @@ export default function Index() {
       </section>
 
       {/* Trusted by */}
-      <section className="py-12 md:py-16 px-4 md:px-8 bg-white dark:bg-neutral-950 transition-colors duration-300">
-        <div className="container mx-auto text-center">
-          <p className="text-sm uppercase tracking-widest text-neutral-400 mb-8">Нам доверяют</p>
-          <div className="flex justify-center">
-            <div className="flex flex-col items-center gap-3">
-              <img
-                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/85b9dcef-4348-46d7-9de5-e6631e5f05d7.jpg"
-                alt="Крымский Государственный ТЮЗ"
-                className="w-40 h-40 md:w-48 md:h-48 object-contain dark:bg-white dark:rounded-2xl dark:p-3 transition-all"
-              />
-              <p className="text-base font-medium dark:text-white">Крымский ТЮЗ</p>
+      {(() => {
+        const partners = [
+          {
+            name: 'Крымский ТЮЗ',
+            logo: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/85b9dcef-4348-46d7-9de5-e6631e5f05d7.jpg',
+          },
+          // { name: 'Название партнёра', logo: 'URL логотипа' },
+        ];
+        return (
+          <section className="py-12 md:py-16 px-4 md:px-8 bg-white dark:bg-neutral-950 transition-colors duration-300">
+            <div className="container mx-auto text-center">
+              <p className="text-sm uppercase tracking-widest text-neutral-400 mb-10">Нам доверяют</p>
+              <div className="flex flex-wrap justify-center gap-8 md:gap-14">
+                {partners.map(p => (
+                  <div key={p.name} className="flex flex-col items-center gap-3 group">
+                    <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-2xl bg-neutral-50 dark:bg-white p-3 transition-all group-hover:shadow-lg">
+                      <img src={p.logo} alt={p.name} className="w-full h-full object-contain" />
+                    </div>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">{p.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        );
+      })()}
 
       {/* Footer */}
       <footer className="py-8 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
