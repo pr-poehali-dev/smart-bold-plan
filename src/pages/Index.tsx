@@ -109,7 +109,7 @@ export default function Index() {
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
-            <div className="relative w-full aspect-square bg-neutral-900">
+            <div className="relative w-full aspect-square bg-neutral-900 dark:rounded-full overflow-hidden transition-all duration-500">
               <img
                 src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
                 alt="3D печать"
@@ -250,11 +250,11 @@ export default function Index() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-brand dark:bg-neutral-900 text-white transition-colors duration-300">
+      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8">КОНТАКТЫ</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 text-pink">КОНТАКТЫ</h2>
               <p className="text-xl mb-8 dark:text-neutral-300">Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.</p>
               <div className="space-y-4">
                 <p className="flex items-center">
@@ -344,7 +344,7 @@ export default function Index() {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-8 px-8 py-3 bg-black dark:bg-brand text-white text-sm uppercase tracking-widest hover:bg-white hover:text-black dark:hover:bg-pink-300 dark:hover:text-white transition-colors disabled:opacity-50 rounded-xl"
+                    className="mt-8 px-8 py-3 bg-pink text-white text-sm uppercase tracking-widest hover:opacity-85 transition-opacity disabled:opacity-50 rounded-xl"
                   >
                     {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
                   </button>
