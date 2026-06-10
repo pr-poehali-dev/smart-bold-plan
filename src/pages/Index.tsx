@@ -362,6 +362,10 @@ export default function Index() {
             name: 'Крымский ТЮЗ',
             logo: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/85b9dcef-4348-46d7-9de5-e6631e5f05d7.jpg',
           },
+          {
+            name: 'Греки Крыма «Таврида»',
+            logo: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/100cc5b8-14b2-4335-a06e-3cdcef6ebdde.jpg',
+          },
           // { name: 'Название партнёра', logo: 'URL логотипа' },
         ];
         return (
