@@ -59,7 +59,7 @@ export default function Navbar() {
       <div className="bg-black dark:bg-neutral-900 text-white text-xs py-1.5 px-4 text-center">
         <span className="flex items-center justify-center gap-3 flex-wrap">
           <span className="flex items-center gap-1">
-            <Icon name="Truck" size={11} className="text-brand" />
+            <Icon name="Truck" size={11} className="text-pink" />
             Доставка по всей России
           </span>
           <span className="text-neutral-600 hidden sm:inline">·</span>
@@ -82,7 +82,7 @@ export default function Navbar() {
             onClick={() => navigate('/')}
             className="text-xl font-bold tracking-tighter dark:text-white shrink-0"
           >
-            FORM3D
+            FORM<span className="text-pink">3D</span>
           </button>
 
           {/* Десктоп-меню */}

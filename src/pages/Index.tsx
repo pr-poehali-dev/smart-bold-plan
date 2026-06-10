@@ -94,7 +94,7 @@ export default function Index() {
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-7 mb-6 md:mb-0">
             <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6 dark:text-white">
-              3D
+              <span className="text-pink">3D</span>
               <br />
               ФОРМА
             </h1>
@@ -145,7 +145,7 @@ export default function Index() {
                       />
                     </div>
                     <div className="w-full md:w-1/3">
-                      <p className="text-sm text-neutral-400 uppercase tracking-widest mb-2">{index + 1} / {projects.length}</p>
+                      <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
                       <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
                       <p className="text-neutral-400">{project.desc}</p>
                     </div>
@@ -173,7 +173,7 @@ export default function Index() {
                   <button
                     key={i}
                     onClick={() => setCarouselIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${i === carouselIndex ? 'bg-white' : 'bg-neutral-600'}`}
+                    className={`w-2 h-2 rounded-full transition-colors ${i === carouselIndex ? 'bg-pink' : 'bg-neutral-600'}`}
                   />
                 ))}
               </div>
@@ -235,7 +235,7 @@ export default function Index() {
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
               <p className="text-xl md:text-2xl mb-4 md:mb-6 dark:text-neutral-200">
-                FORM3D — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
+                <span className="text-pink">FORM3D</span> — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
               </p>
               <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
                 Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.

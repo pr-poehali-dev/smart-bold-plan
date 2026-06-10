@@ -64,7 +64,7 @@ export default function Modeling() {
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-12 md:pt-32 md:pb-20 max-w-5xl">
         <div className="mb-12 md:mb-16">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-4 dark:text-white">
-            Моделирование
+            <span className="text-pink">3D</span> Моделирование
           </h1>
           <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-xl">
             Создаём точные 3D-модели любой сложности — от миниатюрных деталей до крупных промышленных объектов.
@@ -89,7 +89,7 @@ export default function Modeling() {
               <Icon
                 name={plan.icon}
                 size={28}
-                className={plan.accent ? 'text-white/80 mb-4' : 'text-neutral-400 dark:text-neutral-500 mb-4'}
+                className={plan.accent ? 'text-white/80 mb-4' : 'text-pink mb-4'}
               />
               <h2 className="text-lg font-bold tracking-tight mb-1">{plan.title}</h2>
               <p className={`text-sm mb-4 ${plan.accent ? 'text-white/70' : 'text-neutral-500 dark:text-neutral-400'}`}>
