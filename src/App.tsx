@@ -15,6 +15,7 @@ import Orders from "./pages/Orders";
 import Tracking from "./pages/Tracking";
 import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
+import Partner from "./pages/Partner";
 import Terms from "./pages/Terms";
 import OAuthCallback from "./pages/OAuthCallback";
 import ChatWidget from "./components/ChatWidget";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/tracking/:id" element={<Tracking />} />
             <Route path="/checkout/:id" element={<Checkout />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/partner" element={<Partner />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/auth/callback" element={<OAuthCallback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

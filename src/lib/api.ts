@@ -2,6 +2,7 @@ const URLS = {
   auth: 'https://functions.poehali.dev/1e17b5c0-c2a0-431d-84d6-7be524bd5652',
   catalog: 'https://functions.poehali.dev/91c34bd7-46bb-4889-b23b-e24199efb0a6',
   shop: 'https://functions.poehali.dev/2aa8a997-ffa1-497e-9860-6637da001eb8',
+  partner: 'https://functions.poehali.dev/c29fe381-bc3d-4963-9c7c-575e59df3b15',
 };
 
 function getSession() {
@@ -84,5 +85,11 @@ export const api = {
       req(URLS.shop, `?action=track&order_id=${order_id}`),
     setTracking: (order_id: number, carrier: string, tracking_number: string) =>
       req(URLS.shop, '?action=set_tracking', 'POST', { action: 'set_tracking', order_id, carrier, tracking_number }),
+  },
+
+  // PARTNER
+  partner: {
+    apply: (data: { org_name: string; contact_name: string; email: string; phone?: string; description?: string }) =>
+      req(URLS.partner, '/', 'POST', data),
   },
 };

@@ -105,6 +105,10 @@ export default function Account() {
             <Icon name="ShoppingCart" size={18} />
             <span className="text-sm">Корзина</span>
           </button>
+          <button onClick={() => navigate('/partner')} className="flex items-center gap-2 p-4 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-black dark:hover:border-white transition-colors dark:text-white">
+            <Icon name="Handshake" size={18} />
+            <span className="text-sm">Стать партнёром</span>
+          </button>
         </div>
 
         <button onClick={doLogout} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-brand transition-colors">
