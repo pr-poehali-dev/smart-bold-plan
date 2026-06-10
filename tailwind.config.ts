@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			colors: {
-				brand: '#c2185b',
+				brand: '#1d4ed8',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
