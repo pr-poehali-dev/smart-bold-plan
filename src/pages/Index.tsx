@@ -259,8 +259,8 @@ export default function Index() {
               <div className="space-y-4">
                 <p className="flex items-center">
                   <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Почта</span>
-                  <a href="mailto:3DFormRussia@gmail.com" className="hover:underline dark:text-neutral-200">
-                    3DFormRussia@gmail.com
+                  <a href="mailto:3dformrussia@gmail.com" className="hover:underline dark:text-neutral-200">
+                    3dformrussia@gmail.com
                   </a>
                 </p>
                 <p className="flex items-center">
