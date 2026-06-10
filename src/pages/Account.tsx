@@ -86,7 +86,7 @@ export default function Account() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50"
+            className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50"
           >
             {saved ? 'Сохранено!' : saving ? 'Сохраняем...' : 'Сохранить'}
           </button>

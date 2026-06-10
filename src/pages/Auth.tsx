@@ -66,7 +66,7 @@ export default function Auth() {
     navigate('/account');
   };
 
-  const btnClass = "w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50";
+  const btnClass = "w-full py-4 bg-black dark:bg-white text-white dark:text-black text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50";
   const socialClass = "w-full flex items-center justify-center gap-3 py-3 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm hover:border-black dark:hover:border-white transition-colors dark:text-white";
 
   return (

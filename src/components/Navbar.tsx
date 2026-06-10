@@ -34,7 +34,7 @@ export default function Navbar() {
 
   const linkClass = (active: boolean) =>
     `text-sm uppercase tracking-widest transition-colors ${
-      active ? 'text-brand' : 'hover:text-brand dark:text-neutral-300 dark:hover:text-brand'
+      active ? 'text-black dark:text-white font-semibold' : 'text-neutral-600 hover:text-black dark:text-neutral-300 dark:hover:text-white'
     }`;
 
   const iconBtnClass = (active: boolean) =>

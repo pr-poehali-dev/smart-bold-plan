@@ -90,7 +90,7 @@ export default function Cart() {
             <p className="text-neutral-400 text-lg mb-6">Корзина пуста</p>
             <button
               onClick={() => navigate('/modeling')}
-              className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors"
+              className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
               Выбрать услугу
             </button>
@@ -149,7 +149,7 @@ export default function Cart() {
               <button
                 onClick={checkout}
                 disabled={ordering}
-                className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50"
+                className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50"
               >
                 {ordering ? 'Оформляем...' : 'Оформить заказ'}
               </button>

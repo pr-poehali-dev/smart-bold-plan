@@ -87,7 +87,7 @@ export default function Favorites() {
             <p className="text-neutral-400 text-lg mb-6">Список избранного пуст</p>
             <button
               onClick={() => navigate('/modeling')}
-              className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors"
+              className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
               Посмотреть услуги
             </button>
@@ -131,8 +131,8 @@ export default function Favorites() {
                         onClick={() => addToCart(item.service_id)}
                         className={`flex items-center gap-2 px-4 py-2 text-sm rounded-xl transition-colors ${
                           addedIds.has(item.service_id)
-                            ? 'bg-brand text-white'
-                            : 'bg-black dark:bg-white dark:text-black text-white hover:bg-brand dark:hover:bg-brand dark:hover:text-white'
+                            ? 'bg-neutral-200 dark:bg-neutral-700 text-black dark:text-white'
+                            : 'bg-black dark:bg-white dark:text-black text-white hover:bg-neutral-700 dark:hover:bg-neutral-200'
                         }`}
                       >
                         <Icon name={addedIds.has(item.service_id) ? 'Check' : 'ShoppingCart'} size={14} />

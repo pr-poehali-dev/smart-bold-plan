@@ -101,7 +101,7 @@ export default function Orders() {
                 <p className="font-medium dark:text-white mb-4">{order.tracking_number as string}</p>
                 <button
                   onClick={() => navigate(`/tracking/${order.id}`)}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
                 >
                   <Icon name="MapPin" size={16} />
                   Отследить посылку
@@ -115,7 +115,7 @@ export default function Orders() {
           {order.payment_status !== 'succeeded' && (
             <button
               onClick={() => navigate(`/checkout/${order.id}`)}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-brand text-white text-sm uppercase tracking-widest rounded-xl hover:opacity-90 transition-opacity"
+              className="w-full flex items-center justify-center gap-2 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
               <Icon name="CreditCard" size={16} />
               Перейти к оплате
@@ -136,7 +136,7 @@ export default function Orders() {
         {orders.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-neutral-400 text-lg mb-6">Заказов пока нет</p>
-            <button onClick={() => navigate('/cart')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-brand transition-colors">
+            <button onClick={() => navigate('/cart')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors">
               Перейти в корзину
             </button>
           </div>
