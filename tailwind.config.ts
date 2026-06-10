@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			colors: {
-				brand: '#e91e8c',
-				pink: '#e91e8c',
+				brand: '#d81b7a',
+				pink: '#d81b7a',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

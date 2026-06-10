@@ -61,7 +61,7 @@ export default function Cart() {
     setOrdering(true);
     const order = await api.orders.create();
     if (order.error) { setOrdering(false); return; }
-    navigate(`/orders/${order.order_id}`);
+    navigate(`/checkout/${order.order_id}`);
   };
 
   if (authLoading || loading) {

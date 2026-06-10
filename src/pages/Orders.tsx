@@ -31,7 +31,6 @@ export default function Orders() {
   const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
   const [order, setOrder] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
-  const [paying, setPaying] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/auth');
@@ -45,14 +44,6 @@ export default function Orders() {
       api.orders.list().then(data => { setOrders(data.orders || []); setLoading(false); });
     }
   }, [user, id]);
-
-  const pay = async (orderId: number, type: 'bank_card' | 'sbp') => {
-    setPaying(true);
-    const returnUrl = `${window.location.origin}/orders/${orderId}`;
-    const data = await api.orders.pay(orderId, type, returnUrl);
-    if (data.confirmation_url) window.location.href = data.confirmation_url;
-    setPaying(false);
-  };
 
   if (authLoading || loading) {
     return (
@@ -122,27 +113,13 @@ export default function Orders() {
           </div>
 
           {order.payment_status !== 'succeeded' && (
-            <div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Выберите способ оплаты:</p>
-              <div className="flex gap-3 flex-wrap">
-                <button
-                  onClick={() => pay(order.id, 'bank_card')}
-                  disabled={paying}
-                  className="flex items-center gap-2 px-6 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-brand dark:hover:bg-brand dark:hover:text-white transition-colors disabled:opacity-50"
-                >
-                  <Icon name="CreditCard" size={16} />
-                  Карта Мир
-                </button>
-                <button
-                  onClick={() => pay(order.id, 'sbp')}
-                  disabled={paying}
-                  className="flex items-center gap-2 px-6 py-3 border border-neutral-200 dark:border-neutral-700 dark:text-white text-sm rounded-xl hover:border-black dark:hover:border-white transition-colors disabled:opacity-50"
-                >
-                  <Icon name="Zap" size={16} />
-                  СБП
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={() => navigate(`/checkout/${order.id}`)}
+              className="w-full flex items-center justify-center gap-2 py-4 bg-brand text-white text-sm uppercase tracking-widest rounded-xl hover:opacity-90 transition-opacity"
+            >
+              <Icon name="CreditCard" size={16} />
+              Перейти к оплате
+            </button>
           )}
         </div>
       </div>
