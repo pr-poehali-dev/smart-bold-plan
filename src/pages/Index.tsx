@@ -129,36 +129,34 @@ export default function Index() {
           <div className="relative">
             {/* Slides */}
             <div className="overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
-              >
-                {projects.map((project, index) => (
-                  <div key={index} className="min-w-full flex flex-col md:flex-row gap-8 items-center">
-                    {project.model3d ? (
-                      <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
-                        {carouselIndex === index && <FoxModel className="w-full h-full" />}
-                      </div>
-                    ) : (
-                      <div
-                        className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
-                        onClick={() => openLightbox(index)}
-                      >
-                        <img
-                          src={project.src}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <div className="w-full md:w-1/3">
-                      <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
-                      <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
-                      <p className="text-neutral-400">{project.desc}</p>
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col md:flex-row gap-8 items-center transition-opacity duration-500 ${carouselIndex === index ? 'block opacity-100' : 'hidden opacity-0'}`}
+                >
+                  {project.model3d ? (
+                    <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
+                      {carouselIndex === index && <FoxModel className="w-full h-full" />}
                     </div>
+                  ) : (
+                    <div
+                      className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
+                      onClick={() => openLightbox(index)}
+                    >
+                      <img
+                        src={project.src}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="w-full md:w-1/3">
+                    <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
+                    <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
+                    <p className="text-neutral-400">{project.desc}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
             {/* Controls */}
