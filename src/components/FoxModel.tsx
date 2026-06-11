@@ -14,141 +14,201 @@ export default function FoxModel({ className = '' }: { className?: string }) {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 1.2, 6);
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(0, 1.0, 7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
     mount.appendChild(renderer.domElement);
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    // ---- lighting (soft studio) ----
+    const ambient = new THREE.AmbientLight(0xffffff, 0.45);
     scene.add(ambient);
-    const key = new THREE.DirectionalLight(0xffffff, 1.1);
-    key.position.set(4, 6, 5);
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.4);
+    key.position.set(5, 8, 6);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.near = 1;
+    key.shadow.camera.far = 30;
+    key.shadow.radius = 6;
     scene.add(key);
-    const rim = new THREE.DirectionalLight(0xff9955, 0.5);
-    rim.position.set(-5, 2, -4);
+
+    const fill = new THREE.DirectionalLight(0xfff0e0, 0.5);
+    fill.position.set(-6, 3, 4);
+    scene.add(fill);
+
+    const rim = new THREE.DirectionalLight(0xffb27a, 0.7);
+    rim.position.set(-4, 4, -6);
     scene.add(rim);
+
+    // ground shadow catcher
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(6, 64),
+      new THREE.ShadowMaterial({ opacity: 0.4 })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -1.55;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // ---- materials (high quality, smooth) ----
+    const SEG = 64;
+    const orange = new THREE.MeshStandardMaterial({ color: 0xe2701f, roughness: 0.62, metalness: 0.0 });
+    const cream = new THREE.MeshStandardMaterial({ color: 0xf7f1e6, roughness: 0.6, metalness: 0.0 });
+    const black = new THREE.MeshStandardMaterial({ color: 0x16120f, roughness: 0.5, metalness: 0.05 });
+    const glossBlack = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.2, metalness: 0.1 });
+
+    const mk = (geo: THREE.BufferGeometry, mat: THREE.Material) => {
+      const m = new THREE.Mesh(geo, mat);
+      m.castShadow = true;
+      m.receiveShadow = true;
+      return m;
+    };
 
     const fox = new THREE.Group();
 
-    const orange = new THREE.MeshStandardMaterial({ color: 0xe8732c, roughness: 0.55, metalness: 0.05 });
-    const white = new THREE.MeshStandardMaterial({ color: 0xf5efe6, roughness: 0.55, metalness: 0.05 });
-    const dark = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.4, metalness: 0.1 });
-
-    // body
-    const body = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), orange);
-    body.scale.set(1, 0.85, 1.1);
-    body.position.y = 0.2;
+    // ---- body (sitting, egg-like) ----
+    const body = mk(new THREE.SphereGeometry(1.05, SEG, SEG), orange);
+    body.scale.set(0.95, 1.15, 0.9);
+    body.position.y = -0.35;
     fox.add(body);
 
-    // chest (white)
-    const chest = new THREE.Mesh(new THREE.SphereGeometry(0.55, 24, 24), white);
-    chest.scale.set(1, 1.1, 0.6);
-    chest.position.set(0, 0, 0.75);
+    // chest / belly (cream)
+    const chest = mk(new THREE.SphereGeometry(0.62, SEG, SEG), cream);
+    chest.scale.set(0.85, 1.25, 0.55);
+    chest.position.set(0, -0.25, 0.62);
     fox.add(chest);
 
-    // head
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.7, 32, 32), orange);
-    head.position.set(0, 1.05, 0.55);
+    // ---- head ----
+    const head = mk(new THREE.SphereGeometry(0.78, SEG, SEG), orange);
+    head.scale.set(1, 0.95, 0.98);
+    head.position.set(0, 0.95, 0.22);
     fox.add(head);
 
-    // snout
-    const snout = new THREE.Mesh(new THREE.ConeGeometry(0.32, 0.7, 24), white);
-    snout.rotation.x = Math.PI / 2;
-    snout.position.set(0, 0.95, 1.15);
-    fox.add(snout);
+    // cheeks (cream fluff)
+    const cheekGeo = new THREE.SphereGeometry(0.34, 40, 40);
+    const cheekL = mk(cheekGeo, cream);
+    cheekL.scale.set(0.9, 0.8, 0.7);
+    cheekL.position.set(-0.52, 0.78, 0.45);
+    fox.add(cheekL);
+    const cheekR = mk(cheekGeo, cream);
+    cheekR.scale.set(0.9, 0.8, 0.7);
+    cheekR.position.set(0.52, 0.78, 0.45);
+    fox.add(cheekR);
+
+    // muzzle
+    const muzzle = mk(new THREE.SphereGeometry(0.42, 48, 48), cream);
+    muzzle.scale.set(0.78, 0.62, 1.05);
+    muzzle.position.set(0, 0.74, 0.85);
+    fox.add(muzzle);
 
     // nose
-    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), dark);
-    nose.position.set(0, 0.95, 1.5);
+    const nose = mk(new THREE.SphereGeometry(0.13, 32, 32), glossBlack);
+    nose.scale.set(1.2, 0.9, 1);
+    nose.position.set(0, 0.78, 1.28);
     fox.add(nose);
 
     // eyes
-    const eyeGeo = new THREE.SphereGeometry(0.1, 16, 16);
-    const eyeL = new THREE.Mesh(eyeGeo, dark);
-    eyeL.position.set(-0.28, 1.2, 1.05);
+    const eyeGeo = new THREE.SphereGeometry(0.12, 32, 32);
+    const eyeL = mk(eyeGeo, glossBlack);
+    eyeL.position.set(-0.3, 1.02, 0.92);
     fox.add(eyeL);
-    const eyeR = new THREE.Mesh(eyeGeo, dark);
-    eyeR.position.set(0.28, 1.2, 1.05);
+    const eyeR = mk(eyeGeo, glossBlack);
+    eyeR.position.set(0.3, 1.02, 0.92);
     fox.add(eyeR);
+    // eye highlights
+    const hlGeo = new THREE.SphereGeometry(0.035, 16, 16);
+    const hlMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const hlL = new THREE.Mesh(hlGeo, hlMat); hlL.position.set(-0.27, 1.06, 1.02); fox.add(hlL);
+    const hlR = new THREE.Mesh(hlGeo, hlMat); hlR.position.set(0.33, 1.06, 1.02); fox.add(hlR);
 
-    // ears
-    const earGeo = new THREE.ConeGeometry(0.32, 0.75, 4);
-    const earL = new THREE.Mesh(earGeo, orange);
-    earL.position.set(-0.4, 1.75, 0.4);
-    earL.rotation.set(0, Math.PI / 4, -0.25);
+    // ---- ears (smooth cones) ----
+    const earGeo = new THREE.ConeGeometry(0.34, 0.95, 48);
+    const earL = mk(earGeo, orange);
+    earL.position.set(-0.46, 1.82, 0.12);
+    earL.rotation.set(0.15, 0, -0.22);
     fox.add(earL);
-    const earR = new THREE.Mesh(earGeo, orange);
-    earR.position.set(0.4, 1.75, 0.4);
-    earR.rotation.set(0, Math.PI / 4, 0.25);
+    const earR = mk(earGeo, orange);
+    earR.position.set(0.46, 1.82, 0.12);
+    earR.rotation.set(0.15, 0, 0.22);
     fox.add(earR);
 
-    const earInnerGeo = new THREE.ConeGeometry(0.16, 0.4, 4);
-    const earInL = new THREE.Mesh(earInnerGeo, dark);
-    earInL.position.set(-0.4, 1.72, 0.5);
-    earInL.rotation.set(0, Math.PI / 4, -0.25);
+    const earInGeo = new THREE.ConeGeometry(0.18, 0.6, 40);
+    const earInL = mk(earInGeo, black);
+    earInL.position.set(-0.45, 1.78, 0.26);
+    earInL.rotation.set(0.15, 0, -0.22);
     fox.add(earInL);
-    const earInR = new THREE.Mesh(earInnerGeo, dark);
-    earInR.position.set(0.4, 1.72, 0.5);
-    earInR.rotation.set(0, Math.PI / 4, 0.25);
+    const earInR = mk(earInGeo, black);
+    earInR.position.set(0.45, 1.78, 0.26);
+    earInR.rotation.set(0.15, 0, 0.22);
     fox.add(earInR);
 
-    // legs
-    const legGeo = new THREE.CylinderGeometry(0.18, 0.16, 0.6, 16);
-    const legPositions: [number, number, number][] = [
-      [-0.45, -0.55, 0.55],
-      [0.45, -0.55, 0.55],
-      [-0.45, -0.55, -0.45],
-      [0.45, -0.55, -0.45],
-    ];
-    legPositions.forEach(([x, y, z]) => {
-      const leg = new THREE.Mesh(legGeo, dark);
-      leg.position.set(x, y, z);
-      fox.add(leg);
-    });
+    // ---- front legs (black socks) ----
+    const frontLegGeo = new THREE.CapsuleGeometry(0.17, 0.55, 16, 32);
+    const frontL = mk(frontLegGeo, black);
+    frontL.position.set(-0.34, -0.95, 0.78);
+    fox.add(frontL);
+    const frontR = mk(frontLegGeo, black);
+    frontR.position.set(0.34, -0.95, 0.78);
+    fox.add(frontR);
+    // paws
+    const pawGeo = new THREE.SphereGeometry(0.2, 32, 32);
+    const pawL = mk(pawGeo, black); pawL.scale.set(1, 0.7, 1.2); pawL.position.set(-0.34, -1.32, 0.92); fox.add(pawL);
+    const pawR = mk(pawGeo, black); pawR.scale.set(1, 0.7, 1.2); pawR.position.set(0.34, -1.32, 0.92); fox.add(pawR);
 
-    // tail
-    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.4, 1.6, 24), orange);
-    tail.rotation.set(-Math.PI / 3, 0, 0);
-    tail.position.set(0, 0.5, -1.15);
+    // ---- haunches (sitting back legs) ----
+    const haunchGeo = new THREE.SphereGeometry(0.5, 48, 48);
+    const haunchL = mk(haunchGeo, orange); haunchL.scale.set(0.8, 0.9, 1.1); haunchL.position.set(-0.75, -0.85, 0.1); fox.add(haunchL);
+    const haunchR = mk(haunchGeo, orange); haunchR.scale.set(0.8, 0.9, 1.1); haunchR.position.set(0.75, -0.85, 0.1); fox.add(haunchR);
+
+    // ---- tail (curved, fluffy, white tip) ----
+    const tailCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, -0.6, -0.7),
+      new THREE.Vector3(0.5, -0.5, -1.1),
+      new THREE.Vector3(0.95, -0.05, -1.0),
+      new THREE.Vector3(1.05, 0.6, -0.5),
+      new THREE.Vector3(0.85, 1.05, 0.05),
+    ]);
+    const tail = mk(new THREE.TubeGeometry(tailCurve, 64, 0.42, 32, false), orange);
     fox.add(tail);
-    const tailTip = new THREE.Mesh(new THREE.SphereGeometry(0.38, 24, 24), white);
-    tailTip.position.set(0, 1.1, -1.75);
+    const tailTip = mk(new THREE.SphereGeometry(0.42, 48, 48), cream);
+    tailTip.position.set(0.85, 1.05, 0.05);
     fox.add(tailTip);
+    const tailBase = mk(new THREE.SphereGeometry(0.42, 48, 48), orange);
+    tailBase.position.set(0, -0.6, -0.7);
+    fox.add(tailBase);
 
-    fox.position.y = 0.1;
+    fox.position.y = 0.45;
     scene.add(fox);
 
-    // interaction
-    let rotY = 0;
-    let rotX = 0.1;
+    // ---- interaction ----
+    let rotY = -0.3;
+    let rotX = 0.05;
     let dragging = false;
     let autoRotate = true;
     let lastX = 0;
     let lastY = 0;
 
-    const onDown = (clientX: number, clientY: number) => {
-      dragging = true;
-      autoRotate = false;
-      lastX = clientX;
-      lastY = clientY;
-    };
-    const onMove = (clientX: number, clientY: number) => {
+    const onDown = (x: number, y: number) => { dragging = true; autoRotate = false; lastX = x; lastY = y; };
+    const onMove = (x: number, y: number) => {
       if (!dragging) return;
-      rotY += (clientX - lastX) * 0.01;
-      rotX += (clientY - lastY) * 0.01;
-      rotX = Math.max(-0.6, Math.min(0.8, rotX));
-      lastX = clientX;
-      lastY = clientY;
+      rotY += (x - lastX) * 0.01;
+      rotX += (y - lastY) * 0.01;
+      rotX = Math.max(-0.5, Math.min(0.7, rotX));
+      lastX = x; lastY = y;
     };
     const onUp = () => { dragging = false; };
 
     const md = (e: MouseEvent) => onDown(e.clientX, e.clientY);
     const mm = (e: MouseEvent) => onMove(e.clientX, e.clientY);
     const ts = (e: TouchEvent) => onDown(e.touches[0].clientX, e.touches[0].clientY);
-    const tm = (e: TouchEvent) => { onMove(e.touches[0].clientX, e.touches[0].clientY); };
+    const tm = (e: TouchEvent) => onMove(e.touches[0].clientX, e.touches[0].clientY);
 
     mount.addEventListener('mousedown', md);
     window.addEventListener('mousemove', mm);
