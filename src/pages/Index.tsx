@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import Navbar from '@/components/Navbar';
+import FoxModel from '@/components/FoxModel';
 
 export default function Index() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -42,7 +43,7 @@ export default function Index() {
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/9931de50-f284-450a-9132-0aa4c921519d.jpg', title: 'Гос. заказы', desc: 'Выполняем государственные заказы — реквизит и костюмы для театров и учреждений культуры' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Шлем воина', desc: 'Детализированный шлем в стиле античного доспеха для театральной постановки' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5d7a0ff6-337b-44f1-a131-175ebfed5039.jpg', title: 'Игрушки на заказ', desc: 'Выполняем печать игрушек в большом количестве' },
-    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/6c32efb3-d3ba-4c3b-8589-9e2e5871e409.jpg', title: 'Фигурки под заказ', desc: 'От моделинга до готовой фигурки под вашу задумку' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/6c32efb3-d3ba-4c3b-8589-9e2e5871e409.jpg', title: 'Фигурки под заказ', desc: 'От моделинга до готовой фигурки под вашу задумку', model3d: true },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/ef26180b-32b6-4f4e-984b-12eddc1d2fc5.jpg', title: 'Детали и аксессуары', desc: 'Детали и аксессуары под любую задачу — точно и в срок' },
   ];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -134,16 +135,22 @@ export default function Index() {
               >
                 {projects.map((project, index) => (
                   <div key={index} className="min-w-full flex flex-col md:flex-row gap-8 items-center">
-                    <div
-                      className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
-                      onClick={() => openLightbox(index)}
-                    >
-                      <img
-                        src={project.src}
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
+                    {project.model3d ? (
+                      <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
+                        <FoxModel className="w-full h-full" />
+                      </div>
+                    ) : (
+                      <div
+                        className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
+                        onClick={() => openLightbox(index)}
+                      >
+                        <img
+                          src={project.src}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
                     <div className="w-full md:w-1/3">
                       <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
                       <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
@@ -201,11 +208,17 @@ export default function Index() {
             <Icon name="ChevronLeft" size={36} />
           </button>
           <div className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={projects[lightboxIndex].src}
-              alt={projects[lightboxIndex].title}
-              className="max-w-[80vw] max-h-[80vh] object-contain"
-            />
+            {projects[lightboxIndex].model3d ? (
+              <div className="w-[80vw] h-[70vh] bg-black">
+                <FoxModel className="w-full h-full" />
+              </div>
+            ) : (
+              <img
+                src={projects[lightboxIndex].src}
+                alt={projects[lightboxIndex].title}
+                className="max-w-[80vw] max-h-[80vh] object-contain"
+              />
+            )}
             <p className="text-white mt-4 text-lg font-semibold">{projects[lightboxIndex].title}</p>
             <p className="text-neutral-400 text-sm mt-1">{lightboxIndex + 1} / {projects.length}</p>
           </div>
