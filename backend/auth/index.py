@@ -132,14 +132,14 @@ def handler(event: dict, context) -> dict:
                 return r(401, headers, {'error': 'Не авторизован'})
             with conn.cursor() as cur:
                 cur.execute("""
-                    SELECT u.id, u.email, u.name, u.phone FROM users u
+                    SELECT u.id, u.email, u.name, u.phone, u.is_partner FROM users u
                     JOIN sessions s ON s.user_id = u.id
                     WHERE s.id = %s AND s.expires_at > NOW()
                 """, (session_id,))
                 row = cur.fetchone()
             if not row:
                 return r(401, headers, {'error': 'Сессия истекла'})
-            return r(200, headers, {'id': row[0], 'email': row[1], 'name': row[2], 'phone': row[3]})
+            return r(200, headers, {'id': row[0], 'email': row[1], 'name': row[2], 'phone': row[3], 'is_partner': row[4]})
 
         # update
         if action == 'update':

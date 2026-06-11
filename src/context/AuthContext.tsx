@@ -6,6 +6,7 @@ interface User {
   email: string;
   name: string;
   phone?: string;
+  is_partner?: boolean;
 }
 
 interface AuthContextType {
