@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "GLB proxy returns binary",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
