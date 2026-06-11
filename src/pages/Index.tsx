@@ -137,7 +137,7 @@ export default function Index() {
                   <div key={index} className="min-w-full flex flex-col md:flex-row gap-8 items-center">
                     {project.model3d ? (
                       <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
-                        <FoxModel className="w-full h-full" />
+                        {carouselIndex === index && <FoxModel className="w-full h-full" />}
                       </div>
                     ) : (
                       <div
