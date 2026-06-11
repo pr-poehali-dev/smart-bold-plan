@@ -42,7 +42,7 @@ export default function Index() {
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/9931de50-f284-450a-9132-0aa4c921519d.jpg', title: 'Гос. заказы', desc: 'Выполняем государственные заказы — реквизит и костюмы для театров и учреждений культуры' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Шлем воина', desc: 'Детализированный шлем в стиле античного доспеха для театральной постановки' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5d7a0ff6-337b-44f1-a131-175ebfed5039.jpg', title: 'Игрушки на заказ', desc: 'Выполняем печать игрушек в большом количестве' },
-    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5f95621c-bb20-45af-b282-0d46117faf0c.jpg', title: 'Фигурки под заказ', desc: 'От моделинга до готовой фигурки под вашу задумку' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/files/6c32efb3-d3ba-4c3b-8589-9e2e5871e409.jpg', title: 'Фигурки под заказ', desc: 'От моделинга до готовой фигурки под вашу задумку' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/ef26180b-32b6-4f4e-984b-12eddc1d2fc5.jpg', title: 'Детали и аксессуары', desc: 'Детали и аксессуары под любую задачу — точно и в срок' },
   ];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
