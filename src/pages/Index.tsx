@@ -136,7 +136,7 @@ export default function Index() {
                 >
                   {project.model3d ? (
                     <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
-                      {carouselIndex === index && <FoxModel className="w-full h-full" />}
+                      <FoxModel className="w-full h-full" />
                     </div>
                   ) : (
                     <div
