@@ -85,7 +85,7 @@ export default function Navbar() {
             <span className="text-3xl md:text-5xl font-bold tracking-tighter dark:text-white">
               FORM<span className="text-pink">3D</span>
             </span>
-            <span className="text-[9px] md:text-[10px] tracking-[0.2em] text-neutral-400 dark:text-neutral-500 mt-1">
+            <span className="text-[11px] md:text-sm font-semibold tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mt-1">
               created in 2026
             </span>
           </button>
