@@ -80,9 +80,14 @@ export default function Navbar() {
           {/* Логотип */}
           <button
             onClick={() => navigate('/')}
-            className="text-3xl md:text-5xl font-bold tracking-tighter dark:text-white shrink-0 leading-none"
+            className="shrink-0 flex flex-col items-start leading-none"
           >
-            FORM<span className="text-pink">3D</span>
+            <span className="text-3xl md:text-5xl font-bold tracking-tighter dark:text-white">
+              FORM<span className="text-pink">3D</span>
+            </span>
+            <span className="text-[10px] md:text-xs tracking-[0.3em] text-neutral-400 dark:text-neutral-500 mt-1">
+              east.2026
+            </span>
           </button>
 
           {/* Десктоп-меню */}
