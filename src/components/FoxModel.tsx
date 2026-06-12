@@ -57,29 +57,44 @@ export default function FoxModel({ className = '' }: { className?: string }) {
         MODEL_URL,
         (gltf) => {
           const model = gltf.scene;
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 2.5 / maxDim;
-          model.scale.setScalar(scale);
-          model.position.sub(center.multiplyScalar(scale));
+
           model.traverse((c) => {
             if ((c as THREE.Mesh).isMesh) {
               c.castShadow = true;
               c.receiveShadow = true;
             }
           });
-          scene.add(model);
 
-          const newBox = new THREE.Box3().setFromObject(model);
-          const newSize = newBox.getSize(new THREE.Vector3());
-          const radius = newSize.length() / 2;
+          model.updateWorldMatrix(true, true);
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z) || 1;
+          const scale = 2.5 / maxDim;
+
+          model.position.set(
+            -center.x * scale,
+            -center.y * scale,
+            -center.z * scale
+          );
+          model.scale.setScalar(scale);
+
+          const pivot = new THREE.Group();
+          pivot.add(model);
+          scene.add(pivot);
+
+          const radius = (size.length() * scale) / 2;
           const fitDist = radius / Math.sin((camera.fov * Math.PI) / 360);
-          camera.position.set(0, 0, fitDist * 1.25);
+          const dist = fitDist * 1.3;
+
+          camera.near = Math.max(dist - radius * 2, 0.01);
+          camera.far = dist + radius * 4;
+          camera.position.set(0, 0, dist);
+          camera.updateProjectionMatrix();
+
           controls.target.set(0, 0, 0);
-          controls.minDistance = fitDist * 1.25;
-          controls.maxDistance = fitDist * 1.25;
+          controls.minDistance = dist;
+          controls.maxDistance = dist;
           controls.update();
         },
         undefined,
