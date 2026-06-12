@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const MODEL_URL = 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/21d8c115-7efe-495b-b890-e9f2eff6ed19.glb';
+const MODEL_URL = 'https://functions.poehali.dev/f73ca4ef-394b-4ba4-895f-eff2460d7f49';
 
 export default function FoxModel({ className = '' }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -53,9 +53,7 @@ export default function FoxModel({ className = '' }: { className?: string }) {
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2.5;
 
-      new GLTFLoader().load(
-        MODEL_URL,
-        (gltf) => {
+      const onLoad = (gltf: { scene: THREE.Group }) => {
           const model = gltf.scene;
 
           model.traverse((c) => {
@@ -103,10 +101,24 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           controls.minDistance = dist;
           controls.maxDistance = dist;
           controls.update();
-        },
-        undefined,
-        (err) => console.error('GLB error:', err)
-      );
+      };
+
+      const loader = new GLTFLoader();
+      fetch(MODEL_URL)
+        .then((r) => {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.arrayBuffer();
+        })
+        .then((buf) => {
+          console.log('FOXDBG bytes', buf.byteLength);
+          loader.parse(
+            buf,
+            '',
+            (gltf) => onLoad(gltf as { scene: THREE.Group }),
+            (err) => console.error('GLB parse error:', err)
+          );
+        })
+        .catch((err) => console.error('GLB fetch error:', err));
 
       const animate = () => {
         frame = requestAnimationFrame(animate);
