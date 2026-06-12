@@ -25,7 +25,7 @@ export default function FoxModel({ className = '' }: { className?: string }) {
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x111111);
 
-      camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+      camera = new THREE.PerspectiveCamera(40, width / height, 0.01, 1000);
       camera.position.set(0, 0.5, 6);
 
       renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -52,8 +52,6 @@ export default function FoxModel({ className = '' }: { className?: string }) {
       controls.enablePan = false;
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2.5;
-      controls.minPolarAngle = Math.PI / 4;
-      controls.maxPolarAngle = Math.PI / 1.8;
 
       new GLTFLoader().load(
         MODEL_URL,
@@ -74,9 +72,14 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           });
           scene.add(model);
 
-          const fitDist = (2.5 / 2) / Math.tan((camera.fov * Math.PI) / 360);
-          camera.position.set(0, 0.3, fitDist * 1.4);
+          const newBox = new THREE.Box3().setFromObject(model);
+          const newSize = newBox.getSize(new THREE.Vector3());
+          const radius = newSize.length() / 2;
+          const fitDist = radius / Math.sin((camera.fov * Math.PI) / 360);
+          camera.position.set(0, 0, fitDist * 1.25);
           controls.target.set(0, 0, 0);
+          controls.minDistance = fitDist * 1.25;
+          controls.maxDistance = fitDist * 1.25;
           controls.update();
         },
         undefined,
