@@ -128,11 +128,11 @@ export default function Index() {
 
           <div className="relative">
             {/* Slides */}
-            <div className="overflow-hidden">
+            <div className="relative overflow-hidden">
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className={`flex flex-col md:flex-row gap-8 items-center transition-opacity duration-500 ${carouselIndex === index ? 'block opacity-100' : 'hidden opacity-0'}`}
+                  className={`flex flex-col md:flex-row gap-8 items-center transition-opacity duration-500 ${carouselIndex === index ? 'relative opacity-100 z-10' : 'absolute inset-0 opacity-0 pointer-events-none z-0'}`}
                 >
                   {project.model3d ? (
                     <div className="w-full md:w-2/3 aspect-video bg-black overflow-hidden">
