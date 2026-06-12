@@ -80,7 +80,7 @@ export default function Navbar() {
           {/* Логотип */}
           <button
             onClick={() => navigate('/')}
-            className="text-2xl font-bold tracking-tighter dark:text-white shrink-0"
+            className="text-3xl md:text-5xl font-bold tracking-tighter dark:text-white shrink-0 leading-none"
           >
             FORM<span className="text-pink">3D</span>
           </button>

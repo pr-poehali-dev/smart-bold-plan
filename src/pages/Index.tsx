@@ -59,7 +59,7 @@ export default function Index() {
     if (lightboxIndex !== null) return;
     const timer = setInterval(() => {
       setCarouselIndex(i => (i + 1) % projects.length);
-    }, 4000);
+    }, 8000);
     return () => clearInterval(timer);
   }, [lightboxIndex, projects.length]);
 
