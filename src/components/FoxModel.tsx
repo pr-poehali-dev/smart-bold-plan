@@ -26,7 +26,7 @@ export default function FoxModel({ className = '' }: { className?: string }) {
       scene.background = new THREE.Color(0x111111);
 
       camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-      camera.position.set(0, 1, 4);
+      camera.position.set(0, 0.5, 6);
 
       renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(width, height);
@@ -62,7 +62,8 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
-          const scale = 2.5 / Math.max(size.x, size.y, size.z);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 2.5 / maxDim;
           model.scale.setScalar(scale);
           model.position.sub(center.multiplyScalar(scale));
           model.traverse((c) => {
@@ -72,6 +73,11 @@ export default function FoxModel({ className = '' }: { className?: string }) {
             }
           });
           scene.add(model);
+
+          const fitDist = (2.5 / 2) / Math.tan((camera.fov * Math.PI) / 360);
+          camera.position.set(0, 0.3, fitDist * 1.4);
+          controls.target.set(0, 0, 0);
+          controls.update();
         },
         undefined,
         (err) => console.error('GLB error:', err)
