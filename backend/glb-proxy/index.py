@@ -1,7 +1,7 @@
 import urllib.request
 import base64
 
-GLB_URL = 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/21d8c115-7efe-495b-b890-e9f2eff6ed19.glb'
+GLB_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF-Binary/Fox.glb'
 
 CORS = {
     'Access-Control-Allow-Origin': '*',

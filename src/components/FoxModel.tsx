@@ -17,6 +17,8 @@ export default function FoxModel({ className = '' }: { className?: string }) {
     let renderer: THREE.WebGLRenderer;
     let controls: OrbitControls;
     let camera: THREE.PerspectiveCamera;
+    const mixer: THREE.AnimationMixer | null = null;
+    const clock = new THREE.Clock();
 
     const start = (width: number, height: number) => {
       if (started) return;
@@ -53,8 +55,13 @@ export default function FoxModel({ className = '' }: { className?: string }) {
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2.5;
 
-      const onLoad = (gltf: { scene: THREE.Group }) => {
+      const onLoad = (gltf: { scene: THREE.Group; animations: THREE.AnimationClip[] }) => {
           const model = gltf.scene;
+
+          if (gltf.animations && gltf.animations.length) {
+            mixer = new THREE.AnimationMixer(model);
+            mixer.clipAction(gltf.animations[0]).play();
+          }
 
           model.traverse((c) => {
             if ((c as THREE.Mesh).isMesh) {
@@ -69,11 +76,6 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           const size = box.getSize(new THREE.Vector3());
           const maxDim = Math.max(size.x, size.y, size.z) || 1;
           const scale = 2.5 / maxDim;
-          console.log('FOXDBG', JSON.stringify({
-            size: [size.x, size.y, size.z],
-            center: [center.x, center.y, center.z],
-            childCount: model.children.length,
-          }));
 
           model.position.set(
             -center.x * scale,
@@ -110,11 +112,10 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           return r.arrayBuffer();
         })
         .then((buf) => {
-          console.log('FOXDBG bytes', buf.byteLength);
           loader.parse(
             buf,
             '',
-            (gltf) => onLoad(gltf as { scene: THREE.Group }),
+            (gltf) => onLoad(gltf as { scene: THREE.Group; animations: THREE.AnimationClip[] }),
             (err) => console.error('GLB parse error:', err)
           );
         })
@@ -122,6 +123,8 @@ export default function FoxModel({ className = '' }: { className?: string }) {
 
       const animate = () => {
         frame = requestAnimationFrame(animate);
+        const delta = clock.getDelta();
+        if (mixer) mixer.update(delta);
         controls.update();
         renderer.render(scene, camera);
       };
