@@ -110,8 +110,11 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Gradient: white → black */}
+      <div className="h-24 bg-gradient-to-b from-white dark:from-neutral-950 to-black" />
+
       {/* Work Section */}
-      <section id="work" className="py-12 md:py-20 bg-black text-white overflow-hidden">
+      <section id="work" className="pb-12 md:pb-20 bg-black text-white overflow-hidden">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">{t('РАБОТЫ')}</h2>
         </div>
@@ -201,8 +204,11 @@ export default function Index() {
         </div>
       )}
 
+      {/* Gradient: black → white */}
+      <div className="h-24 bg-gradient-to-b from-black to-white dark:to-neutral-950" />
+
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 md:px-8 overflow-hidden dark:bg-neutral-950 transition-colors duration-300">
+      <section id="about" className="pb-12 md:pb-20 px-4 md:px-8 overflow-hidden dark:bg-neutral-950 transition-colors duration-300">
         <div className="w-full max-w-full">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
@@ -232,8 +238,11 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Gradient: white → black */}
+      <div className="h-24 bg-gradient-to-b from-white dark:from-neutral-950 to-black" />
+
       {/* Contact Section */}
-      <section id="contact" className="py-12 md:py-20 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
+      <section id="contact" className="pb-12 md:pb-20 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
