@@ -57,7 +57,7 @@ export default function Partner() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
-      <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-xl">
+      <div className="container mx-auto px-4 md:px-8 pt-36 md:pt-44 pb-20 max-w-xl">
 
         <button
           onClick={() => navigate('/account')}
