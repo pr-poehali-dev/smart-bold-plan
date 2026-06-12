@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const MODEL_URL = 'https://functions.poehali.dev/f73ca4ef-394b-4ba4-895f-eff2460d7f49';
+const MODEL_URL = 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/21d8c115-7efe-495b-b890-e9f2eff6ed19.glb';
 
 export default function FoxModel({ className = '' }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
