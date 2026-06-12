@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+import { useLang } from '@/context/LanguageContext';
 
 const plans = [
   {
@@ -22,6 +23,7 @@ export default function Printing() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { refreshCounts } = useCart();
+  const { t } = useLang();
   const [added, setAdded] = useState<Record<number, 'cart' | 'fav' | null>>({});
 
   const handleCart = async (id: number) => {
@@ -46,10 +48,10 @@ export default function Printing() {
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-12 md:pt-32 md:pb-20 max-w-5xl">
         <div className="mb-12 md:mb-16">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-4 dark:text-white">
-            <span className="text-pink">3D</span>-печать
+            <span className="text-pink">3D</span>{t('-печать')}
           </h1>
           <p className="text-base md:text-lg text-neutral-500 dark:text-neutral-400 max-w-xl">
-            Печатаем на FDM и фотополимерных принтерах — выбирайте технологию под вашу задачу.
+            {t('Печатаем на FDM и фотополимерных принтерах — выбирайте технологию под вашу задачу.')}
           </p>
         </div>
 
@@ -65,7 +67,7 @@ export default function Printing() {
             >
               {plan.accent && (
                 <span className="absolute top-4 right-4 text-xs uppercase tracking-widest bg-white/20 rounded-full px-3 py-1">
-                  Популярное
+                  {t('Популярное')}
                 </span>
               )}
               <Icon
@@ -73,9 +75,9 @@ export default function Printing() {
                 size={28}
                 className={plan.accent ? 'text-white/80 mb-4' : 'text-pink mb-4'}
               />
-              <h2 className="text-lg font-bold tracking-tight mb-1">{plan.title}</h2>
+              <h2 className="text-lg font-bold tracking-tight mb-1">{t(plan.title)}</h2>
               <p className={`text-sm mb-4 ${plan.accent ? 'text-white/70' : 'text-neutral-500 dark:text-neutral-400'}`}>
-                {plan.description}
+                {t(plan.description)}
               </p>
               <div className="text-3xl font-bold tracking-tighter mb-4">{plan.price}</div>
               <ul className="space-y-2 mb-6 flex-1">
@@ -87,7 +89,7 @@ export default function Printing() {
                       className={plan.accent ? 'text-white/80 shrink-0' : 'text-brand shrink-0'}
                     />
                     <span className={plan.accent ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-300'}>
-                      {ex}
+                      {t(ex)}
                     </span>
                   </li>
                 ))}
@@ -102,7 +104,7 @@ export default function Printing() {
                   }`}
                 >
                   <Icon name="ShoppingCart" size={14} />
-                  {added[plan.id] === 'cart' ? 'Добавлено!' : 'В корзину'}
+                  {added[plan.id] === 'cart' ? t('Добавлено!') : t('В корзину')}
                 </button>
                 <button
                   onClick={() => handleFav(plan.id)}
@@ -111,7 +113,7 @@ export default function Printing() {
                       ? 'border-white/40 hover:bg-white/10'
                       : 'border-neutral-200 dark:border-neutral-700 hover:border-neutral-500'
                   }`}
-                  title="В избранное"
+                  title={t('В избранное')}
                 >
                   <Icon
                     name="Heart"
@@ -129,9 +131,9 @@ export default function Printing() {
             href="/#contact"
             className="inline-block px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors rounded-xl"
           >
-            Заказать печать
+            {t('Заказать печать')}
           </a>
-          <span className="text-sm text-neutral-400">Ответим в течение 1 рабочего дня</span>
+          <span className="text-sm text-neutral-400">{t('Ответим в течение 1 рабочего дня')}</span>
         </div>
       </div>
     </div>

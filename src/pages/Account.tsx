@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
 
 export default function Account() {
   const { user, loading: authLoading, logout, refresh } = useAuth();
+  const { t } = useLang();
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -43,7 +45,7 @@ export default function Account() {
     return (
       <div className="min-h-screen bg-white dark:bg-neutral-950">
         <Navbar />
-        <div className="pt-32 text-center text-neutral-400">Загрузка...</div>
+        <div className="pt-32 text-center text-neutral-400">{t('Загрузка...')}</div>
       </div>
     );
   }
@@ -53,17 +55,17 @@ export default function Account() {
       <Navbar />
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-xl">
         <div className="flex items-center gap-3 mb-10">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter dark:text-white">Профиль</h1>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter dark:text-white">{t('Профиль')}</h1>
           {user.is_partner && (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-green-500 text-white shadow-lg shadow-green-500/30">
-              Партнёр
+              {t('Партнёр')}
             </span>
           )}
         </div>
 
         <form onSubmit={save} className="space-y-4 mb-10">
           <div>
-            <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">Имя</label>
+            <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">{t('Имя')}</label>
             <input
               type="text"
               value={name}
@@ -81,7 +83,7 @@ export default function Account() {
             />
           </div>
           <div>
-            <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">Телефон</label>
+            <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">{t('Телефон')}</label>
             <input
               type="tel"
               value={phone}
@@ -95,32 +97,32 @@ export default function Account() {
             disabled={saving}
             className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50"
           >
-            {saved ? 'Сохранено!' : saving ? 'Сохраняем...' : 'Сохранить'}
+            {saved ? t('Сохранено!') : saving ? t('Сохраняем...') : t('Сохранить')}
           </button>
         </form>
 
         <div className="grid grid-cols-2 gap-3 mb-10">
           <button onClick={() => navigate('/orders')} className="flex items-center gap-2 p-4 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-black dark:hover:border-white transition-colors dark:text-white">
             <Icon name="Package" size={18} />
-            <span className="text-sm">Мои заказы</span>
+            <span className="text-sm">{t('Мои заказы')}</span>
           </button>
           <button onClick={() => navigate('/favorites')} className="flex items-center gap-2 p-4 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-black dark:hover:border-white transition-colors dark:text-white">
             <Icon name="Heart" size={18} />
-            <span className="text-sm">Избранное</span>
+            <span className="text-sm">{t('Избранное')}</span>
           </button>
           <button onClick={() => navigate('/cart')} className="flex items-center gap-2 p-4 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-black dark:hover:border-white transition-colors dark:text-white">
             <Icon name="ShoppingCart" size={18} />
-            <span className="text-sm">Корзина</span>
+            <span className="text-sm">{t('Корзина')}</span>
           </button>
           <button onClick={() => navigate('/partner')} className="flex items-center gap-2 p-4 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-black dark:hover:border-white transition-colors dark:text-white">
             <Icon name="Handshake" size={18} />
-            <span className="text-sm">Стать партнёром</span>
+            <span className="text-sm">{t('Стать партнёром')}</span>
           </button>
         </div>
 
         <button onClick={doLogout} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-brand transition-colors">
           <Icon name="LogOut" size={16} />
-          Выйти из аккаунта
+          {t('Выйти из аккаунта')}
         </button>
       </div>
     </div>

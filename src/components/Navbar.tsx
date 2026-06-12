@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+import { useLang } from '@/context/LanguageContext';
+import LangSwitcher from '@/components/LangSwitcher';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ export default function Navbar() {
   const isHome = location.pathname === '/';
   const { user } = useAuth();
   const { cartCount, favCount } = useCart();
+  const { t } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [dark, setDark] = useState(() => {
@@ -60,17 +63,17 @@ export default function Navbar() {
         <span className="flex items-center justify-center gap-3 flex-wrap">
           <span className="flex items-center gap-1">
             <Icon name="Truck" size={11} className="text-pink" />
-            Доставка по всей России
+            {t('Доставка по всей России')}
           </span>
           <span className="text-neutral-600 hidden sm:inline">·</span>
           <span className="flex items-center gap-1">
             <Icon name="Package" size={11} className="text-neutral-400" />
-            СДЭК
+            {t('СДЭК')}
           </span>
           <span className="text-neutral-600 hidden sm:inline">·</span>
           <span className="flex items-center gap-1">
             <Icon name="Mail" size={11} className="text-neutral-400" />
-            Почта России
+            {t('Почта России')}
           </span>
         </span>
       </div>
@@ -92,11 +95,11 @@ export default function Navbar() {
 
           {/* Десктоп-меню */}
           <div className="hidden md:flex items-center space-x-6">
-            <button onClick={() => goHome('#work')} className={linkClass(false)}>Работы</button>
-            <button onClick={() => goHome('#about')} className={linkClass(false)}>О нас</button>
-            <button onClick={() => navigate('/modeling')} className={linkClass(location.pathname === '/modeling')}>Моделирование</button>
-            <button onClick={() => navigate('/printing')} className={linkClass(location.pathname === '/printing')}>3D-печать</button>
-            <button onClick={() => goHome('#contact')} className={linkClass(false)}>Контакты</button>
+            <button onClick={() => goHome('#work')} className={linkClass(false)}>{t('Работы')}</button>
+            <button onClick={() => goHome('#about')} className={linkClass(false)}>{t('О нас')}</button>
+            <button onClick={() => navigate('/modeling')} className={linkClass(location.pathname === '/modeling')}>{t('Моделирование')}</button>
+            <button onClick={() => navigate('/printing')} className={linkClass(location.pathname === '/printing')}>{t('3D-печать')}</button>
+            <button onClick={() => goHome('#contact')} className={linkClass(false)}>{t('Контакты')}</button>
           </div>
 
           {/* Иконки (всегда видны) */}
@@ -120,7 +123,8 @@ export default function Navbar() {
             <button onClick={() => navigate(user ? '/account' : '/auth')} className={iconBtnClass(location.pathname === '/account' || location.pathname === '/auth')} aria-label="Профиль">
               <Icon name={user ? 'UserCheck' : 'User'} size={16} className="dark:text-neutral-300" />
             </button>
-            <button onClick={() => setDark(d => !d)} className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Тема">
+            <LangSwitcher />
+            <button onClick={() => setDark(d => !d)} className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label={t('Тема')}>
               <Icon name={dark ? 'Sun' : 'Moon'} size={16} className="dark:text-neutral-300" />
             </button>
             {/* Бургер — только мобильный */}
@@ -137,11 +141,11 @@ export default function Navbar() {
         {/* Мобильное меню */}
         {menuOpen && (
           <div className="md:hidden border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-950 px-4 py-4 flex flex-col gap-4">
-            <button onClick={() => goHome('#work')} className={linkClass(false)}>Работы</button>
-            <button onClick={() => goHome('#about')} className={linkClass(false)}>О нас</button>
-            <button onClick={() => { navigate('/modeling'); setMenuOpen(false); }} className={linkClass(location.pathname === '/modeling')}>Моделирование</button>
-            <button onClick={() => { navigate('/printing'); setMenuOpen(false); }} className={linkClass(location.pathname === '/printing')}>3D-печать</button>
-            <button onClick={() => goHome('#contact')} className={linkClass(false)}>Контакты</button>
+            <button onClick={() => goHome('#work')} className={linkClass(false)}>{t('Работы')}</button>
+            <button onClick={() => goHome('#about')} className={linkClass(false)}>{t('О нас')}</button>
+            <button onClick={() => { navigate('/modeling'); setMenuOpen(false); }} className={linkClass(location.pathname === '/modeling')}>{t('Моделирование')}</button>
+            <button onClick={() => { navigate('/printing'); setMenuOpen(false); }} className={linkClass(location.pathname === '/printing')}>{t('3D-печать')}</button>
+            <button onClick={() => goHome('#contact')} className={linkClass(false)}>{t('Контакты')}</button>
           </div>
         )}
       </div>

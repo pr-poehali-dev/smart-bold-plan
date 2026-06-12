@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import Navbar from '@/components/Navbar';
+import { useLang } from '@/context/LanguageContext';
 
 export default function Index() {
+  const { t } = useLang();
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const navigate = useNavigate();
@@ -99,20 +101,20 @@ export default function Index() {
               ФОРМА
             </h1>
             <p className="text-base md:text-xl max-w-xl dark:text-neutral-300">
-              Моделируем. Печатаем. Воплощаем. Превращаем ваши идеи в точные физические объекты — от концепта до готового изделия.
+              {t('Моделируем. Печатаем. Воплощаем. Превращаем ваши идеи в точные физические объекты — от концепта до готового изделия.')}
             </p>
             <a
               href="#contact"
               className="inline-block mt-8 px-10 py-4 bg-black dark:bg-white dark:text-black text-white text-base uppercase tracking-widest hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors rounded-xl"
             >
-              Написать нам
+              {t('Написать нам')}
             </a>
           </div>
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
             <div className="relative w-full aspect-square bg-neutral-900 dark:rounded-full overflow-hidden transition-all duration-500">
               <img
                 src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
-                alt="3D печать"
+                alt={t('3D печать')}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -123,7 +125,7 @@ export default function Index() {
       {/* Work Section */}
       <section id="work" className="py-12 md:py-20 px-4 md:px-8 bg-black text-white">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">РАБОТЫ</h2>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">{t('РАБОТЫ')}</h2>
 
           <div className="relative">
             {/* Slides */}
@@ -139,14 +141,14 @@ export default function Index() {
                   >
                     <img
                       src={project.src}
-                      alt={project.title}
+                      alt={t(project.title)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="w-full md:w-1/3">
                     <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
-                    <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
-                    <p className="text-neutral-400">{project.desc}</p>
+                    <h3 className="text-3xl font-bold mb-4">{t(project.title)}</h3>
+                    <p className="text-neutral-400">{t(project.desc)}</p>
                   </div>
                 </div>
               ))}
@@ -206,11 +208,11 @@ export default function Index() {
             ) : (
               <img
                 src={projects[lightboxIndex].src}
-                alt={projects[lightboxIndex].title}
+                alt={t(projects[lightboxIndex].title)}
                 className="max-w-[80vw] max-h-[80vh] object-contain"
               />
             )}
-            <p className="text-white mt-4 text-lg font-semibold">{projects[lightboxIndex].title}</p>
+            <p className="text-white mt-4 text-lg font-semibold">{t(projects[lightboxIndex].title)}</p>
             <p className="text-neutral-400 text-sm mt-1">{lightboxIndex + 1} / {projects.length}</p>
           </div>
           <button
@@ -227,11 +229,11 @@ export default function Index() {
         <div className="w-full max-w-full">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 dark:text-white">О НАС</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 dark:text-white">{t('О НАС')}</h2>
               <div className="aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 relative mb-8 md:mb-0 overflow-hidden w-full">
                 <img
                   src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/d67f40c2-5839-486c-bd13-3abbc7854f64.jpg"
-                  alt="Студия 3D"
+                  alt={t('Студия 3D')}
                   className="w-full h-full object-cover"
                 />
 
@@ -239,13 +241,13 @@ export default function Index() {
             </div>
             <div className="col-span-12 md:col-span-7 md:pt-24">
               <p className="text-xl md:text-2xl mb-4 md:mb-6 dark:text-neutral-200">
-                <span className="text-pink">FORM3D</span> — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.
+                <span className="text-pink">FORM3D</span>{t(' — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.')}
               </p>
               <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
-                Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.
+                {t('Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.')}
               </p>
               <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
-                Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.
+                {t('Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.')}
               </p>
 
             </div>
@@ -258,38 +260,38 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 text-pink">КОНТАКТЫ</h2>
-              <p className="text-xl mb-8 dark:text-neutral-300">Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.</p>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 text-pink">{t('КОНТАКТЫ')}</h2>
+              <p className="text-xl mb-8 dark:text-neutral-300">{t('Есть задача? Расскажите — рассчитаем стоимость и сроки бесплатно.')}</p>
               <div className="space-y-4">
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Почта</span>
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">{t('Почта')}</span>
                   <a href="mailto:3dformrussia@gmail.com" className="hover:underline dark:text-neutral-200">
                     3dformrussia@gmail.com
                   </a>
                 </p>
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Телефон</span>
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">{t('Телефон')}</span>
                   <a href="tel:+79787258504" className="hover:underline dark:text-neutral-200">
                     +7 (978) 725-85-04
                   </a>
                 </p>
                 <p className="flex items-center">
-                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">Адрес</span>
-                  <span className="dark:text-neutral-200">Евпатория, Россия</span>
+                  <span className="w-24 text-sm uppercase tracking-widest dark:text-neutral-400">{t('Адрес')}</span>
+                  <span className="dark:text-neutral-200">{t('Евпатория, Россия')}</span>
                 </p>
               </div>
             </div>
             <div>
               {status === 'success' ? (
                 <div className="flex flex-col justify-center h-full py-12">
-                  <p className="text-3xl font-bold tracking-tighter mb-4">Заявка отправлена!</p>
-                  <p className="text-white/80 dark:text-neutral-400">Мы свяжемся с вами в ближайшее время.</p>
+                  <p className="text-3xl font-bold tracking-tighter mb-4">{t('Заявка отправлена!')}</p>
+                  <p className="text-white/80 dark:text-neutral-400">{t('Мы свяжемся с вами в ближайшее время.')}</p>
                 </div>
               ) : (
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                      Имя и фамилия
+                      {t('Имя и фамилия')}
                     </label>
                     <input
                       type="text"
@@ -297,13 +299,13 @@ export default function Index() {
                       value={formData.name}
                       onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
-                      placeholder="Ваше имя и фамилия"
+                      placeholder={t('Ваше имя и фамилия')}
                       required
                     />
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                      Телефон
+                      {t('Телефон')}
                     </label>
                     <input
                       type="tel"
@@ -316,7 +318,7 @@ export default function Index() {
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                      Почта
+                      {t('Почта')}
                     </label>
                     <input
                       type="email"
@@ -324,13 +326,13 @@ export default function Index() {
                       value={formData.email}
                       onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
-                      placeholder="Ваш email"
+                      placeholder={t('Ваш email')}
                       required
                     />
                   </div>
                   <div>
                     <label htmlFor="message" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                      Задача
+                      {t('Задача')}
                     </label>
                     <textarea
                       id="message"
@@ -338,19 +340,19 @@ export default function Index() {
                       value={formData.message}
                       onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white resize-none"
-                      placeholder="Опишите вашу задачу — что нужно смоделировать и напечатать?"
+                      placeholder={t('Опишите вашу задачу — что нужно смоделировать и напечатать?')}
                       required
                     ></textarea>
                   </div>
                   {status === 'error' && (
-                    <p className="text-white/80 dark:text-brand text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
+                    <p className="text-white/80 dark:text-brand text-sm">{t('Ошибка отправки. Попробуйте ещё раз.')}</p>
                   )}
                   <button
                     type="submit"
                     disabled={status === 'loading'}
                     className="mt-8 px-8 py-3 bg-pink text-white text-sm uppercase tracking-widest hover:opacity-85 transition-opacity disabled:opacity-50 rounded-xl"
                   >
-                    {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
+                    {status === 'loading' ? t('Отправляем...') : t('Отправить заявку')}
                   </button>
                 </form>
               )}
@@ -375,14 +377,14 @@ export default function Index() {
         return (
           <section className="py-12 md:py-16 px-4 md:px-8 bg-white dark:bg-neutral-950 transition-colors duration-300">
             <div className="container mx-auto text-center">
-              <p className="text-sm uppercase tracking-widest text-neutral-400 mb-10">Нам доверяют</p>
+              <p className="text-sm uppercase tracking-widest text-neutral-400 mb-10">{t('Нам доверяют')}</p>
               <div className="flex flex-wrap justify-center gap-8 md:gap-14">
                 {partners.map(p => (
                   <div key={p.name} className="flex flex-col items-center gap-3 group">
                     <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center rounded-2xl bg-neutral-50 dark:bg-white p-3 transition-all group-hover:shadow-lg">
-                      <img src={p.logo} alt={p.name} className="w-full h-full object-contain" />
+                      <img src={p.logo} alt={t(p.name)} className="w-full h-full object-contain" />
                     </div>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">{p.name}</p>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">{t(p.name)}</p>
                   </div>
                 ))}
               </div>
@@ -394,9 +396,9 @@ export default function Index() {
       {/* Footer */}
       <footer className="py-8 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-neutral-400">© 2025 FORM3D Studio. Все права защищены.</p>
+          <p className="text-sm text-neutral-400">{t('© 2025 FORM3D Studio. Все права защищены.')}</p>
           <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors underline underline-offset-2">
-            Пользовательское соглашение
+            {t('Пользовательское соглашение')}
           </a>
         </div>
       </footer>

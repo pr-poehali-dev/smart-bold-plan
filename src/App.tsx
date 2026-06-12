@@ -21,6 +21,7 @@ import OAuthCallback from "./pages/OAuthCallback";
 import ChatWidget from "./components/ChatWidget";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import { LanguageProvider } from "./context/LanguageContext";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <LanguageProvider>
         <AuthProvider>
           <CartProvider>
           <Routes>
@@ -52,6 +54,7 @@ const App = () => (
           </Routes>
           </CartProvider>
         </AuthProvider>
+        </LanguageProvider>
       </BrowserRouter>
       <ChatWidget />
     </TooltipProvider>

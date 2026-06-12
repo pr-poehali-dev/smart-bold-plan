@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
@@ -29,6 +30,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 export default function Favorites() {
   const { user, loading: authLoading } = useAuth();
   const { refreshCounts } = useCart();
+  const { t } = useLang();
   const navigate = useNavigate();
   const [items, setItems] = useState<FavItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +67,7 @@ export default function Favorites() {
     return (
       <div className="min-h-screen bg-white dark:bg-neutral-950">
         <Navbar />
-        <div className="pt-32 text-center text-neutral-400">Загрузка...</div>
+        <div className="pt-32 text-center text-neutral-400">{t('Загрузка...')}</div>
       </div>
     );
   }
@@ -74,9 +76,9 @@ export default function Favorites() {
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-2 dark:text-white">Избранное</h1>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-2 dark:text-white">{t('Избранное')}</h1>
         {items.length > 0 && (
-          <p className="text-neutral-400 mb-8">{items.length} {items.length === 1 ? 'услуга' : items.length < 5 ? 'услуги' : 'услуг'}</p>
+          <p className="text-neutral-400 mb-8">{items.length} {items.length === 1 ? t('услуга') : items.length < 5 ? t('услуги') : t('услуг')}</p>
         )}
 
         {items.length === 0 ? (
@@ -84,12 +86,12 @@ export default function Favorites() {
             <div className="w-16 h-16 rounded-2xl border border-neutral-200 dark:border-neutral-800 flex items-center justify-center mx-auto mb-4">
               <Icon name="Heart" size={28} className="text-neutral-300 dark:text-neutral-600" />
             </div>
-            <p className="text-neutral-400 text-lg mb-6">Список избранного пуст</p>
+            <p className="text-neutral-400 text-lg mb-6">{t('Список избранного пуст')}</p>
             <button
               onClick={() => navigate('/modeling')}
               className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
-              Посмотреть услуги
+              {t('Посмотреть услуги')}
             </button>
           </div>
         ) : (
@@ -105,16 +107,16 @@ export default function Favorites() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className="font-semibold dark:text-white leading-tight">{item.title}</p>
+                        <p className="font-semibold dark:text-white leading-tight">{t(item.title)}</p>
                         {item.description && (
-                          <p className="text-sm text-neutral-400 mt-0.5">{item.description}</p>
+                          <p className="text-sm text-neutral-400 mt-0.5">{t(item.description)}</p>
                         )}
                       </div>
                       {/* Удалить из избранного */}
                       <button
                         onClick={() => remove(item.service_id)}
                         className="shrink-0 text-brand"
-                        aria-label="Удалить из избранного"
+                        aria-label={t('Удалить из избранного')}
                       >
                         <Icon name="Heart" size={18} className="fill-brand text-brand" />
                       </button>
@@ -123,9 +125,9 @@ export default function Favorites() {
                     <div className="flex items-center justify-between mt-3">
                       <div>
                         <span className="text-xs uppercase tracking-wider text-neutral-400">
-                          {CATEGORY_LABELS[item.category] || item.category}
+                          {t(CATEGORY_LABELS[item.category] || item.category)}
                         </span>
-                        <p className="font-bold dark:text-white">от {item.price.toLocaleString()} ₽</p>
+                        <p className="font-bold dark:text-white">{t('от')} {item.price.toLocaleString()} ₽</p>
                       </div>
                       <button
                         onClick={() => addToCart(item.service_id)}
@@ -136,7 +138,7 @@ export default function Favorites() {
                         }`}
                       >
                         <Icon name={addedIds.has(item.service_id) ? 'Check' : 'ShoppingCart'} size={14} />
-                        {addedIds.has(item.service_id) ? 'Добавлено' : 'В корзину'}
+                        {addedIds.has(item.service_id) ? t('Добавлено') : t('В корзину')}
                       </button>
                     </div>
                   </div>

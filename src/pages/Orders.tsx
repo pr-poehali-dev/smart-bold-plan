@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
@@ -26,6 +27,7 @@ const CARRIER_LABEL: Record<string, string> = {
 
 export default function Orders() {
   const { user, loading: authLoading } = useAuth();
+  const { t } = useLang();
   const navigate = useNavigate();
   const { id } = useParams();
   const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
@@ -49,7 +51,7 @@ export default function Orders() {
     return (
       <div className="min-h-screen bg-white dark:bg-neutral-950">
         <Navbar />
-        <div className="pt-32 text-center text-neutral-400">Загрузка...</div>
+        <div className="pt-32 text-center text-neutral-400">{t('Загрузка...')}</div>
       </div>
     );
   }
@@ -61,29 +63,29 @@ export default function Orders() {
         <Navbar />
         <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-2xl">
           <button onClick={() => navigate('/orders')} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-black dark:hover:text-white mb-8 transition-colors">
-            <Icon name="ArrowLeft" size={14} /> Все заказы
+            <Icon name="ArrowLeft" size={14} /> {t('Все заказы')}
           </button>
-          <h1 className="text-4xl font-bold tracking-tighter mb-2 dark:text-white">Заказ #{order.id}</h1>
+          <h1 className="text-4xl font-bold tracking-tighter mb-2 dark:text-white">{t('Заказ')} #{order.id}</h1>
           <p className="text-sm text-neutral-400 mb-8">{new Date(order.created_at).toLocaleDateString('ru-RU')}</p>
 
           <div className="space-y-2 mb-6">
             {((order.items as {title:string;price:number;quantity:number}[]) || []).map((item, i: number) => (
               <div key={i} className="flex justify-between py-3 border-b border-neutral-100 dark:border-neutral-800">
-                <span className="dark:text-white">{item.title} × {item.quantity}</span>
+                <span className="dark:text-white">{t(item.title)} × {item.quantity}</span>
                 <span className="font-semibold dark:text-white">{(item.price * item.quantity).toLocaleString()} ₽</span>
               </div>
             ))}
           </div>
 
           <div className="flex justify-between text-lg font-bold mb-8 dark:text-white">
-            <span>Итого</span>
+            <span>{t('Итого')}</span>
             <span>{(order.total || 0).toLocaleString()} ₽</span>
           </div>
 
           <div className="flex gap-3 mb-8 flex-wrap">
-            <span className="px-3 py-1 rounded-full text-xs border border-neutral-200 dark:border-neutral-700 dark:text-neutral-300">{STATUS_LABEL[order.status] || order.status}</span>
+            <span className="px-3 py-1 rounded-full text-xs border border-neutral-200 dark:border-neutral-700 dark:text-neutral-300">{t(STATUS_LABEL[order.status] || order.status)}</span>
             <span className={`px-3 py-1 rounded-full text-xs border ${order.payment_status === 'succeeded' ? 'border-green-500 text-green-600' : 'border-neutral-200 dark:border-neutral-700 dark:text-neutral-300'}`}>
-              {PAYMENT_LABEL[order.payment_status] || order.payment_status}
+              {t(PAYMENT_LABEL[order.payment_status] || order.payment_status)}
             </span>
           </div>
 
@@ -91,12 +93,12 @@ export default function Orders() {
           <div className="border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8">
             <div className="flex items-center gap-2 mb-3">
               <Icon name="Truck" size={18} className="text-neutral-500 dark:text-neutral-400" />
-              <h3 className="font-semibold dark:text-white">Доставка</h3>
+              <h3 className="font-semibold dark:text-white">{t('Доставка')}</h3>
             </div>
             {order.tracking_number ? (
               <>
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                  {CARRIER_LABEL[order.carrier as string] || 'Служба доставки'} · трек-номер
+                  {t(CARRIER_LABEL[order.carrier as string] || 'Служба доставки')} · {t('трек-номер')}
                 </p>
                 <p className="font-medium dark:text-white mb-4">{order.tracking_number as string}</p>
                 <button
@@ -104,11 +106,11 @@ export default function Orders() {
                   className="w-full flex items-center justify-center gap-2 py-3 bg-black dark:bg-white dark:text-black text-white text-sm rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
                 >
                   <Icon name="MapPin" size={16} />
-                  Отследить посылку
+                  {t('Отследить посылку')}
                 </button>
               </>
             ) : (
-              <p className="text-sm text-neutral-400">Трек-номер появится после отправки заказа</p>
+              <p className="text-sm text-neutral-400">{t('Трек-номер появится после отправки заказа')}</p>
             )}
           </div>
 
@@ -118,7 +120,7 @@ export default function Orders() {
               className="w-full flex items-center justify-center gap-2 py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
               <Icon name="CreditCard" size={16} />
-              Перейти к оплате
+              {t('Перейти к оплате')}
             </button>
           )}
         </div>
@@ -131,13 +133,13 @@ export default function Orders() {
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
       <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-10 dark:text-white">Мои заказы</h1>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-10 dark:text-white">{t('Мои заказы')}</h1>
 
         {orders.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-neutral-400 text-lg mb-6">Заказов пока нет</p>
+            <p className="text-neutral-400 text-lg mb-6">{t('Заказов пока нет')}</p>
             <button onClick={() => navigate('/cart')} className="px-8 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors">
-              Перейти в корзину
+              {t('Перейти в корзину')}
             </button>
           </div>
         ) : (
@@ -149,17 +151,17 @@ export default function Orders() {
                 className="w-full flex items-center justify-between p-5 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 hover:border-black dark:hover:border-white transition-colors text-left"
               >
                 <div>
-                  <p className="font-semibold dark:text-white">Заказ #{o.id}</p>
+                  <p className="font-semibold dark:text-white">{t('Заказ')} #{o.id}</p>
                   <p className="text-sm text-neutral-400">{new Date(o.created_at).toLocaleDateString('ru-RU')}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-bold dark:text-white">{(o.total || 0).toLocaleString()} ₽</p>
                   <p className={`text-xs ${o.payment_status === 'succeeded' ? 'text-green-500' : 'text-neutral-400'}`}>
-                    {PAYMENT_LABEL[o.payment_status] || o.payment_status}
+                    {t(PAYMENT_LABEL[o.payment_status] || o.payment_status)}
                   </p>
                   {o.tracking_number ? (
                     <span className="inline-flex items-center gap-1 mt-1 text-xs text-brand">
-                      <Icon name="Truck" size={12} /> Отслеживается
+                      <Icon name="Truck" size={12} /> {t('Отслеживается')}
                     </span>
                   ) : null}
                 </div>

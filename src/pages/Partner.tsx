@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Icon from '@/components/ui/icon';
 
 export default function Partner() {
   const { user, loading: authLoading } = useAuth();
+  const { t } = useLang();
   const navigate = useNavigate();
 
   const [orgName, setOrgName] = useState('');
@@ -39,7 +41,7 @@ export default function Partner() {
     if (res?.success) {
       setDone(true);
     } else {
-      setError(res?.error || 'Произошла ошибка, попробуйте ещё раз');
+      setError(res?.error || t('Произошла ошибка, попробуйте ещё раз'));
     }
   };
 
@@ -47,7 +49,7 @@ export default function Partner() {
     return (
       <div className="min-h-screen bg-white dark:bg-neutral-950">
         <Navbar />
-        <div className="pt-32 text-center text-neutral-400">Загрузка...</div>
+        <div className="pt-32 text-center text-neutral-400">{t('Загрузка...')}</div>
       </div>
     );
   }
@@ -62,14 +64,14 @@ export default function Partner() {
           className="flex items-center gap-2 text-sm text-neutral-400 hover:text-black dark:hover:text-white transition-colors mb-8"
         >
           <Icon name="ArrowLeft" size={16} />
-          Назад в кабинет
+          {t('Назад в кабинет')}
         </button>
 
         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 dark:text-white">
-          Стать партнёром
+          {t('Стать партнёром')}
         </h1>
         <p className="text-neutral-500 dark:text-neutral-400 mb-10">
-          Расскажите о своей организации — мы свяжемся с вами и обсудим условия сотрудничества.
+          {t('Расскажите о своей организации — мы свяжемся с вами и обсудим условия сотрудничества.')}
         </p>
 
         {done ? (
@@ -77,41 +79,41 @@ export default function Partner() {
             <div className="w-16 h-16 rounded-full bg-black dark:bg-white flex items-center justify-center">
               <Icon name="Check" size={28} className="text-white dark:text-black" />
             </div>
-            <h2 className="text-2xl font-bold tracking-tighter dark:text-white">Заявка отправлена!</h2>
-            <p className="text-neutral-500 dark:text-neutral-400">Мы рассмотрим её и свяжемся с вами в ближайшее время.</p>
+            <h2 className="text-2xl font-bold tracking-tighter dark:text-white">{t('Заявка отправлена!')}</h2>
+            <p className="text-neutral-500 dark:text-neutral-400">{t('Мы рассмотрим её и свяжемся с вами в ближайшее время.')}</p>
             <button
               onClick={() => navigate('/account')}
               className="mt-4 px-6 py-3 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors"
             >
-              В личный кабинет
+              {t('В личный кабинет')}
             </button>
           </div>
         ) : (
           <form onSubmit={submit} className="space-y-4">
             <div>
               <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">
-                Название организации <span className="text-red-500">*</span>
+                {t('Название организации')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={orgName}
                 onChange={e => setOrgName(e.target.value)}
                 required
-                placeholder="ООО «Пример»"
+                placeholder={t('ООО «Пример»')}
                 className="w-full px-4 py-3 border border-neutral-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-900 dark:text-white focus:outline-none focus:border-black dark:focus:border-white"
               />
             </div>
 
             <div>
               <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">
-                Контактное лицо <span className="text-red-500">*</span>
+                {t('Контактное лицо')} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={contactName}
                 onChange={e => setContactName(e.target.value)}
                 required
-                placeholder="Иван Иванов"
+                placeholder={t('Иван Иванов')}
                 className="w-full px-4 py-3 border border-neutral-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-900 dark:text-white focus:outline-none focus:border-black dark:focus:border-white"
               />
             </div>
@@ -130,7 +132,7 @@ export default function Partner() {
             </div>
 
             <div>
-              <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">Телефон</label>
+              <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">{t('Телефон')}</label>
               <input
                 type="tel"
                 value={phone}
@@ -141,12 +143,12 @@ export default function Partner() {
             </div>
 
             <div>
-              <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">О сотрудничестве</label>
+              <label className="block text-sm text-neutral-500 dark:text-neutral-400 mb-1">{t('О сотрудничестве')}</label>
               <textarea
                 value={description}
                 onChange={e => setDescription(e.target.value)}
                 rows={4}
-                placeholder="Расскажите, чем занимается ваша организация и как вы видите партнёрство..."
+                placeholder={t('Расскажите, чем занимается ваша организация и как вы видите партнёрство...')}
                 className="w-full px-4 py-3 border border-neutral-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-900 dark:text-white focus:outline-none focus:border-black dark:focus:border-white resize-none"
               />
             </div>
@@ -160,7 +162,7 @@ export default function Partner() {
               disabled={sending}
               className="w-full py-4 bg-black dark:bg-white dark:text-black text-white text-sm uppercase tracking-widest rounded-xl hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-colors disabled:opacity-50"
             >
-              {sending ? 'Отправляем...' : 'Отправить заявку'}
+              {sending ? t('Отправляем...') : t('Отправить заявку')}
             </button>
           </form>
         )}

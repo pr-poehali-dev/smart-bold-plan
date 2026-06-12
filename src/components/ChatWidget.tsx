@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import { useLang } from '@/context/LanguageContext';
 
 interface Message {
   role: "user" | "assistant";
@@ -9,6 +10,7 @@ interface Message {
 const CHAT_URL = "https://functions.poehali.dev/5388f591-8e98-434e-b3b2-f3c6b753cbaa";
 
 export default function ChatWidget() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Привет! Я ИИ-ассистент 3DFORM. Помогу с вопросами о 3D-печати и моделировании. Чем могу помочь?" }
@@ -59,7 +61,7 @@ export default function ChatWidget() {
           <div className="bg-black text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full" />
-              <span className="text-sm font-medium tracking-wide uppercase">ИИ-ассистент</span>
+              <span className="text-sm font-medium tracking-wide uppercase">{t('ИИ-ассистент')}</span>
             </div>
             <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white transition-colors">
               <Icon name="X" size={18} />
@@ -76,14 +78,14 @@ export default function ChatWidget() {
                       : "bg-white border border-gray-200 text-gray-800"
                   }`}
                 >
-                  {msg.content}
+                  {t(msg.content)}
                 </div>
               </div>
             ))}
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-white border border-gray-200 px-3 py-2 text-sm text-gray-400">
-                  Печатает...
+                  {t('Печатает...')}
                 </div>
               </div>
             )}
@@ -96,7 +98,7 @@ export default function ChatWidget() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
-              placeholder="Напишите вопрос..."
+              placeholder={t('Напишите вопрос...')}
               className="flex-1 text-sm border border-gray-200 px-3 py-2 focus:outline-none focus:border-black transition-colors"
               disabled={loading}
             />
