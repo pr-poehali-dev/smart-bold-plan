@@ -98,7 +98,7 @@ export default function Index() {
             <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6 dark:text-white">
               <span className="text-pink">3D</span>
               <br />
-              ФОРМА
+              {t('ФОРМА')}
             </h1>
             <p className="text-base md:text-xl max-w-xl dark:text-neutral-300">
               {t('Моделируем. Печатаем. Воплощаем. Превращаем ваши идеи в точные физические объекты — от концепта до готового изделия.')}

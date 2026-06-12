@@ -78,8 +78,8 @@ export default function Cart() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
-      <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-2 dark:text-white">{t('Корзина')}</h1>
+      <div className="container mx-auto px-4 md:px-8 pt-36 md:pt-44 pb-20 max-w-3xl">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] pb-1 mb-2 dark:text-white">{t('Корзина')}</h1>
         {items.length > 0 && (
           <p className="text-neutral-400 mb-8">{items.length} {items.length === 1 ? t('позиция') : items.length < 5 ? t('позиции') : t('позиций')}</p>
         )}

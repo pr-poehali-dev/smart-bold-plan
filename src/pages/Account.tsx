@@ -53,9 +53,9 @@ export default function Account() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
       <Navbar />
-      <div className="container mx-auto px-4 md:px-8 pt-28 pb-20 max-w-xl">
+      <div className="container mx-auto px-4 md:px-8 pt-36 md:pt-44 pb-20 max-w-xl">
         <div className="flex items-center gap-3 mb-10">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter dark:text-white">{t('Профиль')}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] pb-1 dark:text-white">{t('Профиль')}</h1>
           {user.is_partner && (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-green-500 text-white shadow-lg shadow-green-500/30">
               {t('Партнёр')}
