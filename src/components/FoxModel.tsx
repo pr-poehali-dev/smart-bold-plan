@@ -84,8 +84,10 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           scene.add(pivot);
 
           const radius = (size.length() * scale) / 2;
-          const fitDist = radius / Math.sin((camera.fov * Math.PI) / 360);
-          const dist = fitDist * 1.3;
+          const vFov = (camera.fov * Math.PI) / 180;
+          const fitH = radius / Math.tan(vFov / 2);
+          const fitW = radius / (Math.tan(vFov / 2) * camera.aspect);
+          const dist = Math.max(fitH, fitW) * 1.25;
 
           camera.near = Math.max(dist - radius * 2, 0.01);
           camera.far = dist + radius * 4;
