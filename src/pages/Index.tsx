@@ -53,18 +53,6 @@ export default function Index() {
   const prevPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i - 1 + projects.length) % projects.length : null); };
   const nextPhoto = (e: React.MouseEvent) => { e.stopPropagation(); setLightboxIndex(i => i !== null ? (i + 1) % projects.length : null); };
 
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const carouselPrev = () => setCarouselIndex(i => (i - 1 + projects.length) % projects.length);
-  const carouselNext = () => setCarouselIndex(i => (i + 1) % projects.length);
-
-  useEffect(() => {
-    if (lightboxIndex !== null) return;
-    const timer = setInterval(() => {
-      setCarouselIndex(i => (i + 1) % projects.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, [lightboxIndex, projects.length]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
@@ -123,62 +111,51 @@ export default function Index() {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="py-12 md:py-20 px-4 md:px-8 bg-black text-white">
-        <div className="container mx-auto">
+      <section id="work" className="py-12 md:py-20 bg-black text-white overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">{t('РАБОТЫ')}</h2>
+        </div>
 
-          <div className="relative">
-            {/* Slides */}
-            <div className="relative overflow-hidden">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col md:flex-row gap-8 items-center transition-opacity duration-500 ${carouselIndex === index ? 'relative opacity-100 z-10' : 'absolute inset-0 opacity-0 pointer-events-none z-0'}`}
-                >
-                  <div
-                    className="w-full md:w-2/3 aspect-video bg-white overflow-hidden cursor-pointer group"
-                    onClick={() => openLightbox(index)}
-                  >
-                    <img
-                      src={project.src}
-                      alt={t(project.title)}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-full md:w-1/3">
-                    <p className="text-sm uppercase tracking-widest mb-2"><span className="text-pink font-bold">{index + 1}</span><span className="text-neutral-400"> / {projects.length}</span></p>
-                    <h3 className="text-3xl font-bold mb-4">{t(project.title)}</h3>
-                    <p className="text-neutral-400">{t(project.desc)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Cards row */}
+        <div className="flex h-[70vh] min-h-[420px] max-h-[640px]">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              onClick={() => openLightbox(index)}
+              className="relative flex-1 overflow-hidden cursor-pointer border-r border-white/10 last:border-r-0 transition-all duration-500 ease-in-out group"
+              style={{ flexBasis: '20%' }}
+              onMouseEnter={e => { e.currentTarget.style.flexBasis = '40%'; }}
+              onMouseLeave={e => { e.currentTarget.style.flexBasis = '20%'; }}
+            >
+              {/* Фото */}
+              <img
+                src={project.src}
+                alt={t(project.title)}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
 
-            {/* Controls */}
-            <div className="flex items-center gap-4 mt-8">
-              <button
-                onClick={carouselPrev}
-                className="p-3 border border-white hover:bg-white hover:text-black transition-colors rounded-xl"
-              >
-                <Icon name="ChevronLeft" size={20} />
-              </button>
-              <button
-                onClick={carouselNext}
-                className="p-3 border border-white hover:bg-white hover:text-black transition-colors rounded-xl"
-              >
-                <Icon name="ChevronRight" size={20} />
-              </button>
-              <div className="flex gap-2 ml-2">
-                {projects.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCarouselIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${i === carouselIndex ? 'bg-pink' : 'bg-neutral-600'}`}
-                  />
-                ))}
+              {/* Затемнение при наведении */}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-colors duration-500" />
+
+              {/* Номер сверху */}
+              <div className="absolute top-5 left-0 right-0 px-4 flex items-center gap-3">
+                <span className="w-6 h-px bg-pink shrink-0" />
+                <span className="text-xs font-semibold tracking-widest text-white/60">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* Название + описание снизу */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h3 className="text-lg md:text-xl font-bold leading-tight mb-2 tracking-tight">
+                  {t(project.title)}
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed max-h-0 overflow-hidden opacity-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                  {t(project.desc)}
+                </p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
