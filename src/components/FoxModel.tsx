@@ -71,6 +71,11 @@ export default function FoxModel({ className = '' }: { className?: string }) {
           const size = box.getSize(new THREE.Vector3());
           const maxDim = Math.max(size.x, size.y, size.z) || 1;
           const scale = 2.5 / maxDim;
+          console.log('FOXDBG', JSON.stringify({
+            size: [size.x, size.y, size.z],
+            center: [center.x, center.y, center.z],
+            childCount: model.children.length,
+          }));
 
           model.position.set(
             -center.x * scale,
