@@ -88,6 +88,9 @@ export default function Navbar() {
             <span className="text-[10px] md:text-xs tracking-[0.3em] text-neutral-400 dark:text-neutral-500 mt-1">
               east.2026
             </span>
+            <span className="text-[9px] md:text-[10px] tracking-[0.2em] text-neutral-400 dark:text-neutral-500">
+              created in 2026
+            </span>
           </button>
 
           {/* Десктоп-меню */}
