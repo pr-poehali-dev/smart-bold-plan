@@ -36,8 +36,8 @@ export default function Navbar() {
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
   const linkClass = (active: boolean) =>
-    `text-sm uppercase tracking-widest transition-colors ${
-      active ? 'text-black dark:text-white font-semibold' : 'text-neutral-600 hover:text-black dark:text-neutral-300 dark:hover:text-white'
+    `text-base font-semibold uppercase tracking-widest transition-colors ${
+      active ? 'text-black dark:text-white' : 'text-neutral-600 hover:text-black dark:text-neutral-300 dark:hover:text-white'
     }`;
 
   const iconBtnClass = (active: boolean) =>
