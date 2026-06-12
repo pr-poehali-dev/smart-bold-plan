@@ -111,7 +111,7 @@ export default function Index() {
       </section>
 
       {/* Gradient: white → black */}
-      <div className="h-24 bg-gradient-to-b from-white dark:from-neutral-950 to-black" />
+      <div className="h-48 bg-gradient-to-b from-white dark:from-neutral-950 via-neutral-300 dark:via-neutral-800 to-black" />
 
       {/* Work Section */}
       <section id="work" className="pb-12 md:pb-20 bg-black text-white overflow-hidden">
@@ -205,7 +205,7 @@ export default function Index() {
       )}
 
       {/* Gradient: black → white */}
-      <div className="h-24 bg-gradient-to-b from-black to-white dark:to-neutral-950" />
+      <div className="h-48 bg-gradient-to-b from-black via-neutral-300 dark:via-neutral-800 to-white dark:to-neutral-950" />
 
       {/* About Section */}
       <section id="about" className="pb-12 md:pb-20 px-4 md:px-8 overflow-hidden dark:bg-neutral-950 transition-colors duration-300">
@@ -239,7 +239,7 @@ export default function Index() {
       </section>
 
       {/* Gradient: white → black */}
-      <div className="h-24 bg-gradient-to-b from-white dark:from-neutral-950 to-black" />
+      <div className="h-48 bg-gradient-to-b from-white dark:from-neutral-950 via-neutral-300 dark:via-neutral-800 to-black" />
 
       {/* Contact Section */}
       <section id="contact" className="pb-12 md:pb-20 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
