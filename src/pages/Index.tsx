@@ -6,9 +6,8 @@ import { useLang } from '@/context/LanguageContext';
 
 export default function Index() {
   const { t } = useLang();
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '', amount: '500' });
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [payMode, setPayMode] = useState(false);
   const navigate = useNavigate();
   const [rotationY, setRotationY] = useState(0);
   const lastScrollY = useRef(0);
@@ -58,31 +57,17 @@ export default function Index() {
     e.preventDefault();
     setStatus('loading');
     try {
-      if (payMode) {
-        const res = await fetch('https://functions.poehali.dev/c24c86be-5cea-4731-a08a-98ef573f65dc', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, amount: parseFloat(formData.amount).toFixed(2) }),
-        });
-        const data = await res.json();
-        if (res.ok && data.confirmation_url) {
-          window.location.href = data.confirmation_url;
-        } else {
-          setStatus('error');
-        }
+      const res = await fetch('https://functions.poehali.dev/2a6f2b39-1c29-455f-9afc-21cab050870f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setStatus('success');
+        setFormData({ name: '', phone: '', email: '', message: '' });
       } else {
-        const res = await fetch('https://functions.poehali.dev/2a6f2b39-1c29-455f-9afc-21cab050870f', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setStatus('success');
-          setFormData({ name: '', phone: '', email: '', message: '', amount: '500' });
-        } else {
-          setStatus('error');
-        }
+        setStatus('error');
       }
     } catch {
       setStatus('error');
@@ -309,25 +294,6 @@ export default function Index() {
                 </div>
               ) : (
                 <form className="space-y-6" onSubmit={handleSubmit}>
-
-                  {/* Переключатель режима */}
-                  <div className="flex gap-2 p-1 bg-white/10 rounded-xl w-fit">
-                    <button
-                      type="button"
-                      onClick={() => setPayMode(false)}
-                      className={`px-4 py-2 text-sm rounded-lg transition-colors ${!payMode ? 'bg-white text-black font-semibold' : 'text-white/60 hover:text-white'}`}
-                    >
-                      {t('Заявка')}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPayMode(true)}
-                      className={`px-4 py-2 text-sm rounded-lg transition-colors ${payMode ? 'bg-pink text-white font-semibold' : 'text-white/60 hover:text-white'}`}
-                    >
-                      {t('Оплатить онлайн')}
-                    </button>
-                  </div>
-
                   <div>
                     <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
                       {t('Имя и фамилия')}
@@ -366,7 +332,6 @@ export default function Index() {
                       onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
                       placeholder={t('Ваш email')}
-                      required={payMode}
                     />
                   </div>
                   <div>
@@ -383,25 +348,6 @@ export default function Index() {
                       required
                     ></textarea>
                   </div>
-
-                  {payMode && (
-                    <div>
-                      <label htmlFor="amount" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                        {t('Сумма предоплаты, ₽')}
-                      </label>
-                      <input
-                        type="number"
-                        id="amount"
-                        min="100"
-                        step="100"
-                        value={formData.amount}
-                        onChange={e => setFormData(p => ({ ...p, amount: e.target.value }))}
-                        className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-pink placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
-                        required
-                      />
-                    </div>
-                  )}
-
                   {status === 'error' && (
                     <p className="text-white/80 dark:text-brand text-sm">{t('Ошибка отправки. Попробуйте ещё раз.')}</p>
                   )}
@@ -410,11 +356,7 @@ export default function Index() {
                     disabled={status === 'loading'}
                     className="mt-8 px-8 py-3 bg-pink text-white text-sm uppercase tracking-widest hover:opacity-85 transition-opacity disabled:opacity-50 rounded-xl"
                   >
-                    {status === 'loading'
-                      ? t('Отправляем...')
-                      : payMode
-                        ? t(`Оплатить ${formData.amount} ₽`)
-                        : t('Отправить заявку')}
+                    {status === 'loading' ? t('Отправляем...') : t('Отправить заявку')}
                   </button>
                 </form>
               )}
