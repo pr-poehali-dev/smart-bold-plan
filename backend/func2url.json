@@ -1,4 +1,6 @@
 {
+  "payment-webhook": "https://functions.poehali.dev/8dc046a2-4a25-446f-98a1-a25c4518b425",
+  "create-payment": "https://functions.poehali.dev/c24c86be-5cea-4731-a08a-98ef573f65dc",
   "glb-proxy": "https://functions.poehali.dev/f73ca4ef-394b-4ba4-895f-eff2460d7f49",
   "partner": "https://functions.poehali.dev/c29fe381-bc3d-4963-9c7c-575e59df3b15",
   "shop": "https://functions.poehali.dev/2aa8a997-ffa1-497e-9860-6637da001eb8",
