@@ -79,7 +79,7 @@ export default function Printing() {
               <p className={`text-sm mb-4 ${plan.accent ? 'text-white/70' : 'text-neutral-500 dark:text-neutral-400'}`}>
                 {t(plan.description)}
               </p>
-              <div className="text-3xl font-bold tracking-tighter mb-4">{plan.price}</div>
+              <div className="text-3xl font-bold tracking-tighter mb-4">{t(plan.price)}</div>
               <ul className="space-y-2 mb-6 flex-1">
                 {plan.examples.map((ex) => (
                   <li key={ex} className="flex items-center gap-2 text-sm">

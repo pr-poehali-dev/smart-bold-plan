@@ -79,6 +79,7 @@ export const dictionary: Record<string, string> = {
 
   // Printing
   'FDM-печать': 'FDM printing',
+  '299 ₽ / 60 г филамента': '299 ₽ / 60 g of filament',
   'Послойная печать пластиком — быстро и доступно для прототипов и функциональных деталей. Итоговая цена зависит от граммовки модели и времени печати.': 'Layer-by-layer plastic printing — fast and affordable for prototypes and functional parts. The final price depends on the model weight and printing time.',
   'Прототипы и макеты': 'Prototypes and models',
   'Корпуса и держатели': 'Housings and holders',
