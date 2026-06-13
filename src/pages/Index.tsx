@@ -296,7 +296,7 @@ export default function Index() {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-sm uppercase tracking-widest mb-2 dark:text-neutral-300">
-                      {t('Имя и фамилия')}
+                      {t('Имя')}
                     </label>
                     <input
                       type="text"
@@ -304,7 +304,7 @@ export default function Index() {
                       value={formData.name}
                       onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
                       className="w-full bg-transparent border-b-2 border-white dark:border-neutral-600 py-2 px-0 focus:outline-none focus:border-black dark:focus:border-white placeholder-white/50 dark:placeholder-neutral-500 dark:text-white"
-                      placeholder={t('Ваше имя и фамилия')}
+                      placeholder={t('Ваше имя')}
                       required
                     />
                   </div>
