@@ -131,8 +131,8 @@ export default function Index() {
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 md:mb-12">{t('РАБОТЫ')}</h2>
         </div>
 
-        {/* Cards row */}
-        <div className="flex h-[70vh] min-h-[420px] max-h-[640px]">
+        {/* Desktop: Cards row */}
+        <div className="hidden md:flex h-[70vh] min-h-[420px] max-h-[640px]">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -142,25 +142,18 @@ export default function Index() {
               onMouseEnter={e => { e.currentTarget.style.flexBasis = '40%'; }}
               onMouseLeave={e => { e.currentTarget.style.flexBasis = '20%'; }}
             >
-              {/* Фото */}
               <img
                 src={project.src}
                 alt={t(project.title)}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-
-              {/* Затемнение при наведении */}
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-colors duration-500" />
-
-              {/* Номер сверху */}
               <div className="absolute top-5 left-0 right-0 px-4 flex items-center gap-3">
                 <span className="w-6 h-px bg-pink shrink-0" />
                 <span className="text-xs font-semibold tracking-widest text-white/60">
                   {String(index + 1).padStart(2, '0')}
                 </span>
               </div>
-
-              {/* Название + описание снизу */}
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <h3 className="text-lg md:text-xl font-bold leading-tight mb-2 tracking-tight">
                   {t(project.title)}
@@ -171,6 +164,37 @@ export default function Index() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile: Carousel */}
+        <div className="md:hidden px-4">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => openLightbox(index)}
+                className="relative shrink-0 w-[80vw] h-[60vw] rounded-2xl overflow-hidden cursor-pointer snap-start"
+              >
+                <img
+                  src={project.src}
+                  alt={t(project.title)}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="w-5 h-px bg-pink shrink-0" />
+                  <span className="text-xs font-semibold tracking-widest text-white/60">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 className="text-base font-bold leading-tight tracking-tight">
+                    {t(project.title)}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
