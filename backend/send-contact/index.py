@@ -23,7 +23,7 @@ def handler(event: dict, context) -> dict:
     email = body.get('email', '').strip()
     message = body.get('message', '').strip()
 
-    if not name or not email or not message:
+    if not name or not message:
         return {
             'statusCode': 400,
             'headers': {'Access-Control-Allow-Origin': '*'},
@@ -31,21 +31,7 @@ def handler(event: dict, context) -> dict:
         }
 
     token = os.environ['TELEGRAM_BOT_TOKEN']
-
-    updates_url = f'https://api.telegram.org/bot{token}/getUpdates'
-    req = urllib.request.Request(updates_url)
-    with urllib.request.urlopen(req) as resp:
-        updates_data = json.loads(resp.read())
-
-    updates = updates_data.get('result', [])
-    if not updates:
-        return {
-            'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': 'Напишите /start боту в Telegram и повторите'})
-        }
-
-    chat_id = updates[-1]['message']['chat']['id']
+    chat_id = os.environ['TELEGRAM_CHAT_ID']
 
     text = (
         f"\U0001f514 *Новая заявка с сайта FORM3D*\n\n"
