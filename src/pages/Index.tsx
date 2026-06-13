@@ -187,10 +187,14 @@ export default function Index() {
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-base font-bold leading-tight tracking-tight">
+                  <h3 className="text-base font-bold leading-tight tracking-tight mb-1">
                     {t(project.title)}
                   </h3>
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    {t(project.desc)}
+                  </p>
                 </div>
               </div>
             ))}
