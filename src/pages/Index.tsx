@@ -405,6 +405,7 @@ export default function Index() {
             src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/1d7ecc4d-7ab1-4fae-8b3e-4fff27705d77.jpg"
             alt="Фамильный герб"
             className="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-opacity"
+            style={{ filter: 'invert(1) brightness(2)' }}
           />
           <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors underline underline-offset-2">
             {t('Пользовательское соглашение')}
