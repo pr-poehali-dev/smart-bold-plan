@@ -45,7 +45,7 @@ export default function Index() {
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/bce5e7f0-9524-4efc-8ea3-8b7413a2af40.jpg', title: 'Шлем воина', desc: 'Детализированный шлем в стиле античного доспеха для театральной постановки' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/5d7a0ff6-337b-44f1-a131-175ebfed5039.jpg', title: 'Игрушки на заказ', desc: 'Выполняем печать игрушек в большом количестве' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/2b16d5d9-821d-4bcb-b868-be9c479fb257.jpg', title: 'Фигурки под заказ', desc: 'От моделинга до готовой фигурки под вашу задумку' },
-    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/ef26180b-32b6-4f4e-984b-12eddc1d2fc5.jpg', title: 'Детали и аксессуары', desc: 'Детали и аксессуары под любую задачу — точно и в срок' },
+    { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/e86314b6-2403-49d9-8c4e-4aa84a6e1d70.png', title: 'Детали и аксессуары', desc: 'Детали и аксессуары под любую задачу — точно и в срок' },
   ];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const openLightbox = (index: number) => setLightboxIndex(index);
