@@ -256,7 +256,7 @@ export default function Index() {
                   <span className="text-pink">FORM3D</span>
                   {t(' — студия 3D-моделирования и печати, где идеи обретают физическую форму.')}
                 </p>
-                <p className="mt-3 text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                <p className="mt-3 text-base text-neutral-700 dark:text-neutral-200 leading-relaxed">
                   {t('Мы работаем с точностью инженера и видением дизайнера.')}
                 </p>
               </div>
@@ -269,7 +269,7 @@ export default function Index() {
                 <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-3xl md:text-4xl tracking-wide dark:text-white mb-3">
                   {t('От эскиза — до изделия')}
                 </p>
-                <p className="text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                <p className="text-base text-neutral-700 dark:text-neutral-200 leading-relaxed">
                   {t('Полный цикл: разработка 3D-модели по вашим эскизам или ТЗ — и готовое напечатанное изделие. Работаем с пластиком.')}
                 </p>
               </div>
@@ -286,7 +286,7 @@ export default function Index() {
                     </span>
                   ))}
                 </div>
-                <p className="mt-4 text-sm text-neutral-400 dark:text-neutral-500 leading-relaxed">
+                <p className="mt-4 text-sm text-neutral-700 dark:text-neutral-200 leading-relaxed">
                   {t('Всем, кому нужен качественный физический прототип или уникальный объект.')}
                 </p>
               </div>
