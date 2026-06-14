@@ -410,7 +410,6 @@ export default function Index() {
                   style={{ filter: 'invert(1) brightness(2)' }}
                 />
               </div>
-              <p className="text-xs text-neutral-500 text-center max-w-[160px]">Студия создана под руководством Maison Ars company</p>
             </div>
             <p className="text-sm text-neutral-400">{t('© 2025 FORM3D Studio. Все права защищены.')}</p>
           </div>
