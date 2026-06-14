@@ -401,6 +401,11 @@ export default function Index() {
       <footer className="py-8 px-4 md:px-8 bg-black dark:bg-neutral-900 text-white transition-colors duration-300">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-neutral-400">{t('© 2025 FORM3D Studio. Все права защищены.')}</p>
+          <img
+            src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/1d7ecc4d-7ab1-4fae-8b3e-4fff27705d77.jpg"
+            alt="Фамильный герб"
+            className="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-opacity"
+          />
           <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors underline underline-offset-2">
             {t('Пользовательское соглашение')}
           </a>
