@@ -244,16 +244,52 @@ export default function Index() {
 
               </div>
             </div>
-            <div className="col-span-12 md:col-span-7 md:pt-24">
-              <p className="text-xl md:text-2xl mb-4 md:mb-6 dark:text-neutral-200">
-                <span className="text-pink">FORM3D</span>{t(' — студия 3D-моделирования и печати, где идеи обретают физическую форму. Мы работаем с точностью инженера и видением дизайнера.')}
-              </p>
-              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
-                {t('Наш процесс включает полный цикл: от разработки 3D-модели по вашим эскизам или техническому заданию — до готового напечатанного изделия. Работаем с пластиком и фотополимером.')}
-              </p>
-              <p className="text-base md:text-xl mb-4 md:mb-6 dark:text-neutral-400">
-                {t('Подходим для архитекторов, инженеров, дизайнеров, производств и всех, кому нужен качественный физический прототип или уникальный объект.')}
-              </p>
+            <div className="col-span-12 md:col-span-7 md:pt-24 flex flex-col gap-5">
+
+              {/* Блок 1 — Крючок: кто мы */}
+              <div className="relative border border-neutral-200 dark:border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden group hover:border-pink/50 transition-colors duration-300">
+                <span className="absolute top-0 left-0 w-1 h-full bg-pink rounded-l-2xl" />
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-pink mb-3 uppercase">
+                  {t('Кто мы')}
+                </p>
+                <p className="text-2xl md:text-3xl leading-snug font-semibold tracking-tight dark:text-white">
+                  <span className="text-pink">FORM3D</span>
+                  {t(' — студия 3D-моделирования и печати, где идеи обретают физическую форму.')}
+                </p>
+                <p className="mt-3 text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                  {t('Мы работаем с точностью инженера и видением дизайнера.')}
+                </p>
+              </div>
+
+              {/* Блок 2 — Детали: наш процесс */}
+              <div className="relative border border-neutral-200 dark:border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden hover:border-white/30 dark:hover:border-white/20 transition-colors duration-300">
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-neutral-400 mb-3 uppercase">
+                  {t('Наш процесс')}
+                </p>
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-3xl md:text-4xl tracking-wide dark:text-white mb-3">
+                  {t('От эскиза — до изделия')}
+                </p>
+                <p className="text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                  {t('Полный цикл: разработка 3D-модели по вашим эскизам или ТЗ — и готовое напечатанное изделие. Работаем с пластиком и фотополимером.')}
+                </p>
+              </div>
+
+              {/* Блок 3 — Для кого */}
+              <div className="relative border border-neutral-200 dark:border-white/10 rounded-2xl p-6 md:p-8 bg-neutral-50 dark:bg-white/[0.03] hover:bg-neutral-100 dark:hover:bg-white/[0.05] transition-colors duration-300">
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-neutral-400 mb-3 uppercase">
+                  {t('Для кого')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Архитекторы', 'Инженеры', 'Дизайнеры', 'Производства', 'Прототипы', 'Уникальные объекты'].map((tag) => (
+                    <span key={tag} className="px-3 py-1.5 text-sm border border-neutral-300 dark:border-white/15 rounded-full text-neutral-600 dark:text-neutral-300 hover:border-pink hover:text-pink transition-colors duration-200 cursor-default">
+                      {t(tag)}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm text-neutral-400 dark:text-neutral-500 leading-relaxed">
+                  {t('Всем, кому нужен качественный физический прототип или уникальный объект.')}
+                </p>
+              </div>
 
             </div>
           </div>
