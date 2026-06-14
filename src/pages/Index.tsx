@@ -263,7 +263,7 @@ export default function Index() {
 
               {/* Блок 2 — Детали: наш процесс */}
               <div className="relative border border-neutral-200 dark:border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden hover:border-white/30 dark:hover:border-white/20 transition-colors duration-300">
-                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-neutral-600 dark:text-neutral-200 mb-3 uppercase">
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-pink mb-3 uppercase">
                   {t('Наш процесс')}
                 </p>
                 <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-3xl md:text-4xl tracking-wide dark:text-white mb-3">
@@ -276,7 +276,7 @@ export default function Index() {
 
               {/* Блок 3 — Для кого */}
               <div className="relative border border-neutral-200 dark:border-white/10 rounded-2xl p-6 md:p-8 bg-neutral-50 dark:bg-white/[0.03] hover:bg-neutral-100 dark:hover:bg-white/[0.05] transition-colors duration-300">
-                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-neutral-600 dark:text-neutral-200 mb-3 uppercase">
+                <p style={{ fontFamily: "'Bebas Neue', sans-serif" }} className="text-xs tracking-[0.3em] text-pink mb-3 uppercase">
                   {t('Для кого')}
                 </p>
                 <div className="flex flex-wrap gap-2">
