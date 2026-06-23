@@ -80,7 +80,7 @@ export default function Index() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-4 md:px-8 container mx-auto">
+      <section className="pt-36 pb-12 md:pt-32 md:pb-20 px-4 md:px-8 container mx-auto">
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-7 mb-6 md:mb-0">
             <h1 className="text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none mb-4 md:mb-6 dark:text-white">
