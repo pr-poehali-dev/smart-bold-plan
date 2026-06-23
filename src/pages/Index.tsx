@@ -101,7 +101,7 @@ export default function Index() {
           <div className="col-span-12 md:col-span-5 flex items-center justify-center">
             <div className="relative w-full aspect-square bg-neutral-900 dark:rounded-full overflow-hidden transition-all duration-500">
               <img
-                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/7917010b-8bac-4e03-bad5-c64af73384af.jpg"
+                src="https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/e6bc0f9e-0a00-409a-9b85-becd88fe5c22.jpeg"
                 alt={t('3D печать')}
                 className="w-full h-full object-cover"
               />
