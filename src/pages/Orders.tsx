@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "@/lib/router-compat";
 import { useAuth } from '@/context/AuthContext';
 import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
@@ -25,13 +25,24 @@ const CARRIER_LABEL: Record<string, string> = {
   pochta: 'Почта России',
 };
 
+interface Order {
+  id: number;
+  created_at: string;
+  total?: number;
+  status: string;
+  payment_status: string;
+  items?: { title: string; price: number; quantity: number }[];
+  carrier?: string;
+  tracking_number?: string;
+}
+
 export default function Orders() {
   const { user, loading: authLoading } = useAuth();
   const { t } = useLang();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
-  const [order, setOrder] = useState<Record<string, unknown> | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

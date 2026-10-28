@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "@/lib/router-compat";
 import { useAuth } from '@/context/AuthContext';
 import { useLang } from '@/context/LanguageContext';
 import { api } from '@/lib/api';
@@ -10,8 +10,8 @@ type Mode = 'login' | 'register' | 'phone';
 
 const AUTH_URL = 'https://functions.poehali.dev/1e17b5c0-c2a0-431d-84d6-7be524bd5652';
 
-function getOAuthUrl(provider: 'yandex' | 'vk') {
-  const redirect = encodeURIComponent(`${window.location.origin}/auth/callback`);
+function getOAuthUrl(provider: 'yandex' | 'vk', origin: string) {
+  const redirect = encodeURIComponent(`${origin}/auth/callback`);
   return `${AUTH_URL}?provider=${provider}&redirect_uri=${redirect}`;
 }
 
@@ -28,6 +28,8 @@ export default function Auth() {
   const { login, register, refresh } = useAuth();
   const { t } = useLang();
   const navigate = useNavigate();
+  const [origin, setOrigin] = useState('');
+  useEffect(() => { setOrigin(window.location.origin); }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,13 +84,13 @@ export default function Auth() {
         {/* OAuth кнопки */}
         {mode !== 'phone' && (
           <div className="space-y-3 mb-6">
-            <a href={getOAuthUrl('yandex')} className={socialClass}>
+            <a href={getOAuthUrl('yandex', origin)} className={socialClass}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M13.5 2H10.5C7 2 5 4 5 7.5C5 10.2 6.3 12.1 8.7 13L5 22H8.3L11.8 13.4H13.5V22H16.5V2H13.5ZM13.5 10.8H11.9C9.9 10.8 8.2 9.6 8.2 7.4C8.2 5.2 9.6 4.5 11.9 4.5H13.5V10.8Z" fill="#FC3F1D"/>
               </svg>
               {t('Войти через Яндекс')}
             </a>
-            <a href={getOAuthUrl('vk')} className={socialClass}>
+            <a href={getOAuthUrl('vk', origin)} className={socialClass}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M20.8 7.6C21 7 20.8 6.5 20 6.5H17.5C16.8 6.5 16.5 6.9 16.3 7.4C16.3 7.4 15 10.4 13.2 12.3C12.6 12.9 12.3 13.1 12 13.1C11.8 13.1 11.5 12.9 11.5 12.3V7.6C11.5 6.9 11.3 6.5 10.7 6.5H6.8C6.4 6.5 6.1 6.8 6.1 7.1C6.1 7.8 7.1 7.9 7.2 9.8V13.2C7.2 14.1 7 14.2 6.7 14.2C5.9 14.2 4 11.1 2.9 7.7C2.7 6.9 2.4 6.5 1.7 6.5H-0.8C-1.6 6.5 -1.8 6.9 -1.8 7.4C-1.8 8.1 -1 11.4 2.1 15.8C4.2 18.8 7.2 20.4 9.9 20.4C11.6 20.4 11.8 20 11.8 19.3V17C11.8 16.2 12 16 12.5 16C12.9 16 13.6 16.2 15.2 17.8C17 19.6 17.3 20.4 18.3 20.4H20.8C21.6 20.4 22 20 21.8 19.2C21.5 18.4 20.6 17.3 19.4 16C18.8 15.3 17.9 14.5 17.6 14.1C17.2 13.6 17.3 13.4 17.6 13C17.6 13 20.6 8.7 20.8 7.6Z" fill="#2787F5"/>
               </svg>

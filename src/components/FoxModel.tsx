@@ -17,7 +17,7 @@ export default function FoxModel({ className = '' }: { className?: string }) {
     let renderer: THREE.WebGLRenderer;
     let controls: OrbitControls;
     let camera: THREE.PerspectiveCamera;
-    const mixer: THREE.AnimationMixer | null = null;
+    let mixer: THREE.AnimationMixer | null = null;
     const clock = new THREE.Clock();
 
     const start = (width: number, height: number) => {

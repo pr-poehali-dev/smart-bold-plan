@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "@/lib/router-compat";
 import Icon from '@/components/ui/icon';
 import Navbar from '@/components/Navbar';
+import FoxModel from '@/components/FoxModel';
 import { useLang } from '@/context/LanguageContext';
 
 export default function Index() {
@@ -11,15 +12,17 @@ export default function Index() {
   const navigate = useNavigate();
   const [rotationY, setRotationY] = useState(0);
   const lastScrollY = useRef(0);
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' ||
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-    return false;
-  });
+  const [dark, setDark] = useState(false);
+  const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
+    setDark(localStorage.getItem('theme') === 'dark' ||
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    setThemeLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!themeLoaded) return;
     const root = document.documentElement;
     if (dark) {
       root.classList.add('dark');
@@ -28,7 +31,7 @@ export default function Index() {
       root.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-  }, [dark]);
+  }, [dark, themeLoaded]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +43,7 @@ export default function Index() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const projects = [
+  const projects: { src: string; title: string; desc: string; model3d?: boolean }[] = [
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/c18be302-0722-4763-a1d2-005d358f0465.jpg', title: 'Гос. заказы', desc: 'Выполняем государственные заказы — реквизит и костюмы для театров и учреждений культуры' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/48774384-292c-4594-9b06-dfae065a5734.png', title: 'Шлем воина', desc: 'Детализированный шлем в стиле античного доспеха для театральной постановки' },
     { src: 'https://cdn.poehali.dev/projects/9a10cdd1-ec9c-4741-9bc3-7c69454ec00a/bucket/38e01cfd-7fd2-4008-a460-03eb628ebdfb.png', title: 'Игрушки на заказ', desc: 'Выполняем печать игрушек в большом количестве' },
